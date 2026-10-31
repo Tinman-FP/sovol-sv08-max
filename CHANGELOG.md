@@ -9,6 +9,7 @@
 * **Checks:** all clearance checks still give 0, in FreeCAD and in SolidCraft. Only the nozzle touches the pad, 4.15 mm3 mid-wipe.
 * **Front keep-out:** the lifted slider now reaches 2.3 mm further back, so the slicer's front strip is 37 mm deep instead of 35 (nozzle Y above 535.2 instead of 537.5, X -194..+186). In machine coordinates the Orca excluded area runs to Y 30.8, the station approach line moves to Y 33 and the Beacon mesh starts at Y 72.
 * **Docs:** BOM, sourcing list, design notes, assembly guide and the full printer model updated.
+* **Removed:** ten review renders from the morning of 30 Oct (`c3/C3_ISO.png`, `C3_DOCKS`, `C3_FRONT_CORNER_*`, `C3_REAR_CORNER_XN`, `C3_TOPHAT*`, `C3_CAMERA`, `C3_DISPLAY`). They showed the design before the wiper stations and the Y stop pads. The assembly guide and the full printer model show the current design.
 
 ## 2026-10-31: first publication
 
