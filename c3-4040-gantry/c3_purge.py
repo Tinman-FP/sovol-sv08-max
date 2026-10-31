@@ -14,9 +14,9 @@ Why it is laid out this way (measured in Sovol's model and the C3 build, stock-p
 * The station bar is a 1515 in front of the sheet (Y 586..601, clear of the corner tabs) and below the nozzle tip
   (Z tip-13..tip+2, under the head's lowest parts), held by two printed clips on the front cradles' inner webs.
 
-Wiper pad: McMaster-Carr 1462N14 high-temperature silicone rubber strip, 1/2 in x 1/8 in (12.7 x 3.2 mm), 50A,
--80..450 F, cut to 30 mm and glued flat into the slider pocket with high-temperature RTV. Its top stands 1.2 mm above
-the nozzle tip; the nozzle drags across it in Y (station purge position Y 571.0, wipe back to Y 551).
+Wiper pad: Qidi Plus 4 / Q2 silicone wiper, 27 x 15 x 4.7 mm high, laid 27 mm across X and glued into the slider
+pocket with high-temperature RTV. Its top stands 1.2 mm above the nozzle tip; the nozzle drags across its 15 mm in Y
+(station purge position Y 571.0, wipe back to Y 548.7, 3.5 mm past the pad).
 
 Gantry parts go into c3_build with group 'docks' (they ride on the gantry); the trays are frame-fixed ('enclosure').
 c3_purgecheck.py checks the lift, the station and wipe poses and the purge trays.
@@ -73,11 +73,12 @@ STOP_X = 27.5                               # M3 set screw (rest height adjust) 
 BUSH_R, BUSH_H = 3.2, 3.5
 REST_Z = LUG_B[1] + 0.2                     # slider bushings sit 0.2 mm above the bottom lug (on the set screws)
 TRAVEL = LUG_T[0] - (REST_Z + BUSH_H)       # 10.8 mm
-PAD = dict(x=15.0, y=(554.5, 567.2), z=(ZN - 2.0, ZN + 1.2))          # 30 x 12.7 x 3.2 silicone pad
+PAD = dict(x=13.5, y=(552.2, 567.2), z=(ZN - 3.5, ZN + 1.2))          # Qidi Plus 4 wiper, 27 x 15 x 4.7
 FOOT_Z = ZN - 9.3                           # lowest slider point over the sheet (rests on the PEI at low gantry)
 CHUTE_TOP = ((567.2, ZN - 7.0), (PEI_EDGE, ZN - 7.5), (577.0, ZN - 14.6))   # floor top; the purge drops 7 mm
 CHUTE_T, CHUTE_W = 1.5, 10.3                # floor thickness, inner half width
-WIPE_Y = (NOZ_Y, 551.0)                     # wipe stroke (nozzle Y)
+WIPE_Y = (NOZ_Y, PAD['y'][0] - 3.5)         # wipe stroke (nozzle Y), back to 548.7
+POCKET_Y0 = PAD['y'][0] - 1.5               # rear face of the pad pocket and cheeks (550.7)
 
 # purge trays on the chamber floor (floor top Z -70.7; bed cover plates end at Y 571)
 FLOOR_Z = -70.7
@@ -143,9 +144,9 @@ def station_slider(xs, lift=0.0):
         parts.append(box(x0, x1, 573.0, PIN_Y, REST_Z, REST_Z + BUSH_H))                          # link to the bushing
         x0, x1 = sorted((xs + sx * 12.0, xs + sx * 16.5))
         parts.append(box(x0, x1, 573.0, 575.0, REST_Z, ZN - 1.0))                                 # riser (stays at Y < 575)
-        parts.append(box(x0, x1, 553.0, 575.0, ZN - 8.8, ZN - 1.0))                               # cheek (top flush with the walls: prints upside down)
+        parts.append(box(x0, x1, POCKET_Y0, 575.0, ZN - 8.8, ZN - 1.0))                           # cheek (top flush with the walls: prints upside down)
     # pad pocket (pad glued in with RTV) and the foot under it
-    pocket = box(xs - 16.5, xs + 16.5, 553.0, 568.6, PAD['z'][0] - 1.5, ZN - 1.0)
+    pocket = box(xs - 16.5, xs + 16.5, POCKET_Y0, 568.6, PAD['z'][0] - 1.5, ZN - 1.0)
     foot = box(xs - 10.0, xs + 10.0, 557.0, 563.0, FOOT_Z, PAD['z'][0] - 1.4)
     try:
         foot = foot.makeFillet(1.5, [e for e in foot.Edges if abs(e.Vertexes[0].Point.z - FOOT_Z) < 1e-6 and abs(e.Vertexes[-1].Point.z - FOOT_Z) < 1e-6])
@@ -195,7 +196,7 @@ def purge_parts():
     for xs, tag in ((ST_X[0], 'xn'), (ST_X[1], 'xp')):
         out.append((f'wiper station bracket {tag}', 'pps-cf', station_bracket(xs), 'docks'))
         out.append((f'wiper station slider {tag}', 'pps-cf', station_slider(xs), 'docks'))
-        out.append((f'silicone wiper pad {tag} mcmaster 1462n14', 'purchased', wiper_pad(xs), 'docks'))
+        out.append((f'silicone wiper pad {tag} qidi plus4', 'purchased', wiper_pad(xs), 'docks'))
         for sx in (-1, 1):
             out.append((f'dowel pin 3x20 {tag} {sx:+d}', 'steel', cyl(1.5, LUG_B[0] + 0.5, LUG_B[0] + 20.5, xs + sx * PIN_X, PIN_Y), 'docks'))
     for xc, tag in ((TRAY_X[0], 'right'), (TRAY_X[1], 'left')):

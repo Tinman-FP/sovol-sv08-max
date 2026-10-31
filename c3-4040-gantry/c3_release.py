@@ -82,7 +82,7 @@ bom = {
     ('M5 x 10 SHCS (beam T-nuts: rear corners 2 x 4, front cradles 2 x 4, XY joints 2 x 3)', '22'), ('M5 x 20 SHCS (cradle bottom slots)', '4'), ('M5 x 12 SHCS (rear outer slots)', '2'),
     ('M5 x 45 SHCS + nyloc (joint pulley axles)', '4'), ('M5 SHCS for rear idler axles, length to the cap: 3 per corner', '6'),
     ('Zip ties 2.5 mm (camera)', '2'),
-    ('McMaster-Carr 1462N14 high-temperature silicone rubber strip, 1/2 in x 36 in, 1/8 in thick, 50A, red, -80..450 F (wiper pads: cut 2 x 30 mm, the rest are spares)', '1'),
+    ('Qidi Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm high (Qidi "Plus4 Wiper Silicone Case", 5 pack: 2 pads, 3 spares)', '1 pack'),
     ('High-temperature red RTV silicone (Permatex Hi-Temp Red or similar), glues the pads into the sliders', '1 tube'),
     ('15x15 extrusion (1515, same profile as the dock rail), station bar, ends plain', '1 x 566 mm'),
     ('3 mm x 20 mm steel dowel pin (wiper slider guides, pressed into the brackets)', '4'),

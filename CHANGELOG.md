@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-31: Qidi Plus 4 wiper pads
+
+* **Wiper pads:** the stations now take Qidi's Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm high, instead of 30 x 12.7 x 3.2 mm pads cut from silicone strip. It lies 27 mm across, so each stroke crosses its 15 mm. Its top still stands 1.2 mm above the nozzle tip.
+* **Wiper sliders:** the pad pocket is 2.3 mm longer toward the bed and 1.5 mm deeper. New STEP and STL files; the sliders are now 59 x 31 x 15.1 mm.
+* **Print project:** plate 4 re-laid out and the project re-sliced: 62.4 h and 1168 g in all.
+* **Klipper:** the wipe stroke ends at machine Y 17.3 instead of 15, 3.5 mm past the pad. The offline config check passes.
+* **Checks:** all clearance checks still give 0, in FreeCAD and in SolidCraft. Only the nozzle touches the pad, 4.15 mm3 mid-wipe.
+* **Front keep-out:** the lifted slider now reaches 2.3 mm further back, so the slicer's front strip is 37 mm deep instead of 35 (nozzle Y above 535.2 instead of 537.5, X -194..+186). In machine coordinates the Orca excluded area runs to Y 30.8, the station approach line moves to Y 33 and the Beacon mesh starts at Y 72.
+* **Docs:** BOM, sourcing list, design notes, assembly guide and the full printer model updated.
+
 ## 2026-10-31: first publication
 
 C3 design as of 30 Oct 2026. It has not been built yet.

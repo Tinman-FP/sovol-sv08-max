@@ -36,10 +36,10 @@
 | link board and usb hub tray | PPS-CF | LINK_BOARD_AND_USB_HUB_TRAY_PPS-CF.stl | 80.1 | 104 | 140.0 x 100.0 x 6.0 |
 | station bar clip xn | PPS-CF | STATION_BAR_CLIP_XN_PPS-CF.stl | 2.5 | 3 | 18.5 x 19.0 x 17.0 |
 | wiper station bracket xn | PPS-CF | WIPER_STATION_BRACKET_XN_PPS-CF.stl | 5.9 | 8 | 60.0 x 21.0 x 11.0 |
-| wiper station slider xn | PPS-CF | WIPER_STATION_SLIDER_XN_PPS-CF.stl | 3.9 | 5 | 59.0 x 28.7 x 15.1 |
+| wiper station slider xn | PPS-CF | WIPER_STATION_SLIDER_XN_PPS-CF.stl | 4.0 | 5 | 59.0 x 31.0 x 15.1 |
 | station bar clip xp | PPS-CF | STATION_BAR_CLIP_XP_PPS-CF.stl | 2.5 | 3 | 18.5 x 19.0 x 17.0 |
 | wiper station bracket xp | PPS-CF | WIPER_STATION_BRACKET_XP_PPS-CF.stl | 5.9 | 8 | 60.0 x 21.0 x 11.0 |
-| wiper station slider xp | PPS-CF | WIPER_STATION_SLIDER_XP_PPS-CF.stl | 3.9 | 5 | 59.0 x 28.7 x 15.1 |
+| wiper station slider xp | PPS-CF | WIPER_STATION_SLIDER_XP_PPS-CF.stl | 4.0 | 5 | 59.0 x 31.0 x 15.1 |
 | purge tray right | PPS-CF | PURGE_TRAY_RIGHT_PPS-CF.stl | 7.3 | 9 | 48.0 x 46.0 x 13.7 |
 | purge tray left | PPS-CF | PURGE_TRAY_LEFT_PPS-CF.stl | 7.3 | 9 | 48.0 x 46.0 x 13.7 |
 
@@ -100,7 +100,7 @@ Printed total: PPS-CF 1049 g, ASA 2439 g
 | M5 x 45 SHCS + nyloc (joint pulley axles) | 4 |
 | M5 SHCS for rear idler axles, length to the cap: 3 per corner | 6 |
 | Zip ties 2.5 mm (camera) | 2 |
-| McMaster-Carr 1462N14 high-temperature silicone rubber strip, 1/2 in x 36 in, 1/8 in thick, 50A, red, -80..450 F (wiper pads: cut 2 x 30 mm, the rest are spares) | 1 |
+| Qidi Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm high (Qidi "Plus4 Wiper Silicone Case", 5 pack: 2 pads, 3 spares) | 1 pack |
 | High-temperature red RTV silicone (Permatex Hi-Temp Red or similar), glues the pads into the sliders | 1 tube |
 | 15x15 extrusion (1515, same profile as the dock rail), station bar, ends plain | 1 x 566 mm |
 | 3 mm x 20 mm steel dowel pin (wiper slider guides, pressed into the brackets) | 4 |

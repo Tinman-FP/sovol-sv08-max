@@ -452,11 +452,11 @@
    "part": "wiper station slider xn",
    "material": "pps-cf",
    "file": "WIPER_STATION_SLIDER_XN_PPS-CF",
-   "volume_cm3": 3.9,
+   "volume_cm3": 4.0,
    "mass_g": 5.0,
    "print_size_mm": [
     59.0,
-    28.7,
+    31.0,
     15.1
    ],
    "valid": true,
@@ -494,11 +494,11 @@
    "part": "wiper station slider xp",
    "material": "pps-cf",
    "file": "WIPER_STATION_SLIDER_XP_PPS-CF",
-   "volume_cm3": 3.9,
+   "volume_cm3": 4.0,
    "mass_g": 5.0,
    "print_size_mm": [
     59.0,
-    28.7,
+    31.0,
     15.1
    ],
    "valid": true,
@@ -739,8 +739,8 @@
    "2"
   ],
   [
-   "McMaster-Carr 1462N14 high-temperature silicone rubber strip, 1/2 in x 36 in, 1/8 in thick, 50A, red, -80..450 F (wiper pads: cut 2 x 30 mm, the rest are spares)",
-   "1"
+   "Qidi Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm high (Qidi \"Plus4 Wiper Silicone Case\", 5 pack: 2 pads, 3 spares)",
+   "1 pack"
   ],
   [
    "High-temperature red RTV silicone (Permatex Hi-Temp Red or similar), glues the pads into the sliders",

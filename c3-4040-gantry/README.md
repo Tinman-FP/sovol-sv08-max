@@ -30,9 +30,9 @@ Revisions:
 | X beam / rails | 4040 x 556 at Z 157; MGN12 552 (X) and 2 x 555 (Y) |
 | Belt length | **2509 mm each** including 22 mm clamp tails, constant over the whole travel (AWD does not shorten the loop) |
 | Nozzle | Z 127.0, 6 mm inside the Z carriages' reach to the bed |
-| Travel | X -252..+252, Y 64.4..563.5 print, docking to Y 570.6. Front keep-out for the slicer: nozzle Y <= 537.5 between X -194 and +186 (docks and wiper stations, `c3/C3_PURGE_KEEPOUT.json`) |
+| Travel | X -252..+252, Y 64.4..563.5 print, docking to Y 570.6. Front keep-out for the slicer: nozzle Y <= 535.2 between X -194 and +186 (docks and wiper stations, `c3/C3_PURGE_KEEPOUT.json`) |
 | Docks | 5 Bondtech 1515 docks at X -89/-47/-5/37/79 on a 15x15 rail (588 mm), fronts at Y 619 |
-| Purge / wipe | 2 wiper stations at X -160 and +150 (71 mm beyond the end docks) on a 1515 station bar in front of the PEI edge, below the nozzle tip. Each has a gravity-return slider on two dowel pins with a 30 mm silicone pad (McMaster-Carr 1462N14) and a purge chute; it lifts off the PEI at the first layers. Two slide-out purge trays on the chamber floor. See "Purge and wipe stations" |
+| Purge / wipe | 2 wiper stations at X -160 and +150 (71 mm beyond the end docks) on a 1515 station bar in front of the PEI edge, below the nozzle tip. Each has a gravity-return slider on two dowel pins with a Qidi Plus 4 silicone wiper pad (27 x 15 x 4.7 mm) and a purge chute; it lifts off the PEI at the first layers. Two slide-out purge trays on the chamber floor. See "Purge and wipe stations" |
 | Beacon | Rev H under the carriage, turned 90 deg, coil 40 mm behind the nozzle |
 | Camera | stock camera reused; printed clip over the front profile's inner lip at the front right (between the corner bracket and Sovol's LED bar), aimed at the bed centre |
 | Top hat | 136 mm tall on the frame top (Z 591.3), 40 mm walls in 8 interlocking printed sections. Its top repeats the frame's 7.5 mm top band, so the owner's Sovol top cover moves up onto it unchanged. iPistBit 7 inch display flush in the front-right corner |
@@ -96,16 +96,16 @@ Masses are in `c3/C3_BOM.md`.
   * process: 0.24mm Tank (6 walls, 45 % infill, 8 top and bottom layers);
   * plate: Textured PEI.
 * **Layout:** one plate per subsystem, 20 mm between parts (your Tinman arrange setting), clear of the Qidi's excluded bed areas. Every part is named after its print file.
-* **Check:** the Tinman CLI slices all five plates with no warnings.
+* **Check:** the Tinman CLI slices all five plates. Its only message is a tree-support "Potentially lost branch" warning, which every slice of this project has given. Re-sliced 2026-10-31 with the larger wiper sliders.
 
 | Plate | Parts | Time | PPS-CF |
 |---|---|---|---|
 | 1 Gantry A | 11 | 21.2 h | 422 g |
 | 2 Gantry B | 6 | 10.1 h | 195 g |
 | 3 Z upgrade 12 mm | 20 | 12.9 h | 209 g |
-| 4 Purge and wipe | 8 | 2.9 h | 51 g |
+| 4 Purge and wipe | 8 | 3.0 h | 51 g |
 | 5 Camera and umbilical | 5 | 15.2 h | 290 g |
-| **Total** | **50** | **62.4 h** | **1167 g** |
+| **Total** | **50** | **62.4 h** | **1168 g** |
 
 The eight ASA top-hat sections are not in this PPS-CF project.
 
@@ -122,7 +122,7 @@ The eight ASA top-hat sections are not in this PPS-CF project.
 * **Source of truth:** `c3_fullmodel.py` writes one STEP per category to `c3/full/`, and `c3_fullmodel_color.json` (SolidCraft) colours and combines them. Sovol's original STEP is unchanged.
 
 ## Assembly guide
-`c3/SV08_MAX_C3_ASSEMBLY_GUIDE.pdf` (23 pages, 2026-10-30) covers:
+`c3/SV08_MAX_C3_ASSEMBLY_GUIDE.pdf` (24 pages, updated 2026-10-31 for the Qidi pad) covers:
 * preparing the parts: prints, heat-set inserts, cut list and Z pulleys;
 * stripping the stock gantry;
 * assembly in order: the 12 mm Z upgrade, rear corners, side beams and front corners, X beam and carriage, the AWD belt routing, docks, wiper stations, top hat;
@@ -232,10 +232,11 @@ The owner's brief:
   * It rests on two M3 set screws in the bottom lugs, which set the pad height.
   * When the gantry comes within about 9 mm of the bed, its foot (under the pad, over the supported part of the sheet, not the 6 mm lip) sets down on the PEI, and the slider rides up the pins.
   * Lift needed: up to 9.6 mm at the lowest sweep step. Travel: 10.8 mm. No springs, nothing driven.
-* **Wiper pad:** McMaster-Carr 1462N14 high-temperature silicone strip: 1/2 in x 1/8 in (12.7 x 3.2 mm), 50A, rated -80..450 F, 36 in long ($8.25).
-  * Cut to 30 mm and glue it flat into the pocket with high-temperature red RTV. Three key holes in the pocket floor hold the RTV.
-  * Its top stands 1.2 mm above the nozzle tip, like the Qidi and Bambu pads. One strip makes about 30 pads.
-  * Silicone above its rating: the nozzle runs hotter than 450 F for PPS-CF, as it does on Qidi's and Bambu's silicone pads. Contact lasts a fraction of a second per stroke. Replace the pad when it hardens or tears.
+* **Wiper pad:** Qidi's silicone nozzle wiper for the Plus 4 and Q2 (sold as "Plus4 Wiper Silicone Case", 5 pack). It measures 27 x 15 x 4.7 mm high (owner's measurement, 2026-10-31).
+  * It lies 27 mm across X, so the nozzle crosses its 15 mm on each stroke. Glue it into the pocket with high-temperature red RTV. Three key holes in the pocket floor hold the RTV, and 2.5 mm of the pad sits inside the pocket walls.
+  * Its top stands 1.2 mm above the nozzle tip, as on the Qidi. The pocket floor is 3.5 mm below the tip.
+  * It replaces the 30 x 12.7 x 3.2 mm pad cut from McMaster-Carr 1462N14 strip (2026-10-31). The pocket is now 2.3 mm longer toward the bed and 1.5 mm deeper, and the wipe ends at Y 548.7 instead of 551.
+  * Qidi publishes no temperature rating for it. The nozzle runs hot for PPS-CF, as on Qidi's own printers, and contact lasts a fraction of a second per stroke. Replace the pad when it hardens or tears.
 * **Purge chute:** the nozzle purges at Y 571, 4 mm in front of the pad. The strand drops 7 mm onto the chute floor, which carries it past the PEI edge and drops it from Y 577 into the tray below.
 * **Purge trays:** two printed trays, 48 x 46 x 12 mm, about 15 cm3 each, sit on the chamber floor in front of the bed under the stations.
   * Each rim is 1 mm below the lowest gantry part over it at the first layer.
@@ -247,22 +248,24 @@ The owner's brief:
 | Check | Result |
 |---|---|
 | Lift sweep, first layer to 500 mm (5 mm steps): the lifted slider and pad vs the frame and trays; the fixed bar, clips, brackets and pins vs the frame and trays | 0; lift 9.6 mm max of 10.8 |
-| Head and bridge vs every gantry part at both stations (purge position), mid-wipe (centre and +-8 mm), wipe end | 0; only the nozzle touches the pad, 4.2 mm3 mid-stroke |
+| Head and bridge vs every gantry part at both stations (purge position), mid-wipe (centre and +-8 mm), wipe end | 0; only the nozzle touches the pad, 4.15 mm3 mid-stroke and none at the wipe end |
 | Sliders lifted as at the first layer vs the head docking at all 5 docks and at both front print corners | 0 |
 | Trays, bar, clips, brackets vs the stock printer | 0 |
 | SolidCraft clearance at the right station's purge pose (68 bodies, independent of FreeCAD) | no overlap involving a purge part; the head stays more than 1 mm from them. Nearest designed gaps: slider to pins 0.15 mm, slider to bracket 0.2 mm |
 | `c3_check.py` with the purge parts in (7 poses, Z sweep, frame-fixed parts) | 0 |
 
+Re-run with the Qidi pad and the new slider pocket (2026-10-31): every row above is still 0, with the lift at 9.6 mm of 10.8. SolidCraft at the left station's purge and mid-wipe poses agrees: no overlap involving a purge part except the nozzle in the pad (4.11 mm3 mid-wipe), and the same designed gaps.
+
 **Front keep-out for the slicer (`C3_KEEPOUT=1`, `c3/C3_PURGE_KEEPOUT.json`):**
 * For each nozzle X, the check found the furthest-forward nozzle Y at which the head clears the docks, parked tools, stations and front corners. It compares the head's front-most and the parts' rear-most surface points per 1 mm column, widened by one column, minus 0.5 mm.
 * **Docks alone (already true before the stations):** nozzle Y <= 545.4 between X -112 and +104, easing to the edge by X -124 / +114. That is 26.6 mm of the PEI's front.
-* **Wiper stations at rest:** nozzle Y <= 550.6 in their lanes (X -178..-142 and 132..168).
-* **Stations lifted (first ~9 mm of a print):** nozzle Y <= 537.5 for X -188..-130 and 122..180.
-* **Slicer bed shape, one rule for all heights:** leave out nozzle Y > 537.5 between X -194 and +186. That is the front 35 mm of the sheet across its middle 380 mm. The corners outside that keep the full depth to Y 563.5..571.
+* **Wiper stations at rest:** nozzle Y <= 548.3 in their lanes (X -178..-142 and 132..168).
+* **Stations lifted (first ~9 mm of a print):** nozzle Y <= 535.2 for X -186..-134 and 124..176, easing to 542.6 at X -194, -126, 116 and 184. The back of the lifted slider sets it, so the Qidi pad (2026-10-31) moved it 2.3 mm back from 537.5.
+* **Slicer bed shape, one rule for all heights:** leave out nozzle Y > 535.2 between X -194 and +186. That is the front 37 mm of the sheet across its middle 380 mm (35 mm before the Qidi pad). The corners outside that keep the full depth to Y 563.5..571.
 
 **Firmware rules (for the INDX macros; nothing installed):**
-* Approach a station like a dock: travel in X with the nozzle at Y <= 535 (behind every keep-out), then go straight forward in the station lane.
-* Wipe: forward to Y 571 and back to Y 551 across the pad, two or three strokes, within X +-8 mm of the station centre.
+* Approach a station like a dock: travel in X with the nozzle at Y <= 533 (behind every keep-out), then go straight forward in the station lane.
+* Wipe: forward to Y 571 and back to Y 548.7 across the pad (3.5 mm past it), two or three strokes, within X +-8 mm of the station centre.
 * Skip station wipes below Z 12 mm: the sliders are lifted there. The prime tower covers those layers.
 * Filament load: raise to Z >= 30, go to the station, purge at Y 571, wait a few seconds, then wipe on the way back.
 
@@ -271,12 +274,12 @@ The owner's brief:
 2. **Parts: nothing left to buy** (owner, 2026-10-30). 24 items ordered, 8 more picked to close the gaps, everything else in stock; sources in `c3/C3_SOURCING.md`.
    * Extrusion and MGN12 rails come as stock lengths to cut. The MGN12 rails are generic 600 mm: cut half off each end so 22 holes stay at 13-15 mm from the ends.
    * Smooth idlers: Gates 2GT 12 mm (12 mm belt surface, not the 15 mm the axles were laid out for). `c3_idlercheck.py` shows the moving runs and kinematics are unchanged. The fixed runs beside each reverse idler tilt 1.2° and 4.4°, wraps stay at 174° or more, and each belt is 4.6 mm shorter. No part changes; measure its width for the spacer lengths.
-   * Wiper strip: Exactly Rubber 70A fibreglass-reinforced silicone instead of the 50A McMaster 1462N14, cut to 1/2 in.
+   * Wiper pads: Qidi Plus 4 silicone wipers, 27 x 15 x 4.7 mm (owner, 2026-10-31). They replace pads cut from silicone strip.
    * Second round: the screws the kits leave out (M3x10, M3x40, M4x18, M4x35, an M5 kit for x12/x20, M3x8 countersunk), short M3 inserts and four generic 20T 6 mm-bore pulleys for 15 mm belt to rework into the Z drive pulleys (item 5).
    * In stock (owner): the Pi (model not yet given) and its cooler, card, 5 V supply and cables, the Link Board USB cable (must be 20 cm or shorter), the Kraken fan, RTV, PC4-M10 couplers and the umbilical spring.
 3. **Sovol top cover:** it is not in Sovol's CAD model. The top hat repeats the frame's top band, but the cover's real outline needs confirming. Measure its outer size and thickness, and note what it rests on and any pins, screws or hinges.
 4. **Display:** iPistBit 7 inch (owner's Amazon link B0CRRB1GFN). The bay is 165.5 x 125 x 17 mm from listings (about 165 x 125 x 15). Check it against the real module.
 5. **Z drive pulleys:** four 20T 12 mm pulleys, 6 mm bore, hubless and flangeless, <= 12.6 mm long. Owner picked generic 20T 6 mm-bore pulleys for 15 mm belt (Amazon B0GN4SPFJ8) to rework: cut off the hub and both flanges, face the teeth to 12.4-12.6 mm, then drill 2.5 mm and tap M3 into the bottom of one tooth groove, halfway along. Use the grub screw from Sovol's stock 9 mm drive pulley (same 20T, 6 mm bore, so its length sits below the teeth). Also measure one 17HM19 shaft from the face (24 mm: MR105ZZ; 26 mm: 625ZZ).
-6. **Wiper and purge parts:** all ordered, picked or in stock (2026-10-30), with the RTV in stock.
+6. **Wiper and purge parts:** all ordered, picked or in stock (2026-10-30), with the RTV in stock. The pads are now Qidi Plus 4 wipers (2026-10-31).
 7. **Door and trays:** Sovol's model has no door. The trays sit on the chamber floor, 2.5 mm behind the floor's front edge; check that the door's bottom seal lets them slide out.
 8. **Klipper:** written in `klipper_c3/` (mainline Klipper, Kraken V1.1, sensorless X/Y, Beacon contact Z, 48 V motor supply). What remains is in its README: the Pi model, the INDX heater PID question for Bondtech, and the values only the machine can give (CAN UUIDs, serial paths, dock positions, Beacon offsets, StallGuard tuning).

@@ -63,9 +63,9 @@ Firmware: **mainline Klipper on every board**, and no Sovol firmware anywhere:
   * blocking `M191` exhausts a hot chamber down itself.
   * New: a ceiling for unheated filaments (PLA 35 C, PETG 45 C, TPU 40 C) using the same exhaust band. Waits inside `START_PRINT` run the HVAC step every 5 s, because the delayed loop cannot run while a macro holds the queue.
 * **Wiper stations:** `C3_WIPE` (after each tool change), `C3_PURGE` (print start) and `C3_LOAD_FILAMENT` follow the CAD rules:
-  * X travel only at Y 31 or further back;
+  * X travel only at Y 33 or further back;
   * straight forward in a station lane to Y -5;
-  * strokes back to Y 15 within +-8 mm of the station centre;
+  * strokes back to Y 17.3 (3.5 mm past the pad) within +-8 mm of the station centre;
   * no wipes below Z 12, where the sliders are lifted;
   * purges at Z 30 or higher.
 
@@ -92,7 +92,7 @@ Firmware: **mainline Klipper on every board**, and no Sovol firmware anywhere:
 4. **Beacon contact on an INDX head.** Neither vendor documents this combination. Beacon contact senses the nozzle stopping, and the INDX tool sits on the load cell's flexure, so its contact may be softer than on a rigid hotend. Bring-up step 10 measures its repeatability before you rely on it.
 5. **Beacon offsets** (`x_offset 0`, `y_offset 40.25`) come from the CAD. Check them on the machine before trusting a mesh.
 6. **Dock positions** (`indx/indx.cfg`) are CAD values with `dock_y -4.5` placeholders and `docks_calibrated: False`. INDX refuses tool changes until they are measured.
-7. **Front strip mesh.** The Beacon coil is 40 mm behind the nozzle and the nozzle must stay at Y >= 28.5 in the dock area, so the mesh starts at Y 70. Prints between Y 28.5 and 70 use the nearest mesh row.
+7. **Front strip mesh.** The Beacon coil is 40 mm behind the nozzle and the nozzle must stay at Y >= 30.8 in the dock area, so the mesh starts at Y 72. Prints between Y 30.8 and 72 use the nearest mesh row.
 
 
 

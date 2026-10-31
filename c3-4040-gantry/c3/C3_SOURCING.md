@@ -1,6 +1,6 @@
 # C3 parts sourcing
 
-Example sources for the parts to buy: what was ordered for the first C3 build, from US sellers, with prices as listed on 30 Oct 2026. Any part that meets the spec in [C3_BOM.md](C3_BOM.md) and [C3_Z_BOM.md](C3_Z_BOM.md) will do. None of these are affiliate links.
+Example sources for the parts to buy: what was ordered or chosen for the first C3 build, from US sellers, with prices as listed on 30-31 Oct 2026. Any part that meets the spec in [C3_BOM.md](C3_BOM.md) and [C3_Z_BOM.md](C3_Z_BOM.md) will do. None of these are affiliate links.
 
 The major components are not linked here (see the BOMs and `klipper_c3/README.md`): the Bondtech INDX kit (Smart Head, tools, Link Board, five 1515 docks), Beacon Rev H, BTT Kraken, four LDO 42STH48-2004MAH(S80) motors, four StepperOnline 17HM19-2004S1 Z motors, the Gates 2MGT 12 mm belts and the 7 inch display.
 
@@ -30,7 +30,7 @@ The major components are not linked here (see the BOMs and `klipper_c3/README.md
 | Heat-set inserts | M3 standard: 27, M3 short (3-4 mm): 4, M4: 14, M5: 6 | ruthex (sold by ruthex): [Assortment: 100 M3x5.7, 50 M4x8.1, 50 M5x9.5 (+70 M2)](https://www.amazon.com/dp/B08K1BVGN9) ($29.99) | The four short M3 inserts are in the next table. |
 | Zip ties, 2.5 mm | a few | Amazon: [HS 100 x 2.5 mm black, 200 pack](https://www.amazon.com/dp/B0CZ3Y7YSC) ($4.49 / 200) |  |
 | Powered USB hub for the top-hat tray | 1 | Waveshare: [4-port USB 3.2 hub, 7-36 V DC in, metal, wall-mount holes](https://www.amazon.com/dp/B0D97V3N3R) ($27.99) | Check it against the 100 x 140 mm tray. |
-| High-temperature silicone strip (wiper pads) | 1 strip | Exactly LLC (California): [Exactly Rubber red silicone, fibreglass reinforced, 1/8 x 3 x 9 in](https://www.amazon.com/dp/B0CFRM9T47) ($9.99) | 70A is stiffer than the 50A the design assumed: cut 1/2 in (12.7 mm) strips, 30 mm pads. If the wipe is too harsh, go to the 50A strip. |
+| Qidi Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm | 2 (5 pack: 3 spares) | Qidi: [Plus4 Wiper Silicone Case, 5 pcs](https://us.qidi3d.com/products/plus4-wiper-silicone-case) ($2.99 / 5, 31 Oct 2026) | Glue each into a slider pocket with high-temperature RTV, 27 mm across. |
 | PG9 cable gland | 1 | SUMSGOND: [PG9 nylon cable gland 4-8 mm, 20 pack](https://www.amazon.com/dp/B08TCF3S13) ($9.99 / 20) |  |
 
 ## Screws, inserts and Z drive pulleys

@@ -31,7 +31,7 @@ C3_WIPE
 
 ## Bed shape and exclusions
 
-* Printable area 0..505 x 0..505, but leave out the front strip: nozzle Y < 28.5 between X 61.5 and 441.5 (docks and wiper stations; `c3/C3_PURGE_KEEPOUT.json`). In Orca, use an "excluded bed area" of `61.5x0, 441.5x0, 441.5x28.5, 61.5x28.5`.
+* Printable area 0..505 x 0..505, but leave out the front strip: nozzle Y < 30.8 between X 61.5 and 441.5 (docks and wiper stations; `c3/C3_PURGE_KEEPOUT.json`). In Orca, use an "excluded bed area" of `61.5x0, 441.5x0, 441.5x30.8, 61.5x30.8`.
 * The head's checked travel is X -4.5..499.5 and Y -5.0..501.5 (the homing stops sit just past it), so the last 5.5 mm at the right and 3.5 mm at the rear are not printable.
 * Enable "label objects" so `[exclude_object]` and the adaptive mesh see the parts.
 

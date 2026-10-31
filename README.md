@@ -2,7 +2,7 @@
 
 Unofficial mods for the Sovol SV08 Max from William Tinney / Tinman-FP.
 
-Not affiliated with, or endorsed by, Sovol, Bondtech, Beacon, BIGTREETECH or Gates.
+Not affiliated with, or endorsed by, Sovol, Bondtech, Beacon, BIGTREETECH, Gates or Qidi.
 
 ## C3: 4040 all-wheel-drive gantry with Bondtech INDX
 
@@ -20,11 +20,11 @@ What it changes:
 * **Tool changer:** a Bondtech INDX Smart Head, centred on the X carriage, with five tools on 1515 docks at the front of the frame.
 * **Probe:** Beacon Rev H, with Z homing and per-tool Z offsets by Beacon contact.
 * **Z upgrade:** 12 mm belts and four StepperOnline 17HM19-2004S1 0.9° motors. The Z drive pulleys are reworked from stock 20T pulleys on a lathe.
-* **Purge and wipe:** two wiper stations in front of the bed, and two slide-out purge trays.
+* **Purge and wipe:** two wiper stations in front of the bed, each with a Qidi Plus 4 silicone wiper pad, and two slide-out purge trays.
 * **Top hat:** 136 mm tall, printed in ASA. It lifts Sovol's top cover and holds a 7 inch display, the umbilical take-up and the electronics tray. There is also a new camera mount.
 * **Electronics:** a BTT Kraken running mainline Klipper, with a 48 V motor supply.
 
-The 500 mm print height stays. The front 35 mm of the bed's middle 380 mm is kept clear for the docks and wipers, so the slicer's bed shape needs that strip left out. The exact numbers are in the [design notes](c3-4040-gantry/README.md).
+The 500 mm print height stays. The front 37 mm of the bed's middle 380 mm is kept clear for the docks and wipers, so the slicer's bed shape needs that strip left out. The exact numbers are in the [design notes](c3-4040-gantry/README.md).
 
 ### Where to start
 
@@ -47,7 +47,7 @@ All paths are inside `c3-4040-gantry/`.
 
 ### Printing
 
-* **PPS-CF parts:** 50 parts, which is 30 for the gantry plus 20 for the Z kit. In the project they slice on a Qidi Plus 4 with a 0.6 mm nozzle to about 62.4 h and 1167 g. The settings are 0.24 mm layers, 6 walls and 45 % infill.
+* **PPS-CF parts:** 50 parts, which is 30 for the gantry plus 20 for the Z kit. In the project they slice on a Qidi Plus 4 with a 0.6 mm nozzle to about 62.4 h and 1168 g. The settings are 0.24 mm layers, 6 walls and 45 % infill.
 * **Supports:** 16 parts need them. The project already has tree supports on those.
 * **The 3MF:** it was saved in Tinman, a fork of OrcaSlicer 2.4.2. It should open in OrcaSlicer 2.4 or later, but that has not been tested. Its printer, filament and process presets are custom ones, so set your own printer and PPS-CF profile before slicing.
 * **ASA top hat:** 8 sections, each up to 289 mm long, printed upright, about 2.4 kg in all. These come as STEP and STL only; they are not in the 3MF.

@@ -36,4 +36,4 @@ None of these are included here. Install them from their own repositories, as `k
 
 ## Bought parts
 
-Gates, KB-3D, LDO, StepperOnline, BIGTREETECH, HIWIN-style MGN12 and the other bought parts are named only to identify them. The models of them in the CAD are simplified shapes drawn for fit, except the Bondtech and Beacon parts above. No manufacturer catalogues or drawings are included; the design notes cite them by name.
+Gates, KB-3D, LDO, StepperOnline, BIGTREETECH, Qidi (the wiper pads), HIWIN-style MGN12 and the other bought parts are named only to identify them. The models of them in the CAD are simplified shapes drawn for fit, except the Bondtech and Beacon parts above. No manufacturer catalogues or drawings are included; the design notes cite them by name.
