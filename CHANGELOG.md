@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-31: a wiper station and purge tray for every tool
+
+* **Docks:** 78 mm apart (they were 42 mm), at X -203/-125/-47/31/109.
+* **Wiper stations:** five, one 42 mm beside each tool's dock, instead of two shared ones. Each tool wipes, purges and loads filament only at its own station. Wipe strokes step 8 mm toward the tool's own dock, which is empty while that tool wipes, and never toward the next dock.
+* **Purge tray:** one 360 mm tray under all five stations, the old trays' height and depth (its rim stays 0.5 mm under the station brackets at the first layer). It sits loose on the chamber floor and slides out through the door with no fasteners. It is longer than the Qidi bed, so it prints diagonally on its own plate.
+* **Print files:** one file each for the wiper bracket and the slider, printed five times, and one for the tray. The 3MF has 55 parts on six plates: 66.9 h and 1249 g.
+* **Front keep-out:** still 37 mm deep (nozzle Y above 535.2), now from X -238 to +186: 424 mm wide instead of 380.
+* **Klipper:** new dock X for T0-T4 and a station per tool. INDX `clearance_y` moves to 33 (from 31), the same margin as the station approach line. The Orca excluded area runs to X 485.5.
+* **Checks:** FreeCAD: 0 clashes at the 7 clearance poses, over the Z sweep and for the enclosure; 0 at all 27 station, wipe and dock poses with the sliders lifted; the lift still fits (9.6 of 10.8 mm); the tray and its feet clear the stock printer. SolidCraft at station 1 and at dock 1 beside lifted sliders: no overlap involving a purge part. The hard-stop sweep is unchanged and the Klipper config check passes.
+* **Docs:** BOM, sourcing list, design notes, assembly guide, full printer model and renders updated.
+
 ## 2026-10-31: Qidi Plus 4 wiper pads
 
 * **Wiper pads:** the stations now take Qidi's Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm high, instead of 30 x 12.7 x 3.2 mm pads cut from silicone strip. It lies 27 mm across, so each stroke crosses its 15 mm. Its top still stands 1.2 mm above the nozzle tip.

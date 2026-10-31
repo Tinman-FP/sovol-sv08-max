@@ -455,7 +455,7 @@ def behaviour(parser):
             dx = abs(b['x'] - a['x'])
             lo_y = min(a['y'], b['y'])
             in_lane = all(min(abs(p['x'] - s) for s in lanes) <= cv['station_side'] + 1e-6 for p in (a, b))
-            if lo_y < 30.8 and 61.5 <= min(a['x'], b['x']) and max(a['x'], b['x']) <= 441.5:
+            if lo_y < 30.8 and 61.5 <= min(a['x'], b['x']) and max(a['x'], b['x']) <= 485.5:
                 assert in_lane, f'{label}: move {a} -> {b} enters the front keep-out outside a station lane'
             if dx > 2 * cv['station_side'] + 1e-6:
                 # CAD keep-out line (c3/C3_PURGE_KEEPOUT.json), independent of the macro's own approach_y
@@ -464,9 +464,11 @@ def behaviour(parser):
                 assert a['z'] >= need_z - 1e-6 and b['z'] >= need_z - 1e-6, f'{label}: at the station below Z {need_z}'
 
     def wipe():
-        for start in ({'x': 300.0, 'y': 200.0, 'z': 20.0}, {'x': 120.0, 'y': 33.0, 'z': 14.0}, {'x': 470.0, 'y': 480.0, 'z': 60.0}):
+        for tool, start in ((0, {'x': 300.0, 'y': 200.0, 'z': 20.0}), (1, {'x': 120.0, 'y': 33.0, 'z': 14.0}), (2, {'x': 470.0, 'y': 480.0, 'z': 60.0}),
+                            (3, {'x': 20.0, 'y': 300.0, 'z': 15.0}), (4, {'x': 400.0, 'y': 33.0, 'z': 40.0})):
             st = base_state(parser)
             st['toolhead']['position'].update(start)
+            st['save_variables']['variables']['active_tool'] = tool
             sim = Sim(parser, st)
             sim.run('C3_WIPE')
             keepout_check(sim, f'C3_WIPE from {start}', need_z=12.0)
@@ -474,14 +476,14 @@ def behaviour(parser):
             assert min(ys) == -5.0 and max(m[1]['y'] for m in sim.moves if m[1]['y'] < 28) == 17.3, 'purge point -5 and wipe line 17.3'
             end = st['toolhead']['position']
             assert abs(end['y'] - 33.0) < 1e-6 and abs(end['z'] - start['z']) < 1e-6, f'ends at the lane exit, same Z: {end}'
-            nearest = min(st['gcode_macro _C3_VARS']['station_x'], key=lambda s: abs(s - start['x']))
-            assert abs(st['gcode_macro _C3_STATION']['x'] - nearest) < 1e-6, 'nearer station'
+            own = st['gcode_macro _C3_VARS']['station_x'][tool]
+            assert abs(st['gcode_macro _C3_STATION']['x'] - own) < 1e-6, f'T{tool} wipes at its own station'
         st = base_state(parser)
         st['toolhead']['position']['z'] = 8.0
         sim = Sim(parser, st)
         sim.run('C3_WIPE')
         assert not sim.moves and any('skipped' in l for _, l in sim.out), 'below Z 12: skipped'
-    case('C3_WIPE: lanes only, purge Y -5 / wipe Y 17.3, back to Y 33, skips below Z 12', wipe)
+    case('C3_WIPE: each tool at its own station, lanes only, purge Y -5 / wipe Y 17.3, back to Y 33, skips below Z 12', wipe)
 
     def purge():
         st = base_state(parser)
@@ -508,6 +510,7 @@ def behaviour(parser):
         ls = lines(sim)
         order_of(ls, ['CHANGE_TOOL TOOL=3', '_C3_LOAD_AT_STATION', 'G0 Z', '_C3_STATION_GO', 'LOAD_FILAMENT TOOL=3 TYPE=PLA MEASURE=0', '_C3_STATION_WIPE_OUT', 'M104 S0'])
         keepout_check(sim, 'C3_LOAD_FILAMENT', need_z=30.0)
+        assert abs(st['gcode_macro _C3_STATION']['x'] - st['gcode_macro _C3_VARS']['station_x'][3]) < 1e-6, 'T3 loads at its own station'
     case('C3_LOAD_FILAMENT: pickup, Z 30, station, INDX load there, wipe, heater off', load)
 
     def fans():

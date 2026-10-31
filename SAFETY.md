@@ -23,7 +23,7 @@ Follow the bring-up order in `c3-4040-gantry/klipper_c3/README.md` one step at a
 * **Each belt has two motors.** Buzz every motor on its own with the belts slack, before you tension them. A motor wired the wrong way fights its partner.
 * **Homing.** X and Y home sensorlessly, against hard stops 0.5–1.25 mm past travel. Tune the stall detection with the carriage starting near the middle, and keep a hand on the power switch.
 * **First tool changes.** Run the first tool change and the first wipe at reduced speed. Watch the head clear the docks and the wiper stations.
-* **Slicer bed shape.** Leave out the front keep-out strip. That is nozzle Y above 535.2 between X -194 and +186, in Sovol's model frame. Without it, the head can hit the docks or the stations.
+* **Slicer bed shape.** Leave out the front keep-out strip. That is nozzle Y above 535.2 between X -238 and +186, in Sovol's model frame. Without it, the head can hit the docks or the stations.
 
 ## Printing the parts
 

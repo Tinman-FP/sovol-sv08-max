@@ -1,0 +1,26 @@
+{
+ "head_into_lane_vs_dock_tool (+X, -X)": [
+  34.1,
+  40.2
+ ],
+ "head_into_lane_vs_lifted_station_59mm": [
+  35.0,
+  32.4
+ ],
+ "head_into_lane_vs_rest_station_59mm": [
+  33.1,
+  33.1
+ ],
+ "head_into_lane_vs_lifted_station_40mm": [
+  35.0,
+  32.4
+ ],
+ "head_into_lane_vs_lifted_station_36mm": [
+  35.0,
+  32.4
+ ],
+ "parked_tool_vs_lifted_station_59mm": [
+  21.4,
+  21.4
+ ]
+}

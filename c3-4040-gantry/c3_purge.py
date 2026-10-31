@@ -1,5 +1,5 @@
-"""C3 purge and wipe: two wiper stations at the ends of the dock row, the station bar that carries them, and two
-slide-out purge trays on the chamber floor.
+"""C3 purge and wipe: five wiper stations, one beside each tool's dock, the station bar that carries them, and one
+slide-out purge tray on the chamber floor that runs under all five.
 
 Why it is laid out this way (measured in Sovol's model and the C3 build, stock-pose frame):
 * The PEI sheet's front edge is at Y 572 across the middle (X -198..188); two corner tabs reach Y 584. The nozzle's
@@ -8,9 +8,12 @@ Why it is laid out this way (measured in Sovol's model and the C3 build, stock-p
 * At the first layer the nozzle is 0.2 mm above the PEI, so anything under the nozzle tip over the sheet must get out
   of the way: each station's slider rests on the sheet and rises on two dowel pins (up to 10.8 mm) when the gantry
   is within about 9 mm of the bed. Station wipes are skipped below Z 12 (prime tower only); see the macro notes.
-* The docks keep their 42 mm pitch. Spreading them would cost nearly the whole front strip of the bed, because the
-  head's front body cannot pass a parked tool. The stations go 71/69 mm beyond the end docks: far enough that a lifted
-  slider stays clear of the head docking at an end dock, close enough to stay inside the PEI's middle zone.
+* One station per tool (owner, 2026-10-31): dock, station, dock, station... at a 78 mm pitch. Each station is 42 mm
+  on the +X side of its tool's dock and 36 mm from the next dock. The head driving into a lane needs 34.1 mm (+X) /
+  40.2 mm (-X) from a dock with its parked tool and 35.0 / 32.4 mm from a station slider lifted for the first layer
+  (surface-sampled sweep, c3_lanecheck.py). The stations' brackets must stay inside the PEI's middle zone
+  (X -198..188); the row is centred to leave 7 mm at each end. This way round (docks on the -X side) the slicer's
+  front strip is narrower than with the docks on the +X side (about 424 mm against 450).
 * The station bar is a 1515 in front of the sheet (Y 586..601, clear of the corner tabs) and below the nozzle tip
   (Z tip-13..tip+2, under the head's lowest parts), held by two printed clips on the front cradles' inner webs.
 
@@ -57,8 +60,7 @@ M3_CLR, M3_INSERT, M3_CB = 1.7, 2.0, 3.0
 ZN = ZB + 10.0 - 8.5 - 31.5                 # nozzle tip Z in the build pose (127.0); c3_build.NOZZLE_Z
 NOZ_Y = Y_XB_DOCK + 66.7                    # nozzle centre at the docking / station Y (571.0)
 PEI_EDGE = 572.0                            # PEI front edge, X -198..188
-ROW_C = (DOCK_X[0] + DOCK_X[-1]) / 2        # dock row centre (-5)
-ST_X = (ROW_C - 155.0, ROW_C + 155.0)       # station centres (-160, 150)
+ST_X = tuple(x + 42.0 for x in DOCK_X)       # station centres (-161, -83, -5, 73, 151), tool k's station beside dock k
 
 # station bar (1515, same profile as the dock rail) and its cradle clips
 BAR = dict(y=(586.0, 601.0), z=(ZN - 13.0, ZN + 2.0), x=283.0)
@@ -176,29 +178,32 @@ def wiper_pad(xs, lift=0.0):
         s.translate(V(0, 0, lift))
     return s
 
-def tray(xc):
-    """Open tray on four small feet (clears the floor's screw heads), slides out through the door. Prints floor down."""
-    w, t = TRAY['w'], TRAY['wall']; y0, y1 = TRAY['y']; z0, z1 = TRAY['z']
-    outer = rbox(xc - w / 2, xc + w / 2, y0, y1, z0, z1, 3.0)
-    inner = rbox(xc - w / 2 + t, xc + w / 2 - t, y0 + t, y1 - t, z0 + t, z1 + 1.0, 1.5)
-    s = outer.cut(inner)
-    feet = [box(x, x + 6.0, y, y + 6.0, FLOOR_Z + 0.05, z0 + 0.01) for x in (xc - w / 2 + 1.0, xc + w / 2 - 7.0) for y in (y0 + 1.0, 598.0)]   # front feet stop short of the floor screws (Y 606)
-    pull = box(xc - 10.0, xc + 10.0, y1 - 0.01, y1 + 2.5, z1 - 2.0, z1)
-    return fuse([s, pull] + feet)
+TRAY_X = (ST_X[0] - TRAY['w'] / 2, ST_X[-1] + TRAY['w'] / 2)   # one tray under all five chutes, X -185..175 (360 mm)
 
-TRAY_X = (ST_X[0] - 0.0, ST_X[1] - 0.0)     # trays centred under the chute exits
+def tray():
+    """One open tray under all five stations (owner, 2026-10-31), the old trays' height and depth. It sits loose on 20 small
+    feet, placed where the five single trays had theirs (clear of the floor's screw heads), and slides out through the door
+    with no fasteners; two pull tabs. Longer than the Qidi bed: it prints diagonally, rim down."""
+    w, t = TRAY['w'], TRAY['wall']; y0, y1 = TRAY['y']; z0, z1 = TRAY['z']; x0, x1 = TRAY_X
+    outer = rbox(x0, x1, y0, y1, z0, z1, 3.0)
+    inner = rbox(x0 + t, x1 - t, y0 + t, y1 - t, z0 + t, z1 + 1.0, 1.5)
+    s = outer.cut(inner)
+    feet = [box(x, x + 6.0, y, y + 6.0, FLOOR_Z + 0.05, z0 + 0.01)
+            for xc in ST_X for x in (xc - w / 2 + 1.0, xc + w / 2 - 7.0) for y in (y0 + 1.0, 598.0)]   # front feet stop short of the floor screws (Y 606)
+    pulls = [box(xp - 10.0, xp + 10.0, y1 - 0.01, y1 + 2.5, z1 - 2.0, z1) for xp in (x0 + (x1 - x0) / 4, x0 + 3 * (x1 - x0) / 4)]
+    return fuse([s] + pulls + feet)
 
 def purge_parts():
     """(name, material, shape, group) for c3_build."""
     out = [('station bar 1515 566', 'al-6063 1515', station_bar(), 'docks')]
     for s_, tag in ((-1, 'xn'), (1, 'xp')):
         out.append((f'station bar clip {tag}', 'pps-cf', bar_clip(s_), 'docks'))
-    for xs, tag in ((ST_X[0], 'xn'), (ST_X[1], 'xp')):
+    for k, xs in enumerate(ST_X, 1):
+        tag = f't{k}'
         out.append((f'wiper station bracket {tag}', 'pps-cf', station_bracket(xs), 'docks'))
         out.append((f'wiper station slider {tag}', 'pps-cf', station_slider(xs), 'docks'))
         out.append((f'silicone wiper pad {tag} qidi plus4', 'purchased', wiper_pad(xs), 'docks'))
         for sx in (-1, 1):
             out.append((f'dowel pin 3x20 {tag} {sx:+d}', 'steel', cyl(1.5, LUG_B[0] + 0.5, LUG_B[0] + 20.5, xs + sx * PIN_X, PIN_Y), 'docks'))
-    for xc, tag in ((TRAY_X[0], 'right'), (TRAY_X[1], 'left')):
-        out.append((f'purge tray {tag}', 'pps-cf', tray(xc), 'enclosure'))
+    out.append(('purge tray', 'pps-cf', tray(), 'enclosure'))
     return out

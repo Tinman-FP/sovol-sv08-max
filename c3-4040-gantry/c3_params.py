@@ -61,7 +61,7 @@ Y_XB_MIN = -1.85
 Y_STOP_PAD = 1.25                   # rear Y stop pads on the rear-corner motor plates (sensorless homing): the joint plate lands 0.5 mm past Y_XB_MIN
 Y_XB_DOCK = 504.3                   # dock fronts at Y 619, inside the frame face (Y 622)
 NOZZLE_DY = 66.25                   # nozzle Y = Y_XB + 66.25
-DOCK_X = (-89.0, -47.0, -5.0, 37.0, 79.0)
+DOCK_X = (-203.0, -125.0, -47.0, 31.0, 109.0)  # 78 mm pitch: each tool's wiper station sits 42 mm on its +X side (c3_purge.ST_X)
 
 
 def left(t):

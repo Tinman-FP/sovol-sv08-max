@@ -35,18 +35,22 @@ plan.update({'camera mount front right': [((1, 0, 0), 90)],
              'top hat corner rear left': [], 'top hat front': [], 'top hat rear': [], 'top hat side right': [], 'top hat side left': [],
              'umbilical drop ring': X180, 'take-up sled': [((0, 1, 0), 90)], 'take-up roller 100 mm': [], 'link board and usb hub tray': []})
 for t in ('xn', 'xp'):                    # purge/wipe stations (c3_purge.py)
-    plan.update({f'station bar clip {t}': [], f'wiper station bracket {t}': [((1, 0, 0), -90)], f'wiper station slider {t}': X180})
-plan.update({'purge tray right': X180, 'purge tray left': X180})    # rim down: the floor sits on feet, so floor-down would start in mid-air
+    plan.update({f'station bar clip {t}': []})
+# the five stations and trays are identical: one print file each, printed five times
+plan.update({'wiper station bracket t1': [((1, 0, 0), -90)], 'wiper station slider t1': X180,
+             'purge tray': X180})       # rim down: the floor sits on feet, so floor-down would start in mid-air
+SAME = {'wiper station bracket t1': ('wiper station bracket', 5), 'wiper station slider t1': ('wiper station slider', 5)}
 missing = [k for k in plan if k not in by]; assert not missing, missing
 rows = []
 for name, rot in plan.items():
     shp, mat = by[name]
     s = orient(shp, rot)
-    fn = name.replace(' ', '_').upper() + '_' + mat.upper()
+    label, qty = SAME.get(name, (name, 1))
+    fn = label.replace(' ', '_').upper() + '_' + mat.upper()
     s.exportStep(str(PRINT / f'{fn}.step'))
     m = MeshPart.meshFromShape(Shape=s, LinearDeflection=0.05, AngularDeflection=0.3, Relative=False); m.write(str(PRINT / f'{fn}.stl'))
     b = s.BoundBox
-    rows.append(dict(part=name, material=mat, file=fn, volume_cm3=round(s.Volume / 1000, 1), mass_g=round(s.Volume / 1000 * RHO[mat], 0),
+    rows.append(dict(part=label, qty=qty, material=mat, file=fn, volume_cm3=round(s.Volume / 1000, 1), mass_g=round(s.Volume / 1000 * RHO[mat], 0),
                      print_size_mm=[round(b.XLength, 1), round(b.YLength, 1), round(b.ZLength, 1)], valid=s.isValid(), solids=len(s.Solids)))
     print(rows[-1])
 L = B.build_pose(270.0, 0.0)[1]['A']
@@ -82,20 +86,20 @@ bom = {
     ('M5 x 10 SHCS (beam T-nuts: rear corners 2 x 4, front cradles 2 x 4, XY joints 2 x 3)', '22'), ('M5 x 20 SHCS (cradle bottom slots)', '4'), ('M5 x 12 SHCS (rear outer slots)', '2'),
     ('M5 x 45 SHCS + nyloc (joint pulley axles)', '4'), ('M5 SHCS for rear idler axles, length to the cap: 3 per corner', '6'),
     ('Zip ties 2.5 mm (camera)', '2'),
-    ('Qidi Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm high (Qidi "Plus4 Wiper Silicone Case", 5 pack: 2 pads, 3 spares)', '1 pack'),
+    ('Qidi Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm high (Qidi "Plus4 Wiper Silicone Case", 5 pack: 5 pads, one per station; a second pack for spares)', '2 packs'),
     ('High-temperature red RTV silicone (Permatex Hi-Temp Red or similar), glues the pads into the sliders', '1 tube'),
     ('15x15 extrusion (1515, same profile as the dock rail), station bar, ends plain', '1 x 566 mm'),
-    ('3 mm x 20 mm steel dowel pin (wiper slider guides, pressed into the brackets)', '4'),
-    ('M3 T-nut for 1515 (station brackets 4, bar clips 2)', '6'), ('M3 x 8 SHCS (station brackets to the bar)', '4'),
+    ('3 mm x 20 mm steel dowel pin (wiper slider guides, pressed into the brackets)', '10'),
+    ('M3 T-nut for 1515 (station brackets 10, bar clips 2)', '12'), ('M3 x 8 SHCS (station brackets to the bar)', '10'),
     ('M3 x 6 SHCS (bar clips to the bar)', '2'), ('M3 x 8 countersunk FHCS (bar clips to the front cradle webs)', '4'),
     ('M3 heat-set insert, short (3-4 mm long), front cradle inner webs', '4'),
-    ('M3 x 8 set screw, cup point (wiper rest-height stops, tapped into the bracket lugs)', '4'),
+    ('M3 x 8 set screw, cup point (wiper rest-height stops, tapped into the bracket lugs)', '10'),
   ],
 }
 (B.OUT / 'C3_BOM.json').write_text(json.dumps(bom, indent=1))
-md = ['# C3 BOM (AWD 4040 gantry, SV08 Max, INDX, top hat)', '', '## Printed (Qidi Plus 4; PPS-CF unless noted, top hat in ASA)', '', '| Part | Material | File | Volume cm3 | Mass g | Print size mm |', '|---|---|---|---|---|---|']
-md += [f"| {r['part']} | {r['material'].upper()} | {r['file']}.stl | {r['volume_cm3']} | {r['mass_g']:.0f} | {' x '.join(str(v) for v in r['print_size_mm'])} |" for r in rows]
-md += ['', f"Printed total: PPS-CF {sum(r['mass_g'] for r in rows if r['material']=='pps-cf'):.0f} g, ASA {sum(r['mass_g'] for r in rows if r['material']=='asa'):.0f} g", '', '## Purchased', '', '| Item | Qty |', '|---|---|']
+md = ['# C3 BOM (AWD 4040 gantry, SV08 Max, INDX, top hat)', '', '## Printed (Qidi Plus 4; PPS-CF unless noted, top hat in ASA)', '', '| Part | Qty | Material | File | Volume cm3 (each) | Mass g (each) | Print size mm |', '|---|---|---|---|---|---|---|']
+md += [f"| {r['part']} | {r['qty']} | {r['material'].upper()} | {r['file']}.stl | {r['volume_cm3']} | {r['mass_g']:.0f} | {' x '.join(str(v) for v in r['print_size_mm'])} |" for r in rows]
+md += ['', f"Printed total: PPS-CF {sum(r['mass_g'] * r['qty'] for r in rows if r['material']=='pps-cf'):.0f} g, ASA {sum(r['mass_g'] * r['qty'] for r in rows if r['material']=='asa'):.0f} g", '', '## Purchased', '', '| Item | Qty |', '|---|---|']
 md += [f'| {a} | {q} |' for a, q in bom['purchased']]
 (B.OUT / 'C3_BOM.md').write_text('\n'.join(md) + '\n')
-print('printed total g', {m: sum(r['mass_g'] for r in rows if r['material'] == m) for m in RHO})
+print('printed total g', {m: sum(r['mass_g'] * r['qty'] for r in rows if r['material'] == m) for m in RHO})

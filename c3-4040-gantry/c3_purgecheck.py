@@ -3,7 +3,8 @@
 1. Lift sweep: at every Z-sweep step the slider rests on the PEI when the gantry is low. The lift it needs (foot on
    the sheet) must fit the pin travel, and the lifted slider and pad must clear the fixed frame (stock + trays).
    The fixed purge parts on the gantry (bar, clips, brackets, pins) sweep without lift.
-2. Station and wipe poses: the head at each station (purge position, nozzle Y 571) and mid/end of the wipe stroke,
+2. Station and wipe poses: the head at each of the five stations (purge position, nozzle Y 571), mid-stroke (centre and
+   8 mm toward the tool's own dock) and the end of the wipe stroke,
    head and bridge vs every gantry-fixed part. At the wipe poses only the nozzle may touch the pad (the wipe
    engagement volume is reported apart).
 3. Lifted sliders (first layer) vs the head docking at every dock and at the front print corners.
@@ -133,11 +134,12 @@ print('lift max', rep['lift_max_needed'], 'travel', PG.TRAVEL, 'sweep hits', len
 # ---- 2. station, wipe and existing poses: head + bridge vs gantry-fixed parts (purge at rest)
 NOZ_DY = PG.NOZ_Y - Y_XB_DOCK                    # 66.7: nozzle centre Y = Y_XB + 66.7
 mid_wipe = sum(PG.PAD['y']) / 2
-poses = {'station_xn': (Y_XB_DOCK, PG.ST_X[0]), 'station_xp': (Y_XB_DOCK, PG.ST_X[1]),
-         'wipe_mid_xn': (mid_wipe - NOZ_DY, PG.ST_X[0]), 'wipe_mid_xp': (mid_wipe - NOZ_DY, PG.ST_X[1]),
-         'wipe_mid_xn_side': (mid_wipe - NOZ_DY, PG.ST_X[0] + 8.0), 'wipe_mid_xp_side': (mid_wipe - NOZ_DY, PG.ST_X[1] - 8.0),
-         'wipe_end_xn': (PG.WIPE_Y[1] - NOZ_DY, PG.ST_X[0]), 'wipe_end_xp': (PG.WIPE_Y[1] - NOZ_DY, PG.ST_X[1]),
-         'front_xn': (563.5 - NOZZLE_DY, -252.0), 'front_xp': (563.5 - NOZZLE_DY, 252.0)}
+poses = {}
+for k, xs in enumerate(PG.ST_X, 1):              # one station per tool, with docks and stations on both sides
+    poses.update({f'station_t{k}': (Y_XB_DOCK, xs), f'wipe_mid_t{k}': (mid_wipe - NOZ_DY, xs),
+                  f'wipe_mid_t{k}_own8': (mid_wipe - NOZ_DY, xs - 8.0),      # strokes step 8 mm toward the own (empty) dock only
+                  f'wipe_end_t{k}': (PG.WIPE_Y[1] - NOZ_DY, xs)})
+poses.update({'front_xn': (563.5 - NOZZLE_DY, -252.0), 'front_xp': (563.5 - NOZZLE_DY, 252.0)})
 for i, x in enumerate(DOCK_X, 1):
     poses[f'dock_{i}'] = (Y_XB_DOCK, x)
 rep['internal'], rep['wipe_engagement_mm3'], rep['lifted'] = {}, {}, {}
@@ -147,8 +149,10 @@ for name, (y, x) in poses.items():
     mov = [(n, s) for n, m, s, g in P if g in ('bridge', 'head')]
     fix = [(n, s) for n, m, s, g in P if g in ('frame', 'docks')]
     tgt = DOCK_X.index(x) + 1 if name.startswith('dock_') else None
+    own = int(name.split('_t')[1][0]) if name.startswith(('station_t', 'wipe_')) else None   # tool k wipes at station k: dock k is empty
     def skip(a, b):
         if ('y block' in a and 'y rail' in b) or 'x block' in a: return True
+        if own is not None and f'parked {own} ' in b: return True
         if tgt is not None:
             if 'tool on head' in a and ('parked' in b or 'bondtech dock' in b): return True
             if ('smart head' in a or 'x carriage' in a or 'beacon' in a) and (f'dock {tgt} ' in b or f'parked {tgt} ' in b): return True

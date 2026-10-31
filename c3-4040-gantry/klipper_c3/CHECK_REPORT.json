@@ -220,7 +220,7 @@
    "ok": true
   },
   {
-   "case": "C3_WIPE: lanes only, purge Y -5 / wipe Y 17.3, back to Y 33, skips below Z 12",
+   "case": "C3_WIPE: each tool at its own station, lanes only, purge Y -5 / wipe Y 17.3, back to Y 33, skips below Z 12",
    "ok": true
   },
   {

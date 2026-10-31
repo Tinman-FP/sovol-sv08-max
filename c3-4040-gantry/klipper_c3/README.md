@@ -65,7 +65,8 @@ Firmware: **mainline Klipper on every board**, and no Sovol firmware anywhere:
 * **Wiper stations:** `C3_WIPE` (after each tool change), `C3_PURGE` (print start) and `C3_LOAD_FILAMENT` follow the CAD rules:
   * X travel only at Y 33 or further back;
   * straight forward in a station lane to Y -5;
-  * strokes back to Y 17.3 (3.5 mm past the pad) within +-8 mm of the station centre;
+  * each tool at its own station (`station_x[N]` for tool N, beside its dock);
+  * strokes back to Y 17.3 (3.5 mm past the pad), alternating between the station centre and 8 mm toward the tool's own (empty) dock, never toward the next dock, which is 36 mm away;
   * no wipes below Z 12, where the sliders are lifted;
   * purges at Z 30 or higher.
 
