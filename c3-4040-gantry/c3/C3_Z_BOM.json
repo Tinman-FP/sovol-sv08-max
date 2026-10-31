@@ -1,0 +1,182 @@
+{
+ "printed_pps_cf": [
+  {
+   "part": "z carriage plate A (front right + rear left)",
+   "file": "Z_CARRIAGE_PLATE_A_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 14.0,
+   "mass_g": 18.0,
+   "print_size_mm": [
+    37.1,
+    17.0,
+    40.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z carriage plate B (front left + rear right)",
+   "file": "Z_CARRIAGE_PLATE_B_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 14.0,
+   "mass_g": 18.0,
+   "print_size_mm": [
+    37.1,
+    17.0,
+    40.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z belt clamp cover A (front right + rear left)",
+   "file": "Z_BELT_CLAMP_COVER_A_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 2.6,
+   "mass_g": 3.0,
+   "print_size_mm": [
+    40.0,
+    17.0,
+    5.5
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z belt clamp cover B (front left + rear right)",
+   "file": "Z_BELT_CLAMP_COVER_B_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 2.6,
+   "mass_g": 3.0,
+   "print_size_mm": [
+    40.0,
+    17.0,
+    5.5
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z tensioner block 12mm A (front right + rear left)",
+   "file": "Z_TENSIONER_BLOCK_12MM_A_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 2.8,
+   "mass_g": 4.0,
+   "print_size_mm": [
+    16.4,
+    25.0,
+    25.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z tensioner block 12mm B (front left + rear right)",
+   "file": "Z_TENSIONER_BLOCK_12MM_B_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 2.8,
+   "mass_g": 4.0,
+   "print_size_mm": [
+    16.4,
+    25.0,
+    25.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z tensioner seat 12mm A (front right + rear left)",
+   "file": "Z_TENSIONER_SEAT_12MM_A_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 15.7,
+   "mass_g": 20.0,
+   "print_size_mm": [
+    40.3,
+    31.0,
+    41.5
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z tensioner seat 12mm B (front left + rear right)",
+   "file": "Z_TENSIONER_SEAT_12MM_B_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 15.7,
+   "mass_g": 20.0,
+   "print_size_mm": [
+    40.3,
+    31.0,
+    41.5
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z motor end support A (front right + rear left)",
+   "file": "Z_MOTOR_END_SUPPORT_A_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 5.3,
+   "mass_g": 7.0,
+   "print_size_mm": [
+    27.1,
+    38.2,
+    20.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "z motor end support B (front left + rear right)",
+   "file": "Z_MOTOR_END_SUPPORT_B_PPS-CF",
+   "qty": 2,
+   "volume_cm3": 5.3,
+   "mass_g": 7.0,
+   "print_size_mm": [
+    27.1,
+    38.2,
+    20.0
+   ],
+   "valid": true,
+   "solids": 1
+  }
+ ],
+ "purchased": [
+  [
+   "Gates 2MGT 12 mm open belt, Z (loop 1425 mm around 20T + 20T, plus about 30 mm for the clamp ends)",
+   "4 x 1.5 m (1.6 m for margin)"
+  ],
+  [
+   "StepperOnline 17HM19-2004S1, 0.9 deg, 48 mm, 24 mm full D-cut shaft (owned)",
+   "4"
+  ],
+  [
+   "20T toothed idler for 12 mm belt, 5 mm bore, flanges <= 16 mm OD, <= 16.4 mm wide (KB3D G2GT-I-20-12 class; check the flange OD)",
+   "4"
+  ],
+  [
+   "20T 2GT drive pulley for 12 mm belt: 6 mm bore, hubless and flangeless, <= 12.6 mm long, M3 grub through the teeth (custom or modified; see README)",
+   "4"
+  ],
+  [
+   "MR105ZZ bearing 5 x 10 x 4 (optional motor shaft end support)",
+   "4"
+  ],
+  [
+   "M3 x 30 SHCS (end supports: replace the two +X motor screws per motor)",
+   "8"
+  ],
+  [
+   "M3 heat-set insert (carriage plate: 2 arm + 1 cover per corner)",
+   "12"
+  ],
+  [
+   "M3 x 10 SHCS (clamp covers)",
+   "4"
+  ],
+  [
+   "Reused from the stock Z: MGW9H block screws, arm M3 x 20, idler shafts, springs, tension screws, cross shafts, reduction pulleys and loops, 12T pulleys, bottom brackets",
+   "-"
+  ]
+ ]
+}

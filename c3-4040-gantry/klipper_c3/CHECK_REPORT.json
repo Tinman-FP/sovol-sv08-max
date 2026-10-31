@@ -1,0 +1,260 @@
+{
+ "files_in_order": [
+  "printer.cfg",
+  "mainsail.cfg",
+  "c3_kraken.cfg",
+  "c3_chamber.cfg",
+  "c3_indx.cfg",
+  "indx.cfg",
+  "indx-tc-macros.cfg",
+  "indx-cal.cfg",
+  "homing.cfg",
+  "c3_homing.cfg",
+  "c3_beacon.cfg",
+  "c3_macros.cfg"
+ ],
+ "sections": 213,
+ "sections_defined_more_than_once": {
+  "respond": [
+   "mainsail.cfg",
+   "c3_indx.cfg"
+  ],
+  "homing_override": [
+   "homing.cfg",
+   "c3_homing.cfg"
+  ],
+  "gcode_macro _INDX_HOME_Z_PROBE": [
+   "homing.cfg",
+   "c3_beacon.cfg"
+  ]
+ },
+ "unknown_options": [],
+ "sections_without_option_check": [],
+ "kraken_pins": {
+  "PA0": [
+   "[fan_generic chamber_circulation] pin"
+  ],
+  "PA1": [
+   "[fan_generic exhaust_fan] pin"
+  ],
+  "PA10": [
+   "[tmc5160 stepper_z3] cs_pin"
+  ],
+  "PA15": [
+   "[tmc5160 stepper_z1] cs_pin"
+  ],
+  "PA2": [
+   "[heater_fan bed_fan] pin"
+  ],
+  "PA3": [
+   "[controller_fan kraken_fan] pin"
+  ],
+  "PA9": [
+   "[tmc5160 stepper_z2] cs_pin"
+  ],
+  "PB0": [
+   "[heater_bed] sensor_pin"
+  ],
+  "PB3": [
+   "[stepper_z2] dir_pin"
+  ],
+  "PB4": [
+   "[stepper_z2] step_pin"
+  ],
+  "PB5": [
+   "[stepper_z2] enable_pin"
+  ],
+  "PB6": [
+   "[stepper_z3] dir_pin"
+  ],
+  "PB7": [
+   "[stepper_y1] enable_pin"
+  ],
+  "PB8": [
+   "[stepper_y1] dir_pin"
+  ],
+  "PB9": [
+   "[stepper_y1] step_pin"
+  ],
+  "PC1": [
+   "[heater_fan bed_fan] tachometer_pin"
+  ],
+  "PC13": [
+   "[stepper_x] dir_pin"
+  ],
+  "PC14": [
+   "[stepper_x] step_pin"
+  ],
+  "PC15": [
+   "[tmc5160 stepper_x] diag1_pin"
+  ],
+  "PD2": [
+   "[tmc5160 stepper_z] cs_pin"
+  ],
+  "PD3": [
+   "[tmc5160 stepper_y1] cs_pin"
+  ],
+  "PD4": [
+   "[tmc5160 stepper_y] cs_pin"
+  ],
+  "PD5": [
+   "[tmc5160 stepper_x1] cs_pin"
+  ],
+  "PD6": [
+   "[tmc5160 stepper_x] cs_pin"
+  ],
+  "PD7": [
+   "[stepper_z1] dir_pin"
+  ],
+  "PE0": [
+   "[stepper_y] enable_pin"
+  ],
+  "PE1": [
+   "[stepper_y] dir_pin"
+  ],
+  "PE2": [
+   "[stepper_y] step_pin"
+  ],
+  "PE3": [
+   "[stepper_x1] enable_pin"
+  ],
+  "PE4": [
+   "[stepper_x1] dir_pin"
+  ],
+  "PE5": [
+   "[stepper_x1] step_pin"
+  ],
+  "PE6": [
+   "[stepper_x] enable_pin"
+  ],
+  "PF1": [
+   "[tmc5160 stepper_y] diag1_pin"
+  ],
+  "PF5": [
+   "[heater_bed] heater_pin"
+  ],
+  "PF7": [
+   "[output_pin chamber_light] pin"
+  ],
+  "PG10": [
+   "[stepper_z] dir_pin"
+  ],
+  "PG11": [
+   "[stepper_z1] step_pin"
+  ],
+  "PG12": [
+   "[stepper_z1] enable_pin"
+  ],
+  "PG13": [
+   "[stepper_z] enable_pin"
+  ],
+  "PG14": [
+   "[stepper_z3] enable_pin"
+  ],
+  "PG15": [
+   "[stepper_z3] step_pin"
+  ],
+  "PG9": [
+   "[stepper_z] step_pin"
+  ]
+ },
+ "pin_conflicts": {},
+ "pin_errors": [],
+ "indxmcu_pins_used": [
+  "encoder_cs",
+  "led",
+  "loadcell_cs",
+  "loadcell_drdy",
+  "motor_cs",
+  "motor_dir",
+  "motor_enable",
+  "motor_step",
+  "part_cooling",
+  "part_cooling_tacho"
+ ],
+ "homing_override": {
+  "identical_except_g28_xy": true,
+  "g28_xy_left": []
+ },
+ "templates_compiled": 160,
+ "template_errors": [],
+ "behaviour": [
+  {
+   "case": "START_PRINT, PC: bed first, chamber 55 after the bed, soak, gates, mesh, tool, purge in order",
+   "ok": true
+  },
+  {
+   "case": "START_PRINT, PLA: no chamber heat, no soak, 35 C ceiling",
+   "ok": true
+  },
+  {
+   "case": "START_PRINT: slicer CHAMBER=70 is capped at 55 C",
+   "ok": true
+  },
+  {
+   "case": "START_PRINT refuses TOOL=5 (only T0-T4)",
+   "ok": true
+  },
+  {
+   "case": "START_PRINT refuses TEMP=320 (INDX 300 C limit)",
+   "ok": true
+  },
+  {
+   "case": "START_PRINT refuses BED=110 (Sovol 100 C rating)",
+   "ok": true
+  },
+  {
+   "case": "START_PRINT refuses TEMP missing",
+   "ok": true
+  },
+  {
+   "case": "Chamber HVAC: interlock, proportional exhaust, stop band, circulation, PLA ceiling",
+   "ok": true
+  },
+  {
+   "case": "Heat soak: baseline, still moving, stable at 0.005 mm, fail closed at the limit",
+   "ok": true
+  },
+  {
+   "case": "Z home source: Beacon contact cold, load cell when hot or selected, model policy",
+   "ok": true
+  },
+  {
+   "case": "C3_WIPE: lanes only, purge Y -5 / wipe Y 15, back to Y 31, skips below Z 12",
+   "ok": true
+  },
+  {
+   "case": "C3_PURGE: raises to Z 30, purges 25 mm at the station, refuses a cold nozzle",
+   "ok": true
+  },
+  {
+   "case": "C3_LOAD_FILAMENT: pickup, Z 30, station, INDX load there, wipe, heater off",
+   "ok": true
+  },
+  {
+   "case": "M106/M107: part fan passthrough, P2/P3 mapping, HVAC ownership",
+   "ok": true
+  },
+  {
+   "case": "END_PRINT: retract, lift, park tool, heaters off, exhaust run after a heated chamber",
+   "ok": true
+  },
+  {
+   "case": "M191: hot entry exhausts down first; targets above 55 refused",
+   "ok": true
+  },
+  {
+   "case": "Contact gate: Beacon contact medians, 0.025 mm limit",
+   "ok": true
+  },
+  {
+   "case": "C3_CAL_TOOL_Z: Beacon contact per tool, offsets stored with Bondtech sign, refuses a hot nozzle",
+   "ok": true
+  },
+  {
+   "case": "_C3_HOME_AXIS: single touch, 10 mm back-off away from the stop, 2 s for StallGuard to clear",
+   "ok": true
+  }
+ ],
+ "result": "PASS"
+}

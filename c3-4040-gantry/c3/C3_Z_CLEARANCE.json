@@ -1,0 +1,180 @@
+{
+ "removed_stock": 126,
+ "new_parts": 44,
+ "static": [],
+ "static_inherited": [
+  [
+   14.79,
+   "z tensioner seat 12mm fr",
+   "jxhsv05p-05104-d 1-500 top fixed seat001",
+   0.0
+  ],
+  [
+   8.46,
+   "z tensioner seat 12mm rr",
+   "gb-t-70.3-2000-m3x6 -500 hexagon socket countersunk head scr",
+   0.0
+  ],
+  [
+   8.46,
+   "z tensioner seat 12mm rr",
+   "gb-t-70.3-2000-m3x6 -500 hexagon socket countersunk head scr",
+   0.0
+  ],
+  [
+   8.46,
+   "z tensioner seat 12mm rl",
+   "gb-t-70.3-2000-m3x6 -500 hexagon socket countersunk head scr",
+   0.0
+  ],
+  [
+   8.46,
+   "z tensioner seat 12mm rl",
+   "gb-t-70.3-2000-m3x6 -500 hexagon socket countersunk head scr",
+   0.0
+  ],
+  [
+   8.46,
+   "z tensioner seat 12mm fr",
+   "gb-t-70.3-2000-m3x6 -500 hexagon socket countersunk head scr",
+   0.0
+  ],
+  [
+   8.46,
+   "z tensioner seat 12mm fr",
+   "gb-t-70.3-2000-m3x6 -500 hexagon socket countersunk head scr",
+   0.0
+  ],
+  [
+   8.46,
+   "z tensioner seat 12mm fl",
+   "gb-t-70.3-2000-m3x6 -500 hexagon socket countersunk head scr",
+   0.0
+  ],
+  [
+   8.46,
+   "z tensioner seat 12mm fl",
+   "gb-t-70.3-2000-m3x6 -500 hexagon socket countersunk head scr",
+   0.0
+  ],
+  [
+   4.25,
+   "z tensioner seat 12mm rr",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring006",
+   0.0
+  ],
+  [
+   4.25,
+   "z tensioner seat 12mm fl",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring002",
+   0.0
+  ],
+  [
+   4.22,
+   "z tensioner seat 12mm rl",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring005",
+   0.0
+  ],
+  [
+   4.2,
+   "z tensioner seat 12mm fr",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring",
+   0.0
+  ],
+  [
+   4.14,
+   "z tensioner block 12mm rr",
+   "gb-t-70.1-2000-m3x8 -1 hex socket cylindrical head screw019",
+   0.0
+  ],
+  [
+   4.14,
+   "z tensioner block 12mm rr",
+   "gb-t-70.1-2000-m3x8 -1 hex socket cylindrical head screw018",
+   0.0
+  ],
+  [
+   4.14,
+   "z tensioner block 12mm rl",
+   "gb-t-70.1-2000-m3x8 -1 hex socket cylindrical head screw013",
+   0.0
+  ],
+  [
+   4.14,
+   "z tensioner block 12mm rl",
+   "gb-t-70.1-2000-m3x8 -1 hex socket cylindrical head screw012",
+   0.0
+  ],
+  [
+   4.14,
+   "z tensioner block 12mm fr",
+   "gb-t-70.1-2000-m3x8 -1 hex socket cylindrical head screw004",
+   0.0
+  ],
+  [
+   4.14,
+   "z tensioner block 12mm fr",
+   "gb-t-70.1-2000-m3x8 -1 hex socket cylindrical head screw",
+   0.0
+  ],
+  [
+   4.14,
+   "z tensioner block 12mm fl",
+   "gb-t-70.1-2000-m3x8 -1 hex socket cylindrical head screw009",
+   0.0
+  ],
+  [
+   4.14,
+   "z tensioner block 12mm fl",
+   "gb-t-70.1-2000-m3x8 -1 hex socket cylindrical head screw007",
+   0.0
+  ],
+  [
+   3.66,
+   "z tensioner seat 12mm rr",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring007",
+   0.0
+  ],
+  [
+   3.66,
+   "z tensioner seat 12mm rl",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring004",
+   0.0
+  ],
+  [
+   3.66,
+   "z tensioner seat 12mm fl",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring003",
+   0.0
+  ],
+  [
+   3.65,
+   "z tensioner seat 12mm fr",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring001",
+   0.0
+  ],
+  [
+   0.7,
+   "z tensioner block 12mm rl",
+   "304 0.8mm, 5mm, 17mm, 8-1 stainless steel spring005",
+   0.0
+  ],
+  [
+   0.65,
+   "z tensioner block 12mm rl",
+   "jxhsv05p-02008-a -1 idler shaft002",
+   0.0
+  ],
+  [
+   0.65,
+   "z tensioner block 12mm fr",
+   "jxhsv05p-02008-a -1 idler shaft",
+   0.0
+  ]
+ ],
+ "belts_static": [],
+ "internal": [],
+ "new_vs_new": [],
+ "carriage_sweep": [],
+ "gantry_sweep": []
+}

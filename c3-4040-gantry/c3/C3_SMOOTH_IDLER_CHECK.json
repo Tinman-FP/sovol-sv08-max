@@ -1,0 +1,184 @@
+{
+ "axles": {
+  "rear_idler_y": -16.37,
+  "reverse_idler_y": -30.68,
+  "reverse_idler_abs_x": 244.0
+ },
+ "pitch_radius": {
+  "design_15mm": 7.95,
+  "gates_12mm": 6.45
+ },
+ "poses": [
+  {
+   "y_xb": -1.85,
+   "xn": -252,
+   "belt": "B",
+   "pitch_length_15mm": 2464.88,
+   "pitch_length_gates": 2460.24,
+   "change": -4.64
+  },
+  {
+   "y_xb": -1.85,
+   "xn": -252,
+   "belt": "A",
+   "pitch_length_15mm": 2464.88,
+   "pitch_length_gates": 2460.24,
+   "change": -4.64
+  },
+  {
+   "y_xb": 270,
+   "xn": 0,
+   "belt": "B",
+   "pitch_length_15mm": 2464.88,
+   "pitch_length_gates": 2460.24,
+   "change": -4.64
+  },
+  {
+   "y_xb": 270,
+   "xn": 0,
+   "belt": "A",
+   "pitch_length_15mm": 2464.88,
+   "pitch_length_gates": 2460.24,
+   "change": -4.64
+  },
+  {
+   "y_xb": 504.3,
+   "xn": 252,
+   "belt": "B",
+   "pitch_length_15mm": 2464.88,
+   "pitch_length_gates": 2460.24,
+   "change": -4.64
+  },
+  {
+   "y_xb": 504.3,
+   "xn": 252,
+   "belt": "A",
+   "pitch_length_15mm": 2464.88,
+   "pitch_length_gates": 2460.24,
+   "change": -4.64
+  },
+  {
+   "y_xb": 504.3,
+   "xn": -252,
+   "belt": "B",
+   "pitch_length_15mm": 2464.88,
+   "pitch_length_gates": 2460.24,
+   "change": -4.64
+  },
+  {
+   "y_xb": 504.3,
+   "xn": -252,
+   "belt": "A",
+   "pitch_length_15mm": 2464.88,
+   "pitch_length_gates": 2460.24,
+   "change": -4.64
+  }
+ ],
+ "fixed_runs": [
+  {
+   "belt": "B",
+   "run": "rear idler xn -> reverse idler xn",
+   "tilt_deg": -1.22,
+   "max_shift_mm": 1.51
+  },
+  {
+   "belt": "B",
+   "run": "reverse idler xn -> motor B pulley",
+   "tilt_deg": 4.4,
+   "max_shift_mm": 1.6
+  },
+  {
+   "belt": "A",
+   "run": "rear idler xp -> reverse idler xp",
+   "tilt_deg": 1.22,
+   "max_shift_mm": 1.51
+  },
+  {
+   "belt": "A",
+   "run": "reverse idler xp -> motor A pulley",
+   "tilt_deg": -4.4,
+   "max_shift_mm": 1.6
+  }
+ ],
+ "wraps": [
+  {
+   "belt": "B",
+   "wheel": "rear idler xn",
+   "wrap_15mm_deg": 90.0,
+   "wrap_gates_deg": 88.8
+  },
+  {
+   "belt": "B",
+   "wheel": "reverse idler xn",
+   "wrap_15mm_deg": 180.0,
+   "wrap_gates_deg": 174.4
+  },
+  {
+   "belt": "B",
+   "wheel": "motor B pulley",
+   "wrap_15mm_deg": 180.0,
+   "wrap_gates_deg": 175.6
+  },
+  {
+   "belt": "A",
+   "wheel": "rear idler xp",
+   "wrap_15mm_deg": 90.0,
+   "wrap_gates_deg": 88.8
+  },
+  {
+   "belt": "A",
+   "wheel": "reverse idler xp",
+   "wrap_15mm_deg": 180.0,
+   "wrap_gates_deg": 174.4
+  },
+  {
+   "belt": "A",
+   "wheel": "motor A pulley",
+   "wrap_15mm_deg": 180.0,
+   "wrap_gates_deg": 175.6
+  }
+ ],
+ "spacers": {
+  "smooth_idler_width_assumed": 16.0,
+  "cap_underside_z": 220.5,
+  "stacks": [
+   {
+    "side": "right (xn, motor B)",
+    "idler": "rear toothed idler",
+    "below_mm": 17.0,
+    "above_mm": 1.5
+   },
+   {
+    "side": "right (xn, motor B)",
+    "idler": "reverse smooth idler",
+    "below_mm": 17.0,
+    "above_mm": 1.5
+   },
+   {
+    "side": "right (xn, motor B)",
+    "idler": "turn toothed idler",
+    "below_mm": 0.0,
+    "above_mm": 18.5
+   },
+   {
+    "side": "left (xp, motor A)",
+    "idler": "rear toothed idler",
+    "below_mm": 2.0,
+    "above_mm": 18.5
+   },
+   {
+    "side": "left (xp, motor A)",
+    "idler": "reverse smooth idler",
+    "below_mm": 2.0,
+    "above_mm": 18.5
+   },
+   {
+    "side": "left (xp, motor A)",
+    "idler": "turn toothed idler",
+    "below_mm": 19.0,
+    "above_mm": 1.5
+   }
+  ]
+ },
+ "result": "same change at every pose, so the moving runs are unchanged"
+}

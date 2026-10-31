@@ -1,0 +1,52 @@
+{
+ "travel_mm": 10.8,
+ "foot_z": 117.7,
+ "stations_x": [
+  -160.0,
+  150.0
+ ],
+ "lift_max_needed": 9.6,
+ "lift_fits_travel": true,
+ "lift_by_dz": {
+  "-164.0": 9.6,
+  "-163.5": 9.1,
+  "-159.0": 4.6
+ },
+ "lift_sweep": [],
+ "internal": {
+  "station_xn": [],
+  "station_xp": [],
+  "wipe_mid_xn": [],
+  "wipe_mid_xp": [],
+  "wipe_mid_xn_side": [],
+  "wipe_mid_xp_side": [],
+  "wipe_end_xn": [],
+  "wipe_end_xp": [],
+  "front_xn": [],
+  "front_xp": [],
+  "dock_1": [],
+  "dock_2": [],
+  "dock_3": [],
+  "dock_4": [],
+  "dock_5": []
+ },
+ "wipe_engagement_mm3": {
+  "wipe_mid_xn": 4.15,
+  "wipe_mid_xp": 4.15,
+  "wipe_mid_xn_side": 4.15,
+  "wipe_mid_xp_side": 4.15,
+  "wipe_end_xn": 0,
+  "wipe_end_xp": 0
+ },
+ "lifted": {
+  "front_xn": [],
+  "front_xp": [],
+  "dock_1": [],
+  "dock_2": [],
+  "dock_3": [],
+  "dock_4": [],
+  "dock_5": []
+ },
+ "trays_vs_stock": [],
+ "purge_static_vs_stock": []
+}

@@ -1,0 +1,91 @@
+[
+ {
+  "command": "file.new",
+  "params": {
+   "name": "SV08 Max C3 modified"
+  }
+ },
+ {
+  "command": "file.insert_step",
+  "params": {
+   "path": "/path/to/sovol-sv08-max/c3-4040-gantry/c3/full/SV08_C3_SOVOL_STOCK.step",
+   "name": "Sovol stock (kept, camera moved)"
+  }
+ },
+ {
+  "command": "file.insert_step",
+  "params": {
+   "path": "/path/to/sovol-sv08-max/c3-4040-gantry/c3/full/SV08_C3_PRINT_PPS-CF.step",
+   "name": "New - print PPS-CF (red)"
+  }
+ },
+ {
+  "command": "appearance.assign",
+  "params": {
+   "components": [
+    "New - print PPS-CF (red)"
+   ],
+   "color": "#D62828"
+  }
+ },
+ {
+  "command": "file.insert_step",
+  "params": {
+   "path": "/path/to/sovol-sv08-max/c3-4040-gantry/c3/full/SV08_C3_PRINT_ASA.step",
+   "name": "New - print ASA top hat (orange)"
+  }
+ },
+ {
+  "command": "appearance.assign",
+  "params": {
+   "components": [
+    "New - print ASA top hat (orange)"
+   ],
+   "color": "#F28C28"
+  }
+ },
+ {
+  "command": "file.insert_step",
+  "params": {
+   "path": "/path/to/sovol-sv08-max/c3-4040-gantry/c3/full/SV08_C3_BUY.step",
+   "name": "New - buy (yellow)"
+  }
+ },
+ {
+  "command": "appearance.assign",
+  "params": {
+   "components": [
+    "New - buy (yellow)"
+   ],
+   "color": "#F2C200"
+  }
+ },
+ {
+  "command": "file.insert_step",
+  "params": {
+   "path": "/path/to/sovol-sv08-max/c3-4040-gantry/c3/full/SV08_C3_MACHINE.step",
+   "name": "New - machine (green)"
+  }
+ },
+ {
+  "command": "appearance.assign",
+  "params": {
+   "components": [
+    "New - machine (green)"
+   ],
+   "color": "#2E9E44"
+  }
+ },
+ {
+  "command": "file.save_as",
+  "params": {
+   "path": "/path/to/sovol-sv08-max/c3-4040-gantry/c3/full/../SV08_MAX_C3_MODIFIED.solidcraft"
+  }
+ },
+ {
+  "command": "file.export",
+  "params": {
+   "path": "/path/to/sovol-sv08-max/c3-4040-gantry/c3/full/../SV08_MAX_C3_MODIFIED.step"
+  }
+ }
+]

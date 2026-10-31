@@ -1,0 +1,422 @@
+{
+ "X+ (left)": {
+  "base": [
+   270.0,
+   252.0
+  ],
+  "first_contact": [
+   1.25,
+   [
+    [
+     31.048,
+     "x carriage",
+     "xy joint pulley carrier xp"
+    ]
+   ]
+  ],
+  "log": [
+   [
+    0.25,
+    []
+   ],
+   [
+    0.5,
+    []
+   ],
+   [
+    0.75,
+    []
+   ],
+   [
+    1.0,
+    []
+   ],
+   [
+    1.25,
+    [
+     [
+      31.048,
+      "x carriage",
+      "xy joint pulley carrier xp"
+     ]
+    ]
+   ],
+   [
+    1.5,
+    [
+     [
+      63.591,
+      "x carriage",
+      "xy joint pulley carrier xp"
+     ]
+    ]
+   ],
+   [
+    1.75,
+    [
+     [
+      97.068,
+      "x carriage",
+      "xy joint pulley carrier xp"
+     ]
+    ]
+   ],
+   [
+    2.0,
+    [
+     [
+      131.14,
+      "x carriage",
+      "xy joint pulley carrier xp"
+     ],
+     [
+      4.808,
+      "indx smart head indx pcb cover 01prt00344",
+      "xy joint plate xp"
+     ]
+    ]
+   ],
+   [
+    2.25,
+    [
+     [
+      165.576,
+      "x carriage",
+      "xy joint pulley carrier xp"
+     ],
+     [
+      37.167,
+      "indx smart head indx pcb cover 01prt00344",
+      "xy joint plate xp"
+     ],
+     [
+      0.612,
+      "x carriage",
+      "idler toothed joint fwd xp"
+     ],
+     [
+      0.268,
+      "x carriage",
+      "idler toothed joint back xp"
+     ]
+    ]
+   ]
+  ]
+ },
+ "X- (right)": {
+  "base": [
+   270.0,
+   -252.0
+  ],
+  "first_contact": [
+   1.25,
+   [
+    [
+     31.048,
+     "x carriage",
+     "xy joint pulley carrier xn"
+    ]
+   ]
+  ],
+  "log": [
+   [
+    0.25,
+    []
+   ],
+   [
+    0.5,
+    []
+   ],
+   [
+    0.75,
+    []
+   ],
+   [
+    1.0,
+    []
+   ],
+   [
+    1.25,
+    [
+     [
+      31.048,
+      "x carriage",
+      "xy joint pulley carrier xn"
+     ]
+    ]
+   ],
+   [
+    1.5,
+    [
+     [
+      63.591,
+      "x carriage",
+      "xy joint pulley carrier xn"
+     ]
+    ]
+   ],
+   [
+    1.75,
+    [
+     [
+      97.068,
+      "x carriage",
+      "xy joint pulley carrier xn"
+     ]
+    ]
+   ],
+   [
+    2.0,
+    [
+     [
+      131.14,
+      "x carriage",
+      "xy joint pulley carrier xn"
+     ],
+     [
+      7.081,
+      "indx smart head indx pcb cover 01prt00344",
+      "xy joint plate xn"
+     ]
+    ]
+   ],
+   [
+    2.25,
+    [
+     [
+      165.576,
+      "x carriage",
+      "xy joint pulley carrier xn"
+     ],
+     [
+      54.124,
+      "indx smart head indx pcb cover 01prt00344",
+      "xy joint plate xn"
+     ],
+     [
+      0.58,
+      "x carriage",
+      "idler toothed joint fwd xn"
+     ],
+     [
+      0.283,
+      "x carriage",
+      "idler toothed joint back xn"
+     ]
+    ]
+   ]
+  ]
+ },
+ "Y rear, head centre": {
+  "base": [
+   -1.85,
+   0.0
+  ],
+  "first_contact": [
+   0.75,
+   [
+    [
+     12.25,
+     "xy joint plate xp",
+     "rear corner xp motor mount"
+    ],
+    [
+     12.25,
+     "xy joint plate xn",
+     "rear corner xn motor mount"
+    ]
+   ]
+  ],
+  "log": [
+   [
+    0.25,
+    []
+   ],
+   [
+    0.5,
+    []
+   ],
+   [
+    0.75,
+    [
+     [
+      12.25,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      12.25,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ],
+   [
+    1.0,
+    [
+     [
+      24.5,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      24.5,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ],
+   [
+    1.25,
+    [
+     [
+      36.75,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      36.75,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ],
+   [
+    1.5,
+    [
+     [
+      49.0,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      49.0,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ],
+   [
+    1.75,
+    [
+     [
+      61.25,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      61.25,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ]
+  ]
+ },
+ "Y rear, head X+": {
+  "base": [
+   -1.85,
+   252.0
+  ],
+  "first_contact": [
+   0.75,
+   [
+    [
+     12.25,
+     "xy joint plate xp",
+     "rear corner xp motor mount"
+    ],
+    [
+     12.25,
+     "xy joint plate xn",
+     "rear corner xn motor mount"
+    ]
+   ]
+  ],
+  "log": [
+   [
+    0.25,
+    []
+   ],
+   [
+    0.5,
+    []
+   ],
+   [
+    0.75,
+    [
+     [
+      12.25,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      12.25,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ],
+   [
+    1.0,
+    [
+     [
+      24.5,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      24.5,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ],
+   [
+    1.25,
+    [
+     [
+      36.75,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      36.75,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ],
+   [
+    1.5,
+    [
+     [
+      49.0,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      49.0,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ],
+   [
+    1.75,
+    [
+     [
+      61.25,
+      "xy joint plate xp",
+      "rear corner xp motor mount"
+     ],
+     [
+      61.25,
+      "xy joint plate xn",
+      "rear corner xn motor mount"
+     ]
+    ]
+   ]
+  ]
+ }
+}

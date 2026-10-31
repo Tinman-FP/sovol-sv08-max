@@ -1,0 +1,33 @@
+{
+ "stock_bodies": 857,
+ "moving_with_gantry": 97,
+ "static": {
+  "nominal": [],
+  "rear_xn": [],
+  "rear_xp": [],
+  "front_xn": [],
+  "front_xp": [],
+  "dock_first": [],
+  "dock_last": []
+ },
+ "belts": {
+  "nominal": [],
+  "rear_xn": [],
+  "rear_xp": [],
+  "front_xn": [],
+  "front_xp": [],
+  "dock_first": [],
+  "dock_last": []
+ },
+ "internal": {
+  "nominal": [],
+  "rear_xn": [],
+  "rear_xp": [],
+  "front_xn": [],
+  "front_xp": [],
+  "dock_first": [],
+  "dock_last": []
+ },
+ "z_sweep": [],
+ "enclosure_static": []
+}

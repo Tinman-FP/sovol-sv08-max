@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# FreeCAD and SolidCraft backups, script cache
+*.FCBak
+*.bak
+c3-4040-gantry/c3/_cache/
+
+# Slicer output
+*.gcode
+*.bgcode
