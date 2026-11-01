@@ -275,12 +275,12 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_CORNER_FRONT_RIGHT_DISPLAY_ASA",
-   "volume_cm3": 283.8,
-   "mass_g": 304.0,
+   "volume_cm3": 572.8,
+   "mass_g": 613.0,
    "print_size_mm": [
     225.0,
     225.0,
-    136.0
+    195.0
    ],
    "valid": true,
    "solids": 1
@@ -290,12 +290,12 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_CORNER_FRONT_LEFT_ASA",
-   "volume_cm3": 301.4,
-   "mass_g": 322.0,
+   "volume_cm3": 411.0,
+   "mass_g": 440.0,
    "print_size_mm": [
     210.0,
     210.0,
-    136.0
+    195.0
    ],
    "valid": true,
    "solids": 1
@@ -305,12 +305,12 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_CORNER_REAR_RIGHT_ASA",
-   "volume_cm3": 301.7,
-   "mass_g": 323.0,
+   "volume_cm3": 411.0,
+   "mass_g": 440.0,
    "print_size_mm": [
     210.0,
     210.0,
-    136.0
+    195.0
    ],
    "valid": true,
    "solids": 1
@@ -320,12 +320,12 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_CORNER_REAR_LEFT_ASA",
-   "volume_cm3": 301.7,
-   "mass_g": 323.0,
+   "volume_cm3": 411.0,
+   "mass_g": 440.0,
    "print_size_mm": [
     210.0,
     210.0,
-    136.0
+    195.0
    ],
    "valid": true,
    "solids": 1
@@ -335,12 +335,12 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_FRONT_ASA",
-   "volume_cm3": 317.7,
-   "mass_g": 340.0,
+   "volume_cm3": 286.9,
+   "mass_g": 307.0,
    "print_size_mm": [
     274.0,
     40.0,
-    136.0
+    195.0
    ],
    "valid": true,
    "solids": 1
@@ -350,12 +350,12 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_REAR_ASA",
-   "volume_cm3": 329.7,
-   "mass_g": 353.0,
+   "volume_cm3": 307.2,
+   "mass_g": 329.0,
    "print_size_mm": [
     289.0,
     40.0,
-    136.0
+    195.0
    ],
    "valid": true,
    "solids": 1
@@ -365,12 +365,12 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_SIDE_RIGHT_ASA",
-   "volume_cm3": 204.7,
-   "mass_g": 219.0,
+   "volume_cm3": 278.9,
+   "mass_g": 298.0,
    "print_size_mm": [
     40.0,
     262.0,
-    136.0
+    195.0
    ],
    "valid": true,
    "solids": 1
@@ -380,285 +380,315 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_SIDE_LEFT_ASA",
-   "volume_cm3": 212.9,
-   "mass_g": 228.0,
+   "volume_cm3": 288.9,
+   "mass_g": 309.0,
    "print_size_mm": [
     40.0,
     277.0,
-    136.0
+    195.0
    ],
    "valid": true,
    "solids": 1
   },
   {
-   "part": "umbilical drop ring",
+   "part": "rear mast",
    "qty": 1,
    "material": "pps-cf",
-   "file": "UMBILICAL_DROP_RING_PPS-CF",
-   "volume_cm3": 58.3,
-   "mass_g": 76.0,
+   "file": "REAR_MAST_PPS-CF",
+   "volume_cm3": 378.4,
+   "mass_g": 492.0,
    "print_size_mm": [
-    92.0,
-    60.0,
-    47.3
+    173.0,
+    72.0,
+    259.0
+   ],
+   "valid": true,
+   "solids": 2
+  },
+  {
+   "part": "umbilical head saddle",
+   "qty": 1,
+   "material": "pps-cf",
+   "file": "UMBILICAL_HEAD_SADDLE_PPS-CF",
+   "volume_cm3": 7.7,
+   "mass_g": 10.0,
+   "print_size_mm": [
+    54.8,
+    25.5,
+    26.0
    ],
    "valid": true,
    "solids": 1
   },
   {
-   "part": "link board and usb hub tray",
+   "part": "chain bracket ptfe right",
+   "qty": 3,
+   "material": "pps-cf",
+   "file": "CHAIN_BRACKET_PTFE_RIGHT_PPS-CF",
+   "volume_cm3": 2.8,
+   "mass_g": 4.0,
+   "print_size_mm": [
+    30.2,
+    14.0,
+    9.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain bracket ptfe left",
+   "qty": 2,
+   "material": "pps-cf",
+   "file": "CHAIN_BRACKET_PTFE_LEFT_PPS-CF",
+   "volume_cm3": 2.8,
+   "mass_g": 4.0,
+   "print_size_mm": [
+    30.2,
+    14.0,
+    9.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain bracket motor right",
+   "qty": 2,
+   "material": "pps-cf",
+   "file": "CHAIN_BRACKET_MOTOR_RIGHT_PPS-CF",
+   "volume_cm3": 2.6,
+   "mass_g": 3.0,
+   "print_size_mm": [
+    30.2,
+    14.0,
+    9.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain bracket motor left",
    "qty": 1,
    "material": "pps-cf",
-   "file": "LINK_BOARD_AND_USB_HUB_TRAY_PPS-CF",
-   "volume_cm3": 57.7,
-   "mass_g": 75.0,
+   "file": "CHAIN_BRACKET_MOTOR_LEFT_PPS-CF",
+   "volume_cm3": 2.6,
+   "mass_g": 3.0,
    "print_size_mm": [
-    100.0,
-    140.0,
+    30.2,
+    14.0,
+    9.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain bracket power left",
+   "qty": 1,
+   "material": "pps-cf",
+   "file": "CHAIN_BRACKET_POWER_LEFT_PPS-CF",
+   "volume_cm3": 2.7,
+   "mass_g": 4.0,
+   "print_size_mm": [
+    30.2,
+    14.0,
+    9.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain bracket usb",
+   "qty": 1,
+   "material": "pps-cf",
+   "file": "CHAIN_BRACKET_USB_PPS-CF",
+   "volume_cm3": 2.6,
+   "mass_g": 3.0,
+   "print_size_mm": [
+    30.2,
+    14.0,
+    9.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain anchor ptfe right",
+   "qty": 3,
+   "material": "pps-cf",
+   "file": "CHAIN_ANCHOR_PTFE_RIGHT_PPS-CF",
+   "volume_cm3": 6.6,
+   "mass_g": 9.0,
+   "print_size_mm": [
+    14.0,
+    16.0,
+    34.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain anchor ptfe left",
+   "qty": 2,
+   "material": "pps-cf",
+   "file": "CHAIN_ANCHOR_PTFE_LEFT_PPS-CF",
+   "volume_cm3": 6.6,
+   "mass_g": 9.0,
+   "print_size_mm": [
+    14.0,
+    16.0,
+    34.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain anchor cable right",
+   "qty": 2,
+   "material": "pps-cf",
+   "file": "CHAIN_ANCHOR_CABLE_RIGHT_PPS-CF",
+   "volume_cm3": 5.6,
+   "mass_g": 7.0,
+   "print_size_mm": [
+    14.0,
+    16.0,
+    34.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain anchor cable left",
+   "qty": 3,
+   "material": "pps-cf",
+   "file": "CHAIN_ANCHOR_CABLE_LEFT_PPS-CF",
+   "volume_cm3": 5.6,
+   "mass_g": 7.0,
+   "print_size_mm": [
+    14.0,
+    16.0,
+    34.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain entry ptfe right",
+   "qty": 3,
+   "material": "pps-cf",
+   "file": "CHAIN_ENTRY_PTFE_RIGHT_PPS-CF",
+   "volume_cm3": 18.1,
+   "mass_g": 24.0,
+   "print_size_mm": [
+    24.9,
+    28.0,
+    74.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain entry ptfe left",
+   "qty": 2,
+   "material": "pps-cf",
+   "file": "CHAIN_ENTRY_PTFE_LEFT_PPS-CF",
+   "volume_cm3": 18.1,
+   "mass_g": 24.0,
+   "print_size_mm": [
+    24.9,
+    28.0,
+    74.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain entry cable right",
+   "qty": 2,
+   "material": "pps-cf",
+   "file": "CHAIN_ENTRY_CABLE_RIGHT_PPS-CF",
+   "volume_cm3": 15.6,
+   "mass_g": 20.0,
+   "print_size_mm": [
+    8.0,
+    28.0,
+    74.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "chain entry cable left",
+   "qty": 3,
+   "material": "pps-cf",
+   "file": "CHAIN_ENTRY_CABLE_LEFT_PPS-CF",
+   "volume_cm3": 15.6,
+   "mass_g": 20.0,
+   "print_size_mm": [
+    8.0,
+    28.0,
+    74.0
+   ],
+   "valid": true,
+   "solids": 1
+  },
+  {
+   "part": "harness side post left",
+   "qty": 2,
+   "material": "pps-cf",
+   "file": "HARNESS_SIDE_POST_LEFT_PPS-CF",
+   "volume_cm3": 10.9,
+   "mass_g": 14.0,
+   "print_size_mm": [
+    31.0,
+    125.0,
     12.0
    ],
    "valid": true,
    "solids": 1
   },
   {
-   "part": "ptfe loop head left",
+   "part": "harness rear post left",
    "qty": 1,
    "material": "pps-cf",
-   "file": "PTFE_LOOP_HEAD_LEFT_PPS-CF",
-   "volume_cm3": 95.6,
-   "mass_g": 124.0,
-   "print_size_mm": [
-    153.0,
-    80.0,
-    68.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe loop head right",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "PTFE_LOOP_HEAD_RIGHT_PPS-CF",
-   "volume_cm3": 215.5,
-   "mass_g": 280.0,
-   "print_size_mm": [
-    153.0,
-    200.0,
-    68.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe loop sled",
-   "qty": 6,
-   "material": "pps-cf",
-   "file": "PTFE_LOOP_SLED_PPS-CF",
-   "volume_cm3": 18.5,
-   "mass_g": 24.0,
-   "print_size_mm": [
-    53.0,
-    53.0,
-    10.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "cable loop sled",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "CABLE_LOOP_SLED_PPS-CF",
-   "volume_cm3": 42.3,
-   "mass_g": 55.0,
-   "print_size_mm": [
-    73.0,
-    73.0,
-    14.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe guide bar hanger",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "PTFE_GUIDE_BAR_HANGER_PPS-CF",
+   "file": "HARNESS_REAR_POST_LEFT_PPS-CF",
    "volume_cm3": 16.5,
    "mass_g": 21.0,
    "print_size_mm": [
-    32.0,
-    44.0,
-    31.3
+    20.0,
+    38.0,
+    97.1
    ],
    "valid": true,
    "solids": 1
   },
   {
-   "part": "ptfe tower right a",
-   "qty": 1,
-   "material": "asa",
-   "file": "PTFE_TOWER_RIGHT_A_ASA",
-   "volume_cm3": 488.4,
-   "mass_g": 523.0,
-   "print_size_mm": [
-    64.0,
-    204.1,
-    205.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe tower right b",
-   "qty": 1,
-   "material": "asa",
-   "file": "PTFE_TOWER_RIGHT_B_ASA",
-   "volume_cm3": 488.4,
-   "mass_g": 523.0,
-   "print_size_mm": [
-    64.0,
-    204.1,
-    205.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe tower right c",
-   "qty": 1,
-   "material": "asa",
-   "file": "PTFE_TOWER_RIGHT_C_ASA",
-   "volume_cm3": 517.3,
-   "mass_g": 554.0,
-   "print_size_mm": [
-    64.0,
-    204.1,
-    205.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe tower left a",
-   "qty": 1,
-   "material": "asa",
-   "file": "PTFE_TOWER_LEFT_A_ASA",
-   "volume_cm3": 247.4,
-   "mass_g": 265.0,
-   "print_size_mm": [
-    64.0,
-    84.1,
-    205.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe tower left b",
-   "qty": 1,
-   "material": "asa",
-   "file": "PTFE_TOWER_LEFT_B_ASA",
-   "volume_cm3": 247.4,
-   "mass_g": 265.0,
-   "print_size_mm": [
-    64.0,
-    84.1,
-    205.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe tower left c",
-   "qty": 1,
-   "material": "asa",
-   "file": "PTFE_TOWER_LEFT_C_ASA",
-   "volume_cm3": 257.0,
-   "mass_g": 275.0,
-   "print_size_mm": [
-    64.0,
-    84.1,
-    205.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe dock guide 1",
+   "part": "side mast right",
    "qty": 1,
    "material": "pps-cf",
-   "file": "PTFE_DOCK_GUIDE_1_PPS-CF",
-   "volume_cm3": 17.1,
-   "mass_g": 22.0,
+   "file": "SIDE_MAST_RIGHT_PPS-CF",
+   "volume_cm3": 167.5,
+   "mass_g": 218.0,
    "print_size_mm": [
-    51.0,
-    35.0,
-    16.0
+    222.4,
+    194.0,
+    92.7
    ],
    "valid": true,
-   "solids": 1
+   "solids": 4
   },
   {
-   "part": "ptfe dock guide 2",
+   "part": "side mast left",
    "qty": 1,
    "material": "pps-cf",
-   "file": "PTFE_DOCK_GUIDE_2_PPS-CF",
-   "volume_cm3": 30.5,
-   "mass_g": 40.0,
+   "file": "SIDE_MAST_LEFT_PPS-CF",
+   "volume_cm3": 121.1,
+   "mass_g": 157.0,
    "print_size_mm": [
-    51.0,
-    65.0,
-    16.0
+    222.4,
+    147.5,
+    92.7
    ],
    "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe dock guide 3",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "PTFE_DOCK_GUIDE_3_PPS-CF",
-   "volume_cm3": 38.1,
-   "mass_g": 50.0,
-   "print_size_mm": [
-    51.0,
-    94.5,
-    16.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe dock guide 4",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "PTFE_DOCK_GUIDE_4_PPS-CF",
-   "volume_cm3": 30.5,
-   "mass_g": 40.0,
-   "print_size_mm": [
-    51.0,
-    65.0,
-    16.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "ptfe dock guide 5",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "PTFE_DOCK_GUIDE_5_PPS-CF",
-   "volume_cm3": 17.1,
-   "mass_g": 22.0,
-   "print_size_mm": [
-    51.0,
-    35.0,
-    16.0
-   ],
-   "valid": true,
-   "solids": 1
+   "solids": 3
   },
   {
    "part": "station bar clip xn",
@@ -814,56 +844,80 @@
    "1"
   ],
   [
-   "2020 extrusion, top hat spine (ends sit in the wall saddles)",
-   "1 x 661 mm"
+   "PC4-M10 push-fit coupler (owned: BIQU 20 pack), in the PTFE chain entries on the side panels",
+   "5"
   ],
   [
-   "PC4-M10 push-fit coupler (owned: BIQU 20 pack), screwed into the loop heads; each PTFE tube passes through its collet",
-   "6"
-  ],
-  [
-   "PG9 cable gland, top hat rear wall (other cables)",
+   "PG9 cable gland, top hat rear wall (display and other cables)",
    "1"
   ],
   [
-   "PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box to coupler, about 2.2 m on to the tool",
-   "5 x about 2.5 m + filament box run"
+   "Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside (it hangs in a 16 mm gap), bend radius 28 mm (PTFE)",
+   "5 x 351 mm + end links"
   ],
   [
-   "INDX Link cable (owned, 2 m) and Beacon USB cable (about 2 m), bundled through the right-hand cable loop",
-   "1 each"
+   "Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside, bend radius 18 mm (motors, Link Board power and USB)",
+   "5 x 340 mm + end links"
   ],
   [
-   "M8 hex nut (sled weights: one per PTFE sled, two in the cable sled)",
-   "8"
+   "Piano (music) wire 0.8 mm, one per PTFE arc: mast clamp to its tool, tied along the tube",
+   "5 x 0.8 m"
   ],
   [
-   "15x15 extrusion (1515), PTFE guide bar under the top hat spine, ends plain",
-   "1 x 620 mm"
+   "Piano (music) wire 1.5 mm for the umbilical (as the Rat Rig V-Core 4)",
+   "1 x 0.75 m"
   ],
   [
-   "M3 T-nut for 1515 + M3 x 10 SHCS (dock guides 5, bar hanger 1)",
-   "6"
+   "Split loom or braided sleeve 10-13 mm: umbilical (wire, INDX Link cable, Beacon USB)",
+   "1 m"
   ],
   [
-   "M5 T-nut for Sovol's front Z profile outer slot + M5 x 10 SHCS (weight towers: 2 per section, 6 sections)",
-   "12"
+   "PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box -> side entry -> chain -> harness -> mast -> arc -> tool",
+   "5 x about 2.0 m + filament box run"
   ],
   [
-   "M4 x 10 SHCS + M4 nut (loop heads 2 x 4 and the Link Board tray 4, through the top hat skin)",
-   "12"
+   "INDX Link cable, Link Board to the head through the umbilical (owned; about 0.8 m needed)",
+   "1"
   ],
   [
-   "Zip ties 2.5 mm (cable anchor, Link and Beacon cables bundled every 150 mm)",
-   "10"
+   "Thin USB cables (about 3.3 mm): Pi to the Link Board and Pi to the Beacon, through the left USB chain",
+   "2 x about 1.6 m"
   ],
   [
-   "M5 slot 8 T-nut (28 gantry: rear corners 2 x 5, front cradles 2 x 6, XY joints 2 x 3) and M5 2020 T-nut (4 spine)",
-   "28 + 4"
+   "2-core 18 AWG silicone, 24 V to the Link Board on the mast (with the left rear motor cable)",
+   "1.5 m"
   ],
   [
-   "M5 x 10 SHCS (spine: drop ring, guide bar hanger)",
+   "M5 slot 8 T-nut + M5 x 10 SHCS (chain brackets 10, side posts 4, rear posts 2, rear mast 4)",
+   "20"
+  ],
+  [
+   "M3 x 16 SHCS + M3 nut: chain anchors through the side panels (drill 3.4 mm, with the entry plate as the template)",
+   "20"
+  ],
+  [
+   "M3 x 8 SHCS: chain end links to their brackets and anchors (check the chain's end-link holes)",
+   "40"
+  ],
+  [
+   "M3 heat-set insert + M3 x 6 set screw (piano-wire clamps: 5 in the side masts, 1 in the rear mast, 1 in the head saddle)",
+   "7 + 7"
+  ],
+  [
+   "VHB tape, for the umbilical saddle on the INDX PCB cover",
+   "a strip"
+  ],
+  [
+   "M3 x 8 SHCS + 5 mm standoffs (Link Board on the mast plate; fit the plate's slots to the board)",
    "4"
+  ],
+  [
+   "Zip ties 2.5 mm (harness to its posts, umbilical feed, tubes to their piano wires)",
+   "40"
+  ],
+  [
+   "M5 slot 8 T-nut (28 gantry: rear corners 2 x 5, front cradles 2 x 6, XY joints 2 x 3)",
+   "28"
   ],
   [
    "M5 heat-set insert (rear idler axles)",

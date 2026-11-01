@@ -55,14 +55,17 @@ The screw kits above leave these out. The Z drive pulleys are bought oversize an
 * microSD card, 64 GB A2
 * 24 V to 5 V, 5 A regulator for the Pi
 * Micro-HDMI to HDMI cable, about 1 m
-* Short USB-C to USB-A data cable (Link Board to hub) (20 cm or shorter, for Bondtech's 2 m USB limit)
-* Kraken-to-Pi and hub-to-Pi cables
+* Kraken-to-Pi cable
 * 24 V fan for the Kraken drivers
 * High-temperature red RTV silicone
-* PC4-M10 push-fit couplers (6; for example BIQU, 20 pack: https://www.amazon.com/dp/B0F6CQT461)
-* PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool (about 2.5 m each plus the filament box run)
-* M8 hex nuts (8, sled weights)
-* Beacon USB cable, about 2 m (runs with the INDX Link cable in the right-hand loop)
+* Micro cable chains, 7 x 7 mm inside and no more than 11.5 mm wide outside (they hang in a 16 mm gap): 5 with a 28 mm bend radius (PTFE, about 351 mm each) and 5 with 18 mm (motors, Link Board power, USB; about 340 mm each), with end links
+* Piano (music) wire: 0.8 mm, 5 x 0.8 m (PTFE arcs); 1.5 mm, 1 x 0.75 m (umbilical)
+* Split loom or braided sleeve 10-13 mm, about 1 m (umbilical)
+* Two thin USB cables (about 3.3 mm), about 1.6 m: Pi to the Link Board on the rear mast, Pi to the Beacon
+* 2-core 18 AWG silicone, 1.5 m (24 V to the Link Board)
+* M3 x 16 + nuts (20, chain anchors through the side panels), M5 T-nuts + M5 x 10 (21, chain brackets and masts), M3 inserts + M3 x 6 set screws (7 each, piano-wire clamps)
+* PC4-M10 push-fit couplers (5; for example BIQU, 20 pack: https://www.amazon.com/dp/B0F6CQT461)
+* PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool (about 2 m each plus the filament box run)
 * Filament for the printed parts: about 1.05 kg PPS-CF and 2.4 kg ASA (top hat)
 * Wiring consumables: 24 V / 48 V wire, ferrules, JST-XH and Molex crimps, sleeving
 * A spool of 4 mm OD PTFE tube for the five filament paths

@@ -7,8 +7,9 @@ sys.path.insert(0, '/Applications/FreeCAD.app/Contents/Resources/lib')
 import FreeCAD as App, Part, Mesh, MeshPart
 from pathlib import Path
 HERE = Path(__file__).resolve().parent; sys.path.insert(0, str(HERE))
-os.environ.setdefault('C2_EXPORT', '0')
+os.environ.setdefault('C2_EXPORT', '0'); os.environ['C3_ARCS'] = '0'
 import c3_build as B
+import c3_routing as RT
 from c3_params import *
 V = App.Vector
 PRINT = B.OUT / 'print'; PRINT.mkdir(exist_ok=True)
@@ -19,7 +20,8 @@ def orient(s, rot):
     t = s.copy()
     for ax, deg in rot:
         t.rotate(V(0, 0, 0), V(*ax), deg)
-    b = t.BoundBox; t.translate(V(-(b.XMin + b.XMax) / 2, -(b.YMin + b.YMax) / 2, -b.ZMin)); return t
+    b = t.BoundBox; z0 = t.optimalBoundingBox().ZMin   # exact drop: the plain BoundBox can be a mm or two loose on cut parts
+    t.translate(V(-(b.XMin + b.XMax) / 2, -(b.YMin + b.YMax) / 2, -z0)); return t
 
 # printed parts in their print orientation (largest flat face down, no supports where the geometry allows)
 P, _ = B.build_pose(270.0, 0.0)
@@ -33,28 +35,47 @@ for t in ('xn', 'xp'):
 plan.update({'camera mount front right': [((1, 0, 0), 90)],
              'top hat corner front right display': [], 'top hat corner front left': [], 'top hat corner rear right': [],
              'top hat corner rear left': [], 'top hat front': [], 'top hat rear': [], 'top hat side right': [], 'top hat side left': [],
-             'umbilical drop ring': X180, 'link board and usb hub tray': [((0, 1, 0), -90)]})
-# PTFE loops and head cables (c3_ptfe.py): loop heads back plate down, guides web down, sleds flat, towers upright (ASA)
-plan.update({'ptfe loop head left': [((0, 1, 0), -90)], 'ptfe loop head right': [((0, 1, 0), 90)],
-             'ptfe loop sled t0': [((0, 1, 0), -90)], 'cable loop sled': [((0, 1, 0), -90)],
-             'ptfe guide bar hanger': X180, 'ptfe tower right a': [], 'ptfe tower right b': [], 'ptfe tower right c': [],
-             'ptfe tower left a': [], 'ptfe tower left b': [], 'ptfe tower left c': []})
-plan.update({f'ptfe dock guide {k}': [((1, 0, 0), 90)] for k in range(1, 6)})
+             })
+# routing (c3_routing.py, 2026-11-01): one file per distinct part; mirrored left/right parts are separate files
+YP90, YM90, XP90 = [((0, 1, 0), 90)], [((0, 1, 0), -90)], [((1, 0, 0), 90)]
+plan.update({'rear mast': [], 'umbilical head saddle': [],
+             'chain bracket ptfe t2': X180, 'chain bracket ptfe t4': X180, 'chain bracket motor rear right': X180,
+             'chain bracket motor front left': X180, 'chain bracket motor rear left': X180, 'chain bracket usb': X180,
+             'chain anchor ptfe t2': [], 'chain anchor ptfe t4': [], 'chain anchor motor rear right': [], 'chain anchor motor rear left': [],
+             'chain entry ptfe t2': [], 'chain entry ptfe t4': [], 'chain entry motor rear right': [], 'chain entry motor rear left': [],   # standing: the boss leans only 30 deg
+             'harness side post left y20': XP90, 'harness rear post left': [],
+             'side mast right': YM90, 'side mast left': YP90})
 for t in ('xn', 'xp'):                    # purge/wipe stations (c3_purge.py)
     plan.update({f'station bar clip {t}': []})
 # the five stations and trays are identical: one print file each, printed five times
 plan.update({'wiper station bracket t1': [((1, 0, 0), -90)], 'wiper station slider t1': X180,
              'purge tray': X180})       # rim down: the floor sits on feet, so floor-down would start in mid-air
-SAME = {'wiper station bracket t1': ('wiper station bracket', 5), 'wiper station slider t1': ('wiper station slider', 5),
-        'ptfe loop sled t0': ('ptfe loop sled', 6)}
+# (print-file name, quantity, the model's identical copies it stands for)
+SAME = {'wiper station bracket t1': ('wiper station bracket', 5, [f'wiper station bracket t{k}' for k in range(2, 6)]),
+        'wiper station slider t1': ('wiper station slider', 5, [f'wiper station slider t{k}' for k in range(2, 6)]),
+        'chain bracket ptfe t2': ('chain bracket ptfe right', 3, ['chain bracket ptfe t1', 'chain bracket ptfe t0']),
+        'chain bracket ptfe t4': ('chain bracket ptfe left', 2, ['chain bracket ptfe t3']),
+        'chain bracket motor rear right': ('chain bracket motor right', 2, ['chain bracket motor front right']),
+        'chain bracket motor front left': ('chain bracket motor left', 1, []),
+        'chain bracket motor rear left': ('chain bracket power left', 1, []),
+        'chain anchor ptfe t2': ('chain anchor ptfe right', 3, ['chain anchor ptfe t1', 'chain anchor ptfe t0']),
+        'chain anchor ptfe t4': ('chain anchor ptfe left', 2, ['chain anchor ptfe t3']),
+        'chain anchor motor rear right': ('chain anchor cable right', 2, ['chain anchor motor front right']),
+        'chain anchor motor rear left': ('chain anchor cable left', 3, ['chain anchor usb', 'chain anchor motor front left']),
+        'chain entry ptfe t2': ('chain entry ptfe right', 3, ['chain entry ptfe t1', 'chain entry ptfe t0']),
+        'chain entry ptfe t4': ('chain entry ptfe left', 2, ['chain entry ptfe t3']),
+        'chain entry motor rear right': ('chain entry cable right', 2, ['chain entry motor front right']),
+        'chain entry motor rear left': ('chain entry cable left', 3, ['chain entry usb', 'chain entry motor front left']),
+        'harness side post left y20': ('harness side post left', 2, ['harness side post left y80'])}
 missing = [k for k in plan if k not in by]; assert not missing, missing
-unplanned = [n for n in by if n not in plan and n.rsplit(' ', 1)[0] not in {k.rsplit(' ', 1)[0] for k in SAME}]
+covered = {c for v in SAME.values() for c in v[2]}
+unplanned = [n for n in by if n not in plan and n not in covered]
 assert not unplanned, unplanned          # every printed part in the model gets a print file
 rows = []
 for name, rot in plan.items():
     shp, mat = by[name]
     s = orient(shp, rot)
-    label, qty = SAME.get(name, (name, 1))
+    label, qty = SAME.get(name, (name, 1, []))[:2]
     fn = label.replace(' ', '_').upper() + '_' + mat.upper()
     s.exportStep(str(PRINT / f'{fn}.step'))
     m = MeshPart.meshFromShape(Shape=s, LinearDeflection=0.05, AngularDeflection=0.3, Relative=False); m.write(str(PRINT / f'{fn}.stl'))
@@ -79,18 +100,25 @@ bom = {
     ('Beacon Rev H (owned)', '1'), ('Stock SV08 Max camera, reused on the new mount', '1'),
     ('iPistBit 7 inch 1024x600 HDMI touch display (owner, Amazon B0CRRB1GFN), about 165 x 125 x 15 mm', '1'),
     ('Sovol top cover (owned), moved from the frame top to the top hat', '1'),
-    ('2020 extrusion, top hat spine (ends sit in the wall saddles)', '1 x 661 mm'),
-    ('PC4-M10 push-fit coupler (owned: BIQU 20 pack), screwed into the loop heads; each PTFE tube passes through its collet', '6'),
-    ('PG9 cable gland, top hat rear wall (other cables)', '1'),
-    ('PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box to coupler, about 2.2 m on to the tool', '5 x about 2.5 m + filament box run'),
-    ('INDX Link cable (owned, 2 m) and Beacon USB cable (about 2 m), bundled through the right-hand cable loop', '1 each'),
-    ('M8 hex nut (sled weights: one per PTFE sled, two in the cable sled)', '8'),
-    ('15x15 extrusion (1515), PTFE guide bar under the top hat spine, ends plain', '1 x 620 mm'),
-    ('M3 T-nut for 1515 + M3 x 10 SHCS (dock guides 5, bar hanger 1)', '6'),
-    ('M5 T-nut for Sovol\'s front Z profile outer slot + M5 x 10 SHCS (weight towers: 2 per section, 6 sections)', '12'),
-    ('M4 x 10 SHCS + M4 nut (loop heads 2 x 4 and the Link Board tray 4, through the top hat skin)', '12'),
-    ('Zip ties 2.5 mm (cable anchor, Link and Beacon cables bundled every 150 mm)', '10'),
-    ('M5 slot 8 T-nut (28 gantry: rear corners 2 x 5, front cradles 2 x 6, XY joints 2 x 3) and M5 2020 T-nut (4 spine)', '28 + 4'), ('M5 x 10 SHCS (spine: drop ring, guide bar hanger)', '4'), ('M5 heat-set insert (rear idler axles)', '6'),
+    ('PC4-M10 push-fit coupler (owned: BIQU 20 pack), in the PTFE chain entries on the side panels', '5'),
+    ('PG9 cable gland, top hat rear wall (display and other cables)', '1'),
+    ('Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside (it hangs in a 16 mm gap), bend radius 28 mm (PTFE)', f'5 x {RT.chain_len(28.0):.0f} mm + end links'),
+    ('Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside, bend radius 18 mm (motors, Link Board power and USB)', f'5 x {RT.chain_len(18.0):.0f} mm + end links'),
+    ('Piano (music) wire 0.8 mm, one per PTFE arc: mast clamp to its tool, tied along the tube', '5 x 0.8 m'),
+    ('Piano (music) wire 1.5 mm for the umbilical (as the Rat Rig V-Core 4)', '1 x 0.75 m'),
+    ('Split loom or braided sleeve 10-13 mm: umbilical (wire, INDX Link cable, Beacon USB)', '1 m'),
+    ('PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box -> side entry -> chain -> harness -> mast -> arc -> tool', '5 x about 2.0 m + filament box run'),
+    ('INDX Link cable, Link Board to the head through the umbilical (owned; about 0.8 m needed)', '1'),
+    ('Thin USB cables (about 3.3 mm): Pi to the Link Board and Pi to the Beacon, through the left USB chain', '2 x about 1.6 m'),
+    ('2-core 18 AWG silicone, 24 V to the Link Board on the mast (with the left rear motor cable)', '1.5 m'),
+    ('M5 slot 8 T-nut + M5 x 10 SHCS (chain brackets 10, side posts 4, rear posts 2, rear mast 4)', '20'),
+    ('M3 x 16 SHCS + M3 nut: chain anchors through the side panels (drill 3.4 mm, with the entry plate as the template)', '20'),
+    ('M3 x 8 SHCS: chain end links to their brackets and anchors (check the chain\'s end-link holes)', '40'),
+    ('M3 heat-set insert + M3 x 6 set screw (piano-wire clamps: 5 in the side masts, 1 in the rear mast, 1 in the head saddle)', '7 + 7'),
+    ('VHB tape, for the umbilical saddle on the INDX PCB cover', 'a strip'),
+    ('M3 x 8 SHCS + 5 mm standoffs (Link Board on the mast plate; fit the plate\'s slots to the board)', '4'),
+    ('Zip ties 2.5 mm (harness to its posts, umbilical feed, tubes to their piano wires)', '40'),
+    ('M5 slot 8 T-nut (28 gantry: rear corners 2 x 5, front cradles 2 x 6, XY joints 2 x 3)', '28'), ('M5 heat-set insert (rear idler axles)', '6'),
     ('M4 heat-set insert (rear caps 4, front cradles 10)', '14'), ('M3 heat-set insert (joints 6, Beacon 2, sliders 2, camera 1, display 4)', '15'),
     ('M5 aluminium spacer 5.2 ID x 8 OD, below and above each rear idler (lengths in c3/C3_SMOOTH_IDLER_CHECK.json)', '11 pieces'),
     ('M5 aluminium sleeve 5.2 ID x 8 OD, cut so each XY-joint idler sits on its belt level (33 mm between the carrier decks minus the idler width)', '4'),

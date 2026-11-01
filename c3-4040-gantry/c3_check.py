@@ -49,12 +49,12 @@ STOCK = [x for x in STOCK if not _dragplate(*x)]
 # the stock camera rode on the old gantry; it gets a new mount (reported separately)
 CAMERA = [x for x in STOCK if 'camera kit' in x[1]]
 STOCK = [x for x in STOCK if 'camera kit' not in x[1]]
-# the stock filament guide on the right top rail leaves too (the INDX PTFE tubes come down through the top hat lid)
+# the stock filament guide on the right top rail leaves too (the INDX PTFE tubes reach the gantry through the side chains)
 def _guide(l, k, s):
     b = s.BoundBox
     return 'top kit' in k and ('guiding element' in l or 'pu-4 gas pipe fitting' in l or ('m3x14' in l and b.XMax < -330 and 250 < b.YMin < 290))
 STOCK = [x for x in STOCK if not _guide(*x)]
-# and the stock spool holder on the right side (the filament box feeds the PTFE loops; the right weight tower is there)
+# and the stock spool holder on the right side (a filament box feeds the PTFE tubes through the side chains)
 STOCK = [x for x in STOCK if 'filament' not in x[1]]
 def moves_with_gantry(lab, kit, s):
     """Stock parts carried by the Z carriages (arms, seats, blocks, pressure plates and their screws near the arm)."""
@@ -86,7 +86,7 @@ poses = {'nominal': (270.0, -5.0), 'rear_xn': (Y_XB_MIN, -252.0), 'rear_xp': (Y_
 rep = {'stock_bodies': len(STOCK), 'moving_with_gantry': len(MOVING), 'static': {}, 'belts': {}, 'internal': {}}
 for name, (y, x) in poses.items():
     P, lens = B.build_pose(y, x)
-    solids = [p for p in P if p[3] not in ('belts', 'enclosure')]
+    solids = [p for p in P if p[3] not in ('belts', 'enclosure', 'chains', 'arcs')]   # chains and arcs: c3_routecheck.py
     rep['static'][name] = sorted(overlaps(solids, STOCK), reverse=True)[:30]
     # moving groups vs the gantry-fixed new parts (joints/carriage/head vs corners, docks, motors...)
     mov = [p for p in solids if p[3] in ('bridge', 'head')]; fix = [(p[0], '', p[2]) for p in solids if p[3] in ('frame', 'docks')]
@@ -110,7 +110,7 @@ for name, (y, x) in poses.items():
 # Z sweep at the nominal XY pose plus the two docking extremes (docks and parked tools ride on the gantry)
 P, _ = B.build_pose(270.0, -5.0)
 FIXED += [(n, 'new-fixed', s) for n, m, s, g in P if g == 'enclosure']
-gantry = [p for p in P if p[3] not in ('belts', 'enclosure')]       # stock Z-carriage parts are unchanged here (Z upgrade checked separately)
+gantry = [p for p in P if p[3] not in ('belts', 'enclosure', 'chains', 'arcs')]   # stock Z-carriage parts unchanged (Z upgrade: c3_zcheck)
 gantry = [p for p in gantry if not p[0].startswith(('wiper station slider', 'silicone wiper pad'))]   # these lift off the PEI: c3_purgecheck.py
 sweep = []
 DZS = [float(d) for d in range(-int(GANTRY_DROP) - 1, int(GANTRY_RISE) + 5, 5)] + [-GANTRY_DROP, GANTRY_RISE]

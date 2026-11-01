@@ -1,6 +1,6 @@
 """C3 frame-fixed parts: the stock camera on a fixed front-right mount, and the top hat (sectional walls, iPistBit 7 inch
-display, the owner's Sovol top cover moved up onto it, a 2020 spine with the head cables' drop ring and the PTFE guide bar's
-hanger, a PG9 gland in the rear wall). The PTFE tubes, the weight loops and the Link Board tray are in c3_ptfe.py.
+display, the owner's Sovol top cover moved up onto it, a PG9 gland in the rear wall). The PTFE tubes, cable chains, harness,
+rear mast and piano-wire arcs are in c3_routing.py (2026-11-01); the top hat is 195 mm tall to clear the arcs.
 
 Everything here is fixed to the printer frame (it does not ride on the gantry) and goes into c3_build's parts list
 with group 'enclosure'; c3_check sweeps the whole gantry against it.
@@ -89,7 +89,7 @@ def camera_parts(stock_camera):
     return out
 
 # ---------------------------------------------------------------- top hat
-TH_H = 136.0                                   # owner's earlier top hat height; clears the head and umbilical bend at full Z
+TH_H = 195.0                                   # clears the piano-wire arcs at full Z (was 136 until 2026-11-01; c3_routecheck.py)
 TH_TOP = FRAME_TOP + TH_H
 TH_D = 40.0                                    # wall depth (owner's 40 mm sections)
 TOP_BAND = 7.5                                 # the top hat's top repeats the frame's 7.5 mm top band: the Sovol cover sits on it
@@ -97,8 +97,7 @@ TOP_CLEAR = 20.0                               # nothing else within 20 mm under
 TH_SKIN, TH_FOOT = 2.4, 7.5                    # outer skin; foot = width of the frame's top band
 LID_T, LEDGE = 4.0, 20.0                       # lid sheet and the ledge it sits on (lid top flush with the walls)
 RIB_PITCH = 62.0
-SPINE_IN = 18.0                                # the 2020 spine's ends sit 18 mm inside the outer faces
-PASS_Z = 666.0                                 # pass-through and take-up runs height
+PASS_Z = 666.0                                 # PG9 gland height in the rear wall
 # joints: (run, coordinate along the run) for the 8 pieces: 4 corner Ls + 4 straights
 CORNER_LEG = {'fr': 225.0, 'fl': 210.0, 'rr': 210.0, 'rl': 210.0}   # front-right carries the 7 inch display
 DISPLAY = dict(w=165.5, h=125.0, depth=17.0, xc=-228.0)            # iPistBit 7 inch, about 165 x 125 x 15, glass flush
@@ -185,10 +184,14 @@ def top_hat_parts():
     x, (y0, y1) = OUT_X, OUT_Y
     J = _joints()
     adds, holes = [], []
-    for ax, v, w, inward in J:
-        d0, d1 = sorted((w, w + inward * TH_D))
+    zr, zp = z0 + 4.0, zt - TOP_CLEAR
+    prof = [(TH_SKIN - 0.01, zr), (TH_FOOT, zr), (TH_D, zr + (TH_D - TH_FOOT)), (TH_D, zp), (TH_SKIN - 0.01, zp), (TH_SKIN - 0.01, zr)]
+    for ax, v, w, inward in J:                    # end ribs cut back at 45 deg like the others (gantry parts pass close below)
         for lo, hi in ((v - 3.0, v), (v, v + 3.0)):
-            adds.append(box(lo, hi, d0, d1, z0 + 4.0, zt - TOP_CLEAR) if ax == 'x' else box(d0, d1, lo, hi, z0 + 4.0, zt - TOP_CLEAR))
+            if ax == 'x':
+                f = Part.Face(Part.makePolygon([V(lo, w + inward * d, z) for d, z in prof])); adds.append(f.extrude(V(hi - lo, 0, 0)))
+            else:
+                f = Part.Face(Part.makePolygon([V(w + inward * d, lo, z) for d, z in prof])); adds.append(f.extrude(V(0, hi - lo, 0)))
         for zz in (z0 + 30.0, zt - 40.0):
             if ax == 'x':
                 holes.append(Part.makeCylinder(1.7, 12.0, V(v - 6.0, w + inward * 22.0, zz), V(1, 0, 0)))
@@ -205,23 +208,12 @@ def top_hat_parts():
         for zz in (dz0 + 15.0, dz1 - 15.0):
             ring = ring.cut(Part.makeCylinder(2.0, 6.0, V(xx, y1 - DISPLAY['depth'] - 4.01, zz), V(0, 1, 0)))
     ring = ring.cut(box(dx0 + 20.0, dx1 - 20.0, y1 - DISPLAY['depth'] - 4.5, y1 - DISPLAY['depth'] + 0.1, dz0 + 10.0, dz1 - 10.0))   # cable window
-    # 2020 spine saddles (front and rear walls, X 0): wide ribs with a pocket the spine drops into
-    zs1 = zt - TOP_CLEAR; zs0 = zs1 - 20.0
-    for w, inward in ((y1, -1), (y0, 1)):
-        sad = _rib(-16.0, extra=29.0)                                   # 32 mm wide rib, built in run coordinates
-        sad.rotate(V(0, 0, 0), V(0, 0, 1), 180 if inward < 0 else 0); sad.translate(V(0, w, 0))
-        if inward < 0:
-            sad.translate(V(0, 0, 0))
-        ring = ring.fuse(sad)
-        d0, d1 = sorted((w + inward * SPINE_IN, w + inward * (TH_D + 1.0)))
-        ring = ring.cut(box(-10.2, 10.2, d0, d1, zs0 - 0.2, zt + 1.0))
-    # a PG9 gland in the rear wall for other cables (the PTFE tubes and head cables enter at the front corners: c3_ptfe)
+    # a PG9 gland in the rear wall for the display and other cables (tubes and head cables reach the gantry through the
+    # side-gap chains: c3_routing)
     pz = PASS_Z
     blk = box(-34.0, -8.0, y0, y0 + 22.0, pz - 16.0, pz + 16.0)
     ring = ring.fuse(blk)
     ring = ring.cut(Part.makeCylinder(7.7, 30.0, V(-20.0, y0 - 1.0, pz), V(0, 1, 0)))
-    import c3_ptfe as PT                                                # entry holes and M4 holes for the loop heads and tray
-    ring = ring.cut(Part.makeCompound(PT.top_hat_cuts()))
     ring = ring.cut(Part.makeCompound(holes))
     xf = sorted(j[1] for j in J[0:2]); xr = sorted(j[1] for j in J[2:4]); yn = sorted(j[1] for j in J[4:6]); yp = sorted(j[1] for j in J[6:8])
     regions = {
@@ -237,28 +229,7 @@ def top_hat_parts():
     return [(name, 'asa', ring.common(reg).removeSplitter(), 'enclosure') for name, reg in regions.items()]
 
 def umbilical_parts():
-    """No lid: the owner's Sovol top cover sits on the top band. Under it a 2020 spine (along Y at X 0, dropped into the
-    front and rear wall saddles) carries the head cables' drop ring and the PTFE guide bar's hanger (c3_ptfe). The cables
-    (INDX Link cable and Beacon USB) come in at the right front corner from their weight loop and drop to the head here.
-    Until 2026-10-31 the spine also carried a 2:1 take-up sled and roller for a PTFE + cable bundle, and the tray."""
-    zt = TH_TOP; x, (y0, y1) = OUT_X, OUT_Y
-    zs1 = zt - TOP_CLEAR; zs0 = zs1 - 20.0
-    out = []
-    spine = box(-10.0, 10.0, y0 + SPINE_IN, y1 - SPINE_IN, zs0, zs1)
-    zc = (zs0 + zs1) / 2
-    for sx in (-1, 1):                                                  # 2020 slot 6: 6.2 mm openings, 6 deep, on all four faces
-        spine = spine.cut(box(*sorted((sx * 10.01, sx * 4.0)), y0 + SPINE_IN - 1, y1 - SPINE_IN + 1, zc - 3.1, zc + 3.1))
-        spine = spine.cut(box(-3.1, 3.1, y0 + SPINE_IN - 1, y1 - SPINE_IN + 1, *sorted((zc + sx * 10.01, zc + sx * 4.0))))
-    spine = spine.cut(Part.makeCylinder(2.1, y1 - y0, V(0, y0, zc), V(0, 1, 0)))
-    out.append((f'top hat spine 2020 {y1 - y0 - 2 * SPINE_IN:.0f}', 'al-6063 2020', spine, 'enclosure'))
-    # drop ring: plate under the spine (2x M5 T-nuts), web, bell at X 50 / Y 300 whose mouth faces down
-    import c3_ptfe as PT
-    DR = PT.DROP_RING; zr = PASS_Z + 2.0
-    ring = fuse([box(-12.0, 62.0, DR[1] - 15.0, DR[1] + 15.0, zs0 - 6.0, zs0), box(40.0, 60.0, DR[1] - 15.0, DR[1] + 15.0, zr, zs0 - 5.9),
-                 cyl(30.0, zr - 4.0, zr, *DR), Part.makeCone(30.0, 21.0, 24.0, V(DR[0], DR[1], zr - 28.0))])
-    ring = ring.cut(Part.makeCone(18.0, 11.0, 24.1, V(DR[0], DR[1], zr - 28.1))).cut(cyl(11.0, zr - 5.0, zr + 0.1, *DR)).cut(box(28.0, 72.0, DR[1] - 11.0, DR[1] + 11.0, zr - 1.0, zr + 12.0))
-    for yy in (DR[1] - 8.0, DR[1] + 8.0):
-        ring = ring.cut(cyl(2.75, zs0 - 6.5, zs0 + 0.1, 0.0, yy))
-    out.append(('umbilical drop ring', 'pps-cf', ring, 'enclosure'))
-    out += PT.ptfe_parts(zs0)                                           # loop heads, towers, sleds, guide bar and guides, tray, tubes
-    return out
+    """Cable chains, harness, rear mast and the fixed chain anchors: c3_routing.py (2026-11-01). Until then the top hat
+    held a 2020 spine with the head cables' drop ring and the PTFE guides, fed by weighted loops outside."""
+    import c3_routing as RT
+    return RT.routing_parts()

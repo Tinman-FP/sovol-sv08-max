@@ -21,8 +21,8 @@ What it changes:
 * **Probe:** Beacon Rev H, with Z homing and per-tool Z offsets by Beacon contact.
 * **Z upgrade:** 12 mm belts and four StepperOnline 17HM19-2004S1 0.9° motors. The Z drive pulleys are reworked from stock 20T pulleys on a lathe.
 * **Purge and wipe:** a wiper station beside each tool's dock (five in all), each with a Qidi Plus 4 silicone wiper pad, and one long purge tray under all five that slides out through the door with no fasteners.
-* **Top hat:** 136 mm tall, printed in ASA. It lifts Sovol's top cover and holds a 7 inch display. There is also a new camera mount.
-* **PTFE tubes and head cables:** no springs. Each tool's tube is anchored by a coupler at a front corner of the top hat, hangs in a weighted loop down the outside of the frame and runs inside to a guide right above its own dock. The INDX Link and Beacon USB cables share a loop on the right.
+* **Top hat:** 195 mm tall, printed in ASA. It lifts Sovol's top cover, holds a 7 inch display and gives the piano-wire arcs room at full height. There is also a new camera mount.
+* **Tubes and cables:** every tube and cable reaches the moving gantry through thin cable chains hanging in the gaps beside the side beams, the only space the gantry never sweeps. Each PTFE tube rises in a side mast and arcs on a piano wire to its tool (as on the Snapmaker U1). The INDX Link and Beacon USB cables leave a mast on the rear beam as a piano-wire umbilical to the head (as on the Rat Rig V-Core 4).
 * **Electronics:** a BTT Kraken running mainline Klipper, with a 48 V motor supply.
 
 The 500 mm print height stays. The front 37 mm of the bed, across 424 mm of its width, is kept clear for the docks and wipers, so the slicer's bed shape needs that strip left out. The exact numbers are in the [design notes](c3-4040-gantry/README.md).
@@ -36,7 +36,7 @@ All paths are inside `c3-4040-gantry/`.
 | [`c3/SV08_MAX_C3_ASSEMBLY_GUIDE.pdf`](c3-4040-gantry/c3/SV08_MAX_C3_ASSEMBLY_GUIDE.pdf) | 24-page assembly guide. It covers preparing the parts, stripping the stock gantry, the assembly order, wiring, firmware and commissioning. |
 | [`c3/C3_BOM.md`](c3-4040-gantry/c3/C3_BOM.md), [`c3/C3_Z_BOM.md`](c3-4040-gantry/c3/C3_Z_BOM.md) | Bills of materials for the gantry and the Z upgrade (also as `.json`). |
 | [`c3/C3_SOURCING.md`](c3-4040-gantry/c3/C3_SOURCING.md) | Example sources (US sellers, 30 Oct 2026) for every part to buy, with notes on cutting and preparing each one. |
-| [`c3/C3_PPS-CF_Qidi_Plus4_0.6mm.3mf`](c3-4040-gantry/c3/C3_PPS-CF_Qidi_Plus4_0.6mm.3mf) | Print project with all 68 PPS-CF parts on eight plates. |
+| [`c3/C3_PPS-CF_Qidi_Plus4_0.6mm.3mf`](c3-4040-gantry/c3/C3_PPS-CF_Qidi_Plus4_0.6mm.3mf) | Print project with all 88 PPS-CF parts on eight plates. |
 | [`c3/print/`](c3-4040-gantry/c3/print/) | One STEP and one STL per printed part, in print orientation. |
 | [`c3/SV08_MAX_C3_MODIFIED.step`](c3-4040-gantry/c3/SV08_MAX_C3_MODIFIED.step) and `.solidcraft` | The whole printer with C3 fitted, colour-coded as in the picture above. |
 | [`c3/C3_GANTRY.step`](c3-4040-gantry/c3/C3_GANTRY.step) and `.FCStd` | Every new and bought part, without Sovol's frame. |
@@ -48,10 +48,10 @@ All paths are inside `c3-4040-gantry/`.
 
 ### Printing
 
-* **PPS-CF parts:** 68 parts, which is 48 for the gantry, stations and PTFE loops plus 20 for the Z kit. In the project they slice on a Qidi Plus 4 with a 0.6 mm nozzle to about 92.6 h and 1814 g. The 360 mm purge tray is longer than the Qidi bed, so it lies diagonally on its own plate. The settings are 0.24 mm layers, 6 walls and 45 % infill.
-* **Supports:** 16 parts need them. The project already has tree supports on those.
+* **PPS-CF parts:** 88 parts, which is 68 for the gantry, stations, masts and chain fittings plus 20 for the Z kit. In the project they slice on a Qidi Plus 4 with a 0.6 mm nozzle to about 120.4 h and 2236 g. The 360 mm purge tray is longer than the Qidi bed, so it lies diagonally on its own plate. The settings are 0.24 mm layers, 6 walls and 45 % infill.
+* **Supports:** 36 parts need them. The project already has tree supports on those.
 * **The 3MF:** it was saved in Tinman, a fork of OrcaSlicer 2.4.2. It should open in OrcaSlicer 2.4 or later, but that has not been tested. Its printer, filament and process presets are custom ones, so set your own printer and PPS-CF profile before slicing.
-* **ASA parts:** the top hat (8 sections, each up to 289 mm long, about 2.4 kg) and the two weight towers (6 sections, about 2.4 kg), printed upright. These come as STEP and STL only; they are not in the 3MF.
+* **ASA parts:** the top hat (8 sections, each up to 289 mm long and 195 mm tall, about 3.2 kg), printed upright. These come as STEP and STL only; they are not in the 3MF.
 
 ### Downloading
 
@@ -96,7 +96,7 @@ Then run the others the same way:
 
 | Script | What it does |
 |---|---|
-| `c3_zcheck.py`, `c3_purgecheck.py`, `c3_stopsweep.py`, `c3_lanecheck.py`, `c3_ptfecheck.py` | The other checks. |
+| `c3_zcheck.py`, `c3_purgecheck.py`, `c3_stopsweep.py`, `c3_lanecheck.py`, `c3_routecheck.py` | The other checks (`c3_routecheck.py`: chains over Z, harness against the head, piano-wire arcs; `c3_elastica.py` solves the arcs). |
 | `c3_release.py`, `c3_zrelease.py` | Print files and BOMs. |
 | `c3_fullmodel.py` | The category STEPs in `c3/full/`. |
 

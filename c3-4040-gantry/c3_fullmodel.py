@@ -64,7 +64,7 @@ def category(n, m):
     if 'camera stock' in n: return 'SOVOL STOCK'
     return 'BUY'
 NOTE = {'side beam': 'cut to 561', 'rear beam': 'cut to 482', 'x beam': 'cut to 556', 'dock rail': 'cut to 588, tap ends M3',
-        'station bar': 'cut to 566', 'top hat spine': 'cut to 661', 'z drive pulley': 'face down to <= 12.6 mm or make to size'}
+        'station bar': 'cut to 566', 'z drive pulley': 'face down to <= 12.6 mm or make to size'}
 groups = {'SOVOL STOCK': [(f'{l} [sovol stock]', s) for l, k, s in kept]}
 for n, m, s, g in P:
     c = category(n, m)

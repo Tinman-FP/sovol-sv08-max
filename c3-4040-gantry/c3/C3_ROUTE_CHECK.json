@@ -1,0 +1,119 @@
+{
+ "note": "C3 routing check (run with FreeCAD's Python after c3_build.py): the parts that change shape or move with the head.",
+ "chains": [],
+ "harness_vs_head": [],
+ "arcs": [],
+ "arc_top_full_height": 750.0,
+ "top_hat_top": 786.3,
+ "arc_crossings": {
+  "pairs_checked": 975,
+  "touching": 178,
+  "min_gap": -6.4,
+  "parked_pairs_touching": 117,
+  "worst": [
+   [
+    -6.4,
+    "t1",
+    "bed",
+    -252.0,
+    "t1",
+    "umb"
+   ],
+   [
+    -6.3,
+    "t2",
+    "bed",
+    -252.0,
+    "t2",
+    "umb"
+   ],
+   [
+    -6.3,
+    "t4",
+    "bed",
+    252.0,
+    "t4",
+    "umb"
+   ],
+   [
+    -6.1,
+    "t3",
+    "bed",
+    252.0,
+    "t3",
+    "umb"
+   ],
+   [
+    -6.0,
+    "t0",
+    "bed",
+    -252.0,
+    "umb",
+    "t2"
+   ],
+   [
+    -6.0,
+    "t0",
+    "bed",
+    0.0,
+    "t0",
+    "umb"
+   ],
+   [
+    -6.0,
+    "t1",
+    "bed",
+    -252.0,
+    "umb",
+    "t2"
+   ],
+   [
+    -6.0,
+    "t3",
+    "bed",
+    -252.0,
+    "umb",
+    "t2"
+   ],
+   [
+    -6.0,
+    "t3",
+    "bed",
+    0.0,
+    "t3",
+    "umb"
+   ],
+   [
+    -6.0,
+    "t4",
+    "bed",
+    -252.0,
+    "umb",
+    "t2"
+   ],
+   [
+    -5.9,
+    "t0",
+    "bed",
+    0.0,
+    "umb",
+    "t3"
+   ],
+   [
+    -5.9,
+    "t1",
+    "bed",
+    0.0,
+    "umb",
+    "t3"
+   ]
+  ]
+ },
+ "arc_lengths_mm": {
+  "t0": 627,
+  "t1": 633,
+  "t2": 676,
+  "t3": 617,
+  "t4": 644
+ }
+}

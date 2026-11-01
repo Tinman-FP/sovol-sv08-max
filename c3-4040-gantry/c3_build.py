@@ -23,6 +23,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from c3_params import *
 import c3_purge as PG                                 # purge/wipe stations, station bar, purge trays
+import c3_routing as RT                               # cable chains, harness, rear mast, piano-wire arcs (2026-11-01)
 
 INP = HERE / 'inputs'; OUT = HERE / 'c3'; OUT.mkdir(exist_ok=True)
 STOCK_CACHE = Path(os.environ.get('C2_STOCK_CACHE', str(OUT / '_cache')))
@@ -464,7 +465,9 @@ def build_pose(y_xb, xn, with_static=True):
     for s_ in (-1, 1):
         jp, pc = xy_joint(s_, y_xb); tag = 'xn' if s_ < 0 else 'xp'
         P.append((f'xy joint plate {tag}', 'pps-cf', jp, 'bridge')); P.append((f'xy joint pulley carrier {tag}', 'pps-cf', pc, 'bridge'))
-    P.append(('x carriage', 'pps-cf', bt_to_printer(X_CARRIAGE_BT, xn, y_xb), 'head'))
+    car = bt_to_printer(X_CARRIAGE_BT, xn, y_xb)
+    P.append(('x carriage', 'pps-cf', car, 'head'))
+    P.append(('umbilical head saddle', 'pps-cf', RT.head_clamp(xn, y_xb), 'head'))
     P.append(('x block mgn12h', 'steel', box(xn - 22.7, xn + 22.7, y_xb + 23.0, y_xb + 33.0, RAIL_Z - 13.5, RAIL_Z + 13.5), 'head'))
     for lab, s in HEAD_SRC:
         P.append(('indx smart head ' + lab.lower()[:28], 'purchased', bt_to_printer(s, xn, y_xb), 'head'))
@@ -475,6 +478,8 @@ def build_pose(y_xb, xn, with_static=True):
     for k, lvl in (('B', L_UP), ('A', L_LO)):
         sol, L = belt_solid(paths[k], lvl); lens[k] = round(L + 2 * TAIL, 1)
         P.append((f'belt {k} gates 2mgt 12mm', 'purchased', sol, 'belts'))
+    if os.environ.get('C3_ARCS', '1') == '1':                    # piano-wire arcs for this head position (c3_routing)
+        P += RT.arc_parts(xn, y_xb)
     return P, lens
 
 if True:
@@ -504,7 +509,7 @@ def _stock_camera():
     labels = json.loads(labf.read_text()); kids = Part.read(str(brep)).childShapes()
     return [(l, s) for (l, k), s in zip(labels, kids) if 'camera kit' in k]
 if os.environ.get('C3_ENCLOSURE', '1') == '1':
-    for n, m, s, g in ENC.camera_parts(_stock_camera()) + ENC.top_hat_parts() + ENC.umbilical_parts():
+    for n, m, s, g in ENC.camera_parts(_stock_camera()) + ENC.top_hat_parts() + ENC.umbilical_parts() + RT.chain_parts(0.0):
         add(n, m, s, g)
 
 if __name__ == '__main__':

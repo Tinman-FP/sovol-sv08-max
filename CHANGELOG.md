@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-01: cable chains, masts and piano-wire arcs replace the PTFE loops
+
+* **Why:** the weighted loops could not work. A 4 mm PTFE tube with filament in it is stiff: a 30 g sled pulls 0.15 N per leg, so the tube's natural loop is about 160 mm in radius, and it would need about 1.2 kg to follow the 25 mm sleds and guides.
+* **What fits:** over its 500 mm of Z the gantry sweeps the whole inside of the frame except a 14-16 mm gap beside each side beam (Y 97-450). Nothing fits behind the bed or in front of the docks.
+* **Chains:** ten micro chains (7 x 7 mm inside, one tube or cable each) hang in those gaps. Their fixed ends bolt through the side panels at about 290 mm print height; their moving ends hang from brackets on the side beams.
+* **PTFE (as the Snapmaker U1, in from the sides):** each tube enters through a PC4-M10 coupler on the side panel, runs through its chain, rises in a side mast on the side beam and leaves on a 0.8 mm piano wire to its tool. Parked tools' tubes come down into them from above.
+* **Head wiring (as the Rat Rig V-Core 4, from the back middle):** the Link Board sits on a mast on the rear beam; the INDX Link cable and Beacon USB go to the head as a piano-wire umbilical. Motor cables come up outside the side panels into their own chains.
+* **Top hat:** 195 mm tall (was 136) for the arcs at full height. The spine, drop ring, loop heads, weight towers, sleds, dock guides and the cable loop are gone.
+* **Friction:** about 600-780 deg of total bend per tube, so about 5-8 times the spool's drag at the extruder (capstan rule, mu 0.15). Taking the tubes to one mast at the back as well would have been 8-12 times.
+* **Checks:** `c3_check.py` gives 0 clashes at its 7 poses, 0 belt contacts and 0 over the Z sweep. `c3_routecheck.py` (new) gives 0 for the chains at 13 heights, 0 for the harness against the head, and 0 for the arcs against the gantry, parked tools and top hat for every tool on the head at 13 positions; the highest arc is 36 mm under the top hat's top at full height. Three pairs of parked tubes rest lightly against each other, and the moving arcs brush another arc in about 10 % of cases.
+* **Print files:** 20 new part files (masts, chain brackets, anchors and entry plates, posts, the umbilical saddle on the INDX PCB cover); the loop heads, towers, sleds, dock guides, hanger, drop ring and tray are gone. The 3MF has 88 parts on eight plates: 120.4 h and 2236 g. The top hat is 3.2 kg of ASA. The camera mount's print files had floated 3.5 mm above the bed; fixed.
+
 ## 2026-10-31: PTFE tubes and head cables on weighted loops
 
 * **Why:** each INDX tool keeps its own PTFE tube, and with the gantry's 500 mm of Z travel a tube's length changes by up to about 840 mm. The old spring take-up had about 360 mm and treated all five tubes as one bundle, though they go to five different docks.
