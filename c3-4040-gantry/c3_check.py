@@ -54,6 +54,8 @@ def _guide(l, k, s):
     b = s.BoundBox
     return 'top kit' in k and ('guiding element' in l or 'pu-4 gas pipe fitting' in l or ('m3x14' in l and b.XMax < -330 and 250 < b.YMin < 290))
 STOCK = [x for x in STOCK if not _guide(*x)]
+# and the stock spool holder on the right side (the filament box feeds the PTFE loops; the right weight tower is there)
+STOCK = [x for x in STOCK if 'filament' not in x[1]]
 def moves_with_gantry(lab, kit, s):
     """Stock parts carried by the Z carriages (arms, seats, blocks, pressure plates and their screws near the arm)."""
     if 'z axis kit' not in kit: return False

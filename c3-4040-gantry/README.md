@@ -36,7 +36,7 @@ Revisions:
 | Beacon | Rev H under the carriage, turned 90 deg, coil 40 mm behind the nozzle |
 | Camera | stock camera reused; printed clip over the front profile's inner lip at the front right (between the corner bracket and Sovol's LED bar), aimed at the bed centre |
 | Top hat | 136 mm tall on the frame top (Z 591.3), 40 mm walls in 8 interlocking printed sections. Its top repeats the frame's 7.5 mm top band, so the owner's Sovol top cover moves up onto it unchanged. iPistBit 7 inch display flush in the front-right corner |
-| Umbilical | nothing mounts to the cover. A 2020 spine (661 mm, along Y at X 0) drops into saddles in the front and rear walls and carries the drop ring (X 50, Y 300), the Link Board / USB hub tray and the 2:1 take-up sled (100 mm roller, about 360 mm of take-up, constant-force spring). PTFE and Link cable pass through the rear wall (5 x PC4-M10, PG9) |
+| PTFE and head cables | each tool's PTFE tube is anchored by a PC4-M10 coupler on a loop head at a front corner of the top hat, hangs in a weighted loop in a tower on Sovol's front Z profile, comes in through the side wall and runs taut to a guide right above its own dock (`c3_ptfe.py`). Right: T0-T2 and the INDX Link + Beacon USB cables; left: T3, T4 and a spare. The 2020 spine (661 mm, along Y at X 0) carries the cables' drop ring (X 50, Y 420) and the guide bar hanger. No springs. See "PTFE tubes and head cables" |
 | Clearance | full stock model, 7 XY poses (corners, end docks, nominal): 0 clashes, 0 belt contacts. Whole gantry swept first layer to 500 mm against the frame, camera and top hat: 0 clashes. Camera mount and top hat vs frame: 0 (`c3/C3_CLEARANCE.json`) |
 
 ### Why it looks the way it does (C3 additions)
@@ -49,7 +49,7 @@ Revisions:
   * The front hoods stay below the frame top at full Z.
   * The rear covers rise about 4-6 mm above it, inside the frame opening. The top hat ribs are cut back at 45 deg from 7.5 to 40 mm, so anything up to about 20 mm above the frame near the walls clears.
   * Cutting the shafts to 55 mm and leaving the covers off also works.
-* **Top hat height.** The INDX head top reaches Z 587 at 500 mm print height. The 136 mm top hat leaves about 126 mm for the umbilical to turn into the take-up.
+* **Top hat height.** The INDX head top reaches Z 587 at 500 mm print height. The 136 mm top hat holds the dock guides (bottoms at Z 597, 10 mm above that) and the tube spans above them.
 
 ### Found by the SolidCraft cross-check
 The X carriage's under-beam arm and the Beacon reached the XY joint plate's lower flange in the last 4-6 mm of X travel on each side, by up to 390 mm³ at X +252. This came over from C2: the FreeCAD check never compared the head with the parts that move with the X beam.
@@ -59,7 +59,8 @@ The X carriage's under-beam arm and the Beacon reached the XY joint plate's lowe
 ### Removed stock parts
 * The drag chain plate.
 * The camera bracket on the old gantry.
-* The stock filament guide and PU-4 fittings on the right top rail. The INDX PTFE tubes come in through the top hat's rear wall.
+* The stock filament guide and PU-4 fittings on the right top rail. The INDX PTFE tubes come in at the top hat's front corners.
+* Sovol's spool holder on the right side (2026-10-31): the right weight tower is there, and a filament box feeds the tubes.
 
 ## Printed parts
 Qidi Plus 4, 0.6 mm nozzle. **Tinman project with every PPS-CF part laid out: `c3/C3_PPS-CF_Qidi_Plus4_0.6mm.3mf`** (see "Tinman print project" below).
@@ -71,7 +72,7 @@ Qidi Plus 4, 0.6 mm nozzle. **Tinman project with every PPS-CF part laid out: `c
   * X carriage;
   * XY pulley carriers;
   * umbilical drop ring;
-  * take-up sled;
+  * PTFE loop heads and dock guides (curved channels);
   * Z tensioner seats.
 * **Purge tray:** it prints rim-down, diagonally on its own plate (360 mm is longer than the Qidi bed). Floor-down, their floor would start on the feet in mid-air.
 * **PPS-CF:**
@@ -80,33 +81,36 @@ Qidi Plus 4, 0.6 mm nozzle. **Tinman project with every PPS-CF part laid out: `c
   * rear motor mount x2, bearing cap x2 and shaft cover x2;
   * front base x2, cradle x2 and motor slider x2;
   * camera mount;
-  * drop ring, take-up sled, roller, electronics tray;
+  * drop ring, guide bar hanger, Link Board / USB hub tray;
+  * PTFE loop heads x2, dock guides x5, PTFE loop sleds x6 (one file), cable loop sled;
   * purge and wipe: station bar clip x2, wiper station bracket x5 and slider x5 (one print file each), and one 360 mm purge tray that prints diagonally.
   * About 1.05 kg at solid volume.
-* **ASA:** top hat, 4 corner pieces + 4 straights, each ≤ 289 mm, printed upright. About 2.4 kg at solid volume.
+* **ASA:** top hat, 4 corner pieces + 4 straights, each ≤ 289 mm, printed upright. About 2.4 kg at solid volume. The weight towers, 3 sections per side, also in ASA.
 
 Masses are in `c3/C3_BOM.md`.
 
 ## Tinman print project (PPS-CF, Qidi Plus 4, 0.6 mm nozzle)
 `c3/C3_PPS-CF_Qidi_Plus4_0.6mm.3mf`:
-* **Contents:** all 55 PPS-CF parts. That is the 35 C3 parts (five each of the wiper bracket and slider; the 360 mm tray alone on the last plate, diagonally), plus the Z kit at 2 of each variant file, in their print orientation.
+* **Contents:** all 68 PPS-CF parts. That is the 48 C3 parts (five each of the wiper bracket and slider, six PTFE loop sleds; the 360 mm tray alone on the last plate, diagonally), plus the Z kit at 2 of each variant file, in their print orientation.
 * **Presets:**
   * printer: Qidi X-Plus 4 0.6 nozzle - TinMan Codex;
   * filament: PPS-CF Codex-Bambu - Qidi X-Plus 4 (320 °C nozzle, 110 °C bed, 65 °C chamber);
   * process: 0.24mm Tank (6 walls, 45 % infill, 8 top and bottom layers);
   * plate: Textured PEI.
 * **Layout:** one plate per subsystem, 20 mm between parts (your Tinman arrange setting), clear of the Qidi's excluded bed areas. Every part is named after its print file.
-* **Check:** the Tinman CLI slices all six plates. Its only message is a tree-support "Potentially lost branch" warning, which every slice of this project has given. Re-sliced 2026-10-31 with the larger wiper sliders, then with five stations and the one long tray.
+* **Check:** the Tinman CLI slices all eight plates. Its only message is a tree-support "Potentially lost branch" warning, which every slice of this project has given. Re-sliced 2026-10-31 with the larger wiper sliders, then with five stations and the one long tray, then with the PTFE loop parts.
 
 | Plate | Parts | Time | PPS-CF |
 |---|---|---|---|
-| 1 Gantry A | 11 | 21.2 h | 422 g |
+| 1 Gantry A | 11 | 21.3 h | 422 g |
 | 2 Gantry B | 6 | 10.1 h | 195 g |
 | 3 Z upgrade 12 mm | 20 | 12.9 h | 209 g |
 | 4 Purge and wipe | 12 | 4.3 h | 72 g |
-| 5 Camera and umbilical | 5 | 15.2 h | 290 g |
-| 6 Purge tray (diagonal) | 1 | 3.1 h | 60 g |
-| **Total** | **55** | **66.9 h** | **1249 g** |
+| 5 Camera, cables and PTFE loops A | 4 | 21.7 h | 444 g |
+| 6 Camera, cables and PTFE loops B | 11 | 16.6 h | 355 g |
+| 7 Camera, cables and PTFE loops C | 3 | 2.6 h | 57 g |
+| 8 Purge tray (diagonal) | 1 | 3.1 h | 60 g |
+| **Total** | **68** | **92.6 h** | **1814 g** |
 
 The eight ASA top-hat sections are not in this PPS-CF project.
 
@@ -163,6 +167,7 @@ Its renders use the same colours as the full model (red print, yellow buy, green
 * `c3_check.py` – clearance against the full stock printer (`c3/C3_CLEARANCE.json`). The wiper sliders lift, so its plain Z sweep leaves them to `c3_purgecheck.py`.
 * `c3_purge.py` – wiper stations, station bar and clips, purge trays. `c3_purgecheck.py` checks them (`c3/C3_PURGE_CLEARANCE.json`); with `C3_KEEPOUT=1` it maps the front keep-out for the slicer (`c3/C3_PURGE_KEEPOUT.json`).
 * `c3_release.py` – per-part STEP/STL in print orientation and the BOM (`c3/C3_BOM.md`).
+* `c3_ptfe.py` – PTFE loop heads, weight towers and sleds, the dock guides and their bar, the Link Board tray and the tubes; `c3_ptfecheck.py` checks the tubes that move with the tools (`c3/C3_PTFE_CHECK.json`).
 * `c3_lanecheck.py` – how close a dock or a wiper station may sit beside a lane the head drives into (`c3/C3_LANE_SPACING.json`); it sets the 78 mm dock row.
 * `c3_idlercheck.py` – the ordered Gates 12 mm smooth idler on the reverse-idler axles, and the M5 spacer lengths for every rear idler (`c3/C3_SMOOTH_IDLER_CHECK.json`). Pass the measured smooth idler width to recompute: `python3 c3_idlercheck.py 16`.
 * `c3/C3_SOURCING.md` – example sources (US sellers, 2026-10-30) for every part to buy, with notes on preparing each one.
@@ -209,6 +214,26 @@ The gantry's Z-belt notches widen by 1.5 mm each side: rear motor mounts and cap
 * `c3_zdrive.py` (parts), `c3_zcheck.py` (clearance), `c3_zrelease.py` (print files and BOM).
 * `c3/print/Z_*_A/B_PPS-CF.stl|step`: variant A is front right + rear left, variant B is front left + rear right; print two of each.
 * `c3/C3_Z_BOM.md`.
+
+## PTFE tubes and head cables (C3-T, 2026-10-31)
+Owner's idea: let the extra tube slide in and out of the chamber through holes, with weights instead of the spring take-up.
+
+**Why it is needed:**
+* Each INDX tool keeps its own PTFE tube, parked or on the head. With the gantry travelling 500 mm in Z, a tube's length from a fixed point above changes by about 600-850 mm. Loose slack inside can knock a parked tool out of its dock (Bondtech's warning).
+* The old design ran all five tubes and the Link cable as one bundle over a 2:1 spring take-up with about 360 mm of travel. That could not work: the tubes go to five different docks, and the swing is about 610 mm.
+
+**Layout (`c3_ptfe.py`):**
+* **Loop heads**, one at each front corner of the top hat, outside. A shelf on top holds a PC4-M10 coupler per tube; the tube passes through and the collet anchors it. Curved guides (25 mm radius, 6 mm bore, the tube's OD + 2) turn each tube up from its loop and into its entry hole. The entry holes are stacked: the lowest serves the dock nearest that wall.
+* **Weight towers** (ASA, 3 sections a side) on Sovol's front Z profiles, bolted through their outer slot (the flat seal comes out where the T-nuts go). One slot per sled, Z -60..555, about 490 mm of sled travel.
+* **Sleds:** discs the tube wraps under (25 mm radius), with an M8 nut as the weight, about 30 g. The tube is held with about 0.15 N. A sled moves half as far as its tube: the worst tube (T0 on the head at the far rear corner at the first layer) needs about 420 mm.
+* **Inside:** each tube runs taut from its entry hole to a guide right above its own dock. A parked tool's tube hangs straight down into it; only the tool on the head has a tube across the chamber. The guides hang on a 620 mm 1515 bar under the spine, at staggered heights (inlets Z 626/656/686 from the wall inward) so each tube passes over the guides nearer its wall.
+* **Head cables:** the INDX Link cable and the Beacon USB cable, bundled, share a bigger loop (35 mm radius, about 90 g sled) on the right, then run inside to a drop ring on the spine at X 50, Y 420 and down to the head. The Link Board and USB hub tray moves outside the right wall, beside the cable anchor.
+* **Right:** T0, T1, T2 (docks 1-3) and the cables. **Left:** T3, T4 and a spare loop. A sixth tool would need a re-think of the dock row: there is no room for its wiper station inside the sheet's middle zone.
+
+**Checks:**
+* `c3_check.py`: 0 clashes at the 7 poses, over the whole Z sweep and for the enclosure, with the loop heads, towers, sleds, guide bar, guides, tray and the tube spans in, and Sovol's spool holder removed.
+* `c3_ptfecheck.py` (`c3/C3_PTFE_CHECK.json`): 15 head positions and the 5 docking poses, at the first layer and at 500 mm, with each tool on the head in turn. No tube touches the gantry or the top hat parts, except a 0.26 mm3 graze of guide 2 by T0's tube with the head at the front-left corner at 500 mm.
+* **Tube on tube:** the parked tools' tubes hang in one plane over the docks. A tool's tube crosses them only when the head is at the very front, away from that tool's dock: in the front corners outside the slicer strip, nozzle Y above 521.5 (left, X 186..252) or 531.5 (right, X -252..-238), and at a few spots at Y 535 at 500 mm height. Contact there is light, tube on tube under the sleds' 0.15 N. To avoid it entirely, leave out nozzle Y > 520 across the full width in the slicer (it costs the front corners about 44 mm).
 
 ## Purge and wipe stations (C3-P, designed 2026-10-30)
 The owner's brief:
@@ -290,4 +315,5 @@ Re-run with the Qidi pad and the new slider pocket (2026-10-31): every row above
 5. **Z drive pulleys:** four 20T 12 mm pulleys, 6 mm bore, hubless and flangeless, <= 12.6 mm long. Owner picked generic 20T 6 mm-bore pulleys for 15 mm belt (Amazon B0GN4SPFJ8) to rework: cut off the hub and both flanges, face the teeth to 12.4-12.6 mm, then drill 2.5 mm and tap M3 into the bottom of one tooth groove, halfway along. Use the grub screw from Sovol's stock 9 mm drive pulley (same 20T, 6 mm bore, so its length sits below the teeth). Also measure one 17HM19 shaft from the face (24 mm: MR105ZZ; 26 mm: 625ZZ).
 6. **Wiper and purge parts:** all ordered, picked or in stock (2026-10-30), with the RTV in stock. The pads are now Qidi Plus 4 wipers (2026-10-31).
 7. **Door and trays:** Sovol's model has no door. The tray sits loose on the chamber floor, 2.5 mm behind the floor's front edge, and nothing in Sovol's model blocks it sliding straight out. Check that the door's bottom seal lets it pass, and that the door opening is wider than 360 mm.
-8. **Klipper:** written in `klipper_c3/` (mainline Klipper, Kraken V1.1, sensorless X/Y, Beacon contact Z, 48 V motor supply). What remains is in its README: the Pi model, the INDX heater PID question for Bondtech, and the values only the machine can give (CAN UUIDs, serial paths, dock positions, Beacon offsets, StallGuard tuning).
+8. **PTFE and cables:** cut each tube so that with its tool on the head at the far rear corner at the first layer its sled hangs just below the loop head. Check on the real dock that the sled's pull does not move a parked tool. The owner's Link cable is 2 m: with any USB cable that is over Bondtech's 2 m limit for the two together (a 1.8 m Link cable would be closest). Check that the door still opens past the towers, and keep the Kraken and Pi mounts clear of the right tower.
+9. **Klipper:** written in `klipper_c3/` (mainline Klipper, Kraken V1.1, sensorless X/Y, Beacon contact Z, 48 V motor supply). What remains is in its README: the Pi model, the INDX heater PID question for Bondtech, and the values only the machine can give (CAN UUIDs, serial paths, dock positions, Beacon offsets, StallGuard tuning).

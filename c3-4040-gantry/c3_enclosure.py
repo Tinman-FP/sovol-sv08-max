@@ -1,6 +1,6 @@
 """C3 frame-fixed parts: the stock camera on a fixed front-right mount, and the top hat (sectional walls, iPistBit 7 inch
-display, the owner's Sovol top cover moved up onto it, umbilical drop ring with a 2:1 slack take-up on a 2020 spine,
-PTFE / Link cable pass-through in the rear wall, Link Board / USB hub tray).
+display, the owner's Sovol top cover moved up onto it, a 2020 spine with the head cables' drop ring and the PTFE guide bar's
+hanger, a PG9 gland in the rear wall). The PTFE tubes, the weight loops and the Link Board tray are in c3_ptfe.py.
 
 Everything here is fixed to the printer frame (it does not ride on the gantry) and goes into c3_build's parts list
 with group 'enclosure'; c3_check sweeps the whole gantry against it.
@@ -215,13 +215,13 @@ def top_hat_parts():
         ring = ring.fuse(sad)
         d0, d1 = sorted((w + inward * SPINE_IN, w + inward * (TH_D + 1.0)))
         ring = ring.cut(box(-10.2, 10.2, d0, d1, zs0 - 0.2, zt + 1.0))
-    # PTFE / Link cable pass-through in the rear wall: 5 x PC4-M10 (tap M10x1) and a PG9 gland, behind the take-up's fixed run
+    # a PG9 gland in the rear wall for other cables (the PTFE tubes and head cables enter at the front corners: c3_ptfe)
     pz = PASS_Z
-    blk = box(-90.0, -8.0, y0, y0 + 22.0, pz - 16.0, pz + 16.0)
+    blk = box(-34.0, -8.0, y0, y0 + 22.0, pz - 16.0, pz + 16.0)
     ring = ring.fuse(blk)
-    for i in range(5):
-        ring = ring.cut(Part.makeCylinder(4.5, 30.0, V(-78.0 + 11.0 * i, y0 - 1.0, pz), V(0, 1, 0)))
     ring = ring.cut(Part.makeCylinder(7.7, 30.0, V(-20.0, y0 - 1.0, pz), V(0, 1, 0)))
+    import c3_ptfe as PT                                                # entry holes and M4 holes for the loop heads and tray
+    ring = ring.cut(Part.makeCompound(PT.top_hat_cuts()))
     ring = ring.cut(Part.makeCompound(holes))
     xf = sorted(j[1] for j in J[0:2]); xr = sorted(j[1] for j in J[2:4]); yn = sorted(j[1] for j in J[4:6]); yp = sorted(j[1] for j in J[6:8])
     regions = {
@@ -238,10 +238,9 @@ def top_hat_parts():
 
 def umbilical_parts():
     """No lid: the owner's Sovol top cover sits on the top band. Under it a 2020 spine (along Y at X 0, dropped into the
-    front and rear wall saddles) carries the drop ring, the Link Board / USB hub tray and the 2:1 take-up sled.
-    Bundle path: rear-wall pass-through (fixed end, X -50) -> forward to the 100 mm roller on the sled -> back along
-    X +50 -> down through the drop ring at Y 300 -> head. The sled travels about Y 330..550 (about 360 mm of take-up),
-    pulled forward by a constant-force spring or shock cord anchored at the front saddle."""
+    front and rear wall saddles) carries the head cables' drop ring and the PTFE guide bar's hanger (c3_ptfe). The cables
+    (INDX Link cable and Beacon USB) come in at the right front corner from their weight loop and drop to the head here.
+    Until 2026-10-31 the spine also carried a 2:1 take-up sled and roller for a PTFE + cable bundle, and the tray."""
     zt = TH_TOP; x, (y0, y1) = OUT_X, OUT_Y
     zs1 = zt - TOP_CLEAR; zs0 = zs1 - 20.0
     out = []
@@ -253,28 +252,13 @@ def umbilical_parts():
     spine = spine.cut(Part.makeCylinder(2.1, y1 - y0, V(0, y0, zc), V(0, 1, 0)))
     out.append((f'top hat spine 2020 {y1 - y0 - 2 * SPINE_IN:.0f}', 'al-6063 2020', spine, 'enclosure'))
     # drop ring: plate under the spine (2x M5 T-nuts), web, bell at X 50 / Y 300 whose mouth faces down
-    DR = (50.0, 300.0); zr = PASS_Z + 2.0
+    import c3_ptfe as PT
+    DR = PT.DROP_RING; zr = PASS_Z + 2.0
     ring = fuse([box(-12.0, 62.0, DR[1] - 15.0, DR[1] + 15.0, zs0 - 6.0, zs0), box(40.0, 60.0, DR[1] - 15.0, DR[1] + 15.0, zr, zs0 - 5.9),
                  cyl(30.0, zr - 4.0, zr, *DR), Part.makeCone(30.0, 21.0, 24.0, V(DR[0], DR[1], zr - 28.0))])
     ring = ring.cut(Part.makeCone(18.0, 11.0, 24.1, V(DR[0], DR[1], zr - 28.1))).cut(cyl(11.0, zr - 5.0, zr + 0.1, *DR)).cut(box(28.0, 72.0, DR[1] - 11.0, DR[1] + 11.0, zr - 1.0, zr + 12.0))
     for yy in (DR[1] - 8.0, DR[1] + 8.0):
         ring = ring.cut(cyl(2.75, zs0 - 6.5, zs0 + 0.1, 0.0, yy))
     out.append(('umbilical drop ring', 'pps-cf', ring, 'enclosure'))
-    # take-up sled: U around the spine with lips in its side slots, roller axle below
-    sy = 440.0
-    sled = fuse([box(-14.0, 14.0, sy - 20, sy + 20, zs0 - 5.0, zs0 - 0.5), box(-14.0, -10.5, sy - 20, sy + 20, zs0 - 0.51, zs1 - 4.0),
-                 box(10.5, 14.0, sy - 20, sy + 20, zs0 - 0.51, zs1 - 4.0), box(-11.0, -8.3, sy - 20, sy + 20, zs0 + 8.5, zs0 + 11.5),
-                 box(8.3, 11.0, sy - 20, sy + 20, zs0 + 8.5, zs0 + 11.5), cyl(8.0, PASS_Z - 15.0, zs0 - 4.9, 0.0, sy)])
-    out.append(('take-up sled', 'pps-cf', sled, 'enclosure'))
-    rz0, rz1 = PASS_Z - 12.0, PASS_Z + 12.0
-    roller = fuse([cyl(50.0, rz0, rz1, 0.0, sy).cut(cyl(46.0, rz0 + 3.0, rz1 - 3.0, 0.0, sy)), cyl(52.5, rz0, rz0 + 1.5, 0.0, sy), cyl(52.5, rz1 - 1.5, rz1, 0.0, sy)])
-    roller = roller.cut(cyl(8.2, rz0 - 1, rz1 + 1, 0.0, sy))
-    out.append(('take-up roller 100 mm', 'pps-cf', roller, 'enclosure'))
-    tray = box(-70.0, 70.0, y0 + 50.0, y0 + 150.0, zs0 - 6.0, zs0)
-    for i in range(13):
-        for j in range(9):
-            tray = tray.cut(cyl(1.4, zs0 - 7, zs0 - 1, -60.0 + 10 * i, y0 + 55.0 + 10 * j))
-    for yy in (y0 + 70.0, y0 + 130.0):
-        tray = tray.cut(cyl(2.75, zs0 - 6.5, zs0 + 0.1, 0.0, yy))
-    out.append(('link board and usb hub tray', 'pps-cf', tray, 'enclosure'))
+    out += PT.ptfe_parts(zs0)                                           # loop heads, towers, sleds, guide bar and guides, tray, tubes
     return out

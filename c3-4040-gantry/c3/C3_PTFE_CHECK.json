@@ -1,0 +1,24 @@
+{
+ "note": "C3 PTFE tube check (run with FreeCAD's Python after c3_build.py): the tubes that move with the tools.",
+ "contacts": [
+  {
+   "pose": "bed",
+   "x": 252.0,
+   "y_nozzle": 563.5,
+   "z": "height_500",
+   "tool_on_head": "T0",
+   "tube": "active T0",
+   "vol_mm3": 0.26,
+   "part": "ptfe dock guide 2"
+  }
+ ],
+ "tube_tube_min_mm": -4.0,
+ "poses": 40,
+ "active_tools": 5,
+ "summary": [
+  [
+   "active",
+   "ptfe dock guide 2"
+  ]
+ ]
+}

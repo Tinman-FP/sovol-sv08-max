@@ -33,14 +33,23 @@ for t in ('xn', 'xp'):
 plan.update({'camera mount front right': [((1, 0, 0), 90)],
              'top hat corner front right display': [], 'top hat corner front left': [], 'top hat corner rear right': [],
              'top hat corner rear left': [], 'top hat front': [], 'top hat rear': [], 'top hat side right': [], 'top hat side left': [],
-             'umbilical drop ring': X180, 'take-up sled': [((0, 1, 0), 90)], 'take-up roller 100 mm': [], 'link board and usb hub tray': []})
+             'umbilical drop ring': X180, 'link board and usb hub tray': [((0, 1, 0), -90)]})
+# PTFE loops and head cables (c3_ptfe.py): loop heads back plate down, guides web down, sleds flat, towers upright (ASA)
+plan.update({'ptfe loop head left': [((0, 1, 0), -90)], 'ptfe loop head right': [((0, 1, 0), 90)],
+             'ptfe loop sled t0': [((0, 1, 0), -90)], 'cable loop sled': [((0, 1, 0), -90)],
+             'ptfe guide bar hanger': X180, 'ptfe tower right a': [], 'ptfe tower right b': [], 'ptfe tower right c': [],
+             'ptfe tower left a': [], 'ptfe tower left b': [], 'ptfe tower left c': []})
+plan.update({f'ptfe dock guide {k}': [((1, 0, 0), 90)] for k in range(1, 6)})
 for t in ('xn', 'xp'):                    # purge/wipe stations (c3_purge.py)
     plan.update({f'station bar clip {t}': []})
 # the five stations and trays are identical: one print file each, printed five times
 plan.update({'wiper station bracket t1': [((1, 0, 0), -90)], 'wiper station slider t1': X180,
              'purge tray': X180})       # rim down: the floor sits on feet, so floor-down would start in mid-air
-SAME = {'wiper station bracket t1': ('wiper station bracket', 5), 'wiper station slider t1': ('wiper station slider', 5)}
+SAME = {'wiper station bracket t1': ('wiper station bracket', 5), 'wiper station slider t1': ('wiper station slider', 5),
+        'ptfe loop sled t0': ('ptfe loop sled', 6)}
 missing = [k for k in plan if k not in by]; assert not missing, missing
+unplanned = [n for n in by if n not in plan and n.rsplit(' ', 1)[0] not in {k.rsplit(' ', 1)[0] for k in SAME}]
+assert not unplanned, unplanned          # every printed part in the model gets a print file
 rows = []
 for name, rot in plan.items():
     shp, mat = by[name]
@@ -71,9 +80,17 @@ bom = {
     ('iPistBit 7 inch 1024x600 HDMI touch display (owner, Amazon B0CRRB1GFN), about 165 x 125 x 15 mm', '1'),
     ('Sovol top cover (owned), moved from the frame top to the top hat', '1'),
     ('2020 extrusion, top hat spine (ends sit in the wall saddles)', '1 x 661 mm'),
-    ('PC4-M10 push-fit coupler (PTFE pass-through)', '5'), ('PG9 cable gland (Link cable)', '1'),
-    ('Constant-force spring about 4 N, >= 200 mm travel, or 3 mm shock cord (umbilical take-up)', '1'),
-    ('M5 slot 8 T-nut (28 gantry: rear corners 2 x 5, front cradles 2 x 6, XY joints 2 x 3) and M5 2020 T-nut (4 spine)', '28 + 4'), ('M5 x 10 SHCS (spine: drop ring, tray)', '4'), ('M5 heat-set insert (rear idler axles)', '6'),
+    ('PC4-M10 push-fit coupler (owned: BIQU 20 pack), screwed into the loop heads; each PTFE tube passes through its collet', '6'),
+    ('PG9 cable gland, top hat rear wall (other cables)', '1'),
+    ('PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box to coupler, about 2.2 m on to the tool', '5 x about 2.5 m + filament box run'),
+    ('INDX Link cable (owned, 2 m) and Beacon USB cable (about 2 m), bundled through the right-hand cable loop', '1 each'),
+    ('M8 hex nut (sled weights: one per PTFE sled, two in the cable sled)', '8'),
+    ('15x15 extrusion (1515), PTFE guide bar under the top hat spine, ends plain', '1 x 620 mm'),
+    ('M3 T-nut for 1515 + M3 x 10 SHCS (dock guides 5, bar hanger 1)', '6'),
+    ('M5 T-nut for Sovol\'s front Z profile outer slot + M5 x 10 SHCS (weight towers: 2 per section, 6 sections)', '12'),
+    ('M4 x 10 SHCS + M4 nut (loop heads 2 x 4 and the Link Board tray 4, through the top hat skin)', '12'),
+    ('Zip ties 2.5 mm (cable anchor, Link and Beacon cables bundled every 150 mm)', '10'),
+    ('M5 slot 8 T-nut (28 gantry: rear corners 2 x 5, front cradles 2 x 6, XY joints 2 x 3) and M5 2020 T-nut (4 spine)', '28 + 4'), ('M5 x 10 SHCS (spine: drop ring, guide bar hanger)', '4'), ('M5 heat-set insert (rear idler axles)', '6'),
     ('M4 heat-set insert (rear caps 4, front cradles 10)', '14'), ('M3 heat-set insert (joints 6, Beacon 2, sliders 2, camera 1, display 4)', '15'),
     ('M5 aluminium spacer 5.2 ID x 8 OD, below and above each rear idler (lengths in c3/C3_SMOOTH_IDLER_CHECK.json)', '11 pieces'),
     ('M5 aluminium sleeve 5.2 ID x 8 OD, cut so each XY-joint idler sits on its belt level (33 mm between the carrier decks minus the idler width)', '4'),

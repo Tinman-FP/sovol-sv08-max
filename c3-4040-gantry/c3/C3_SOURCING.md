@@ -59,8 +59,10 @@ The screw kits above leave these out. The Z drive pulleys are bought oversize an
 * Kraken-to-Pi and hub-to-Pi cables
 * 24 V fan for the Kraken drivers
 * High-temperature red RTV silicone
-* PC4-M10 push-fit couplers
-* Umbilical take-up spring
+* PC4-M10 push-fit couplers (6; for example BIQU, 20 pack: https://www.amazon.com/dp/B0F6CQT461)
+* PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool (about 2.5 m each plus the filament box run)
+* M8 hex nuts (8, sled weights)
+* Beacon USB cable, about 2 m (runs with the INDX Link cable in the right-hand loop)
 * Filament for the printed parts: about 1.05 kg PPS-CF and 2.4 kg ASA (top hat)
 * Wiring consumables: 24 V / 48 V wire, ferrules, JST-XH and Molex crimps, sleeving
 * A spool of 4 mm OD PTFE tube for the five filament paths

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-31: PTFE tubes and head cables on weighted loops
+
+* **Why:** each INDX tool keeps its own PTFE tube, and with the gantry's 500 mm of Z travel a tube's length changes by up to about 840 mm. The old spring take-up had about 360 mm and treated all five tubes as one bundle, though they go to five different docks.
+* **Outside:** a loop head at each front corner of the top hat holds a PC4-M10 coupler per tube; the tube passes through and the collet anchors it. Each tube hangs in a loop round a weighted sled (an M8 nut, about 30 g) in a tower on Sovol's front Z profile, then comes up through a curved guide into the top hat. The INDX Link and Beacon USB cables share a bigger loop on the right.
+* **Inside:** each tube runs taut to a guide right above its own dock, so a parked tool's tube hangs straight down into it. The guides hang on a 620 mm 1515 bar under the spine. The cables drop to the head through the drop ring, now at Y 420.
+* **Removed:** the take-up sled, roller and spring, the five PTFE ports in the rear wall (the PG9 gland stays), and Sovol's spool holder. The Link Board and USB hub tray moves outside the right wall.
+* **Checks:** `c3_check.py` gives 0 clashes with the new parts and tube spans. `c3_ptfecheck.py` (new) checks the moving tubes at 40 poses with each tool on the head: no contact with the gantry or the top hat parts except a 0.26 mm3 graze of a guide at one corner. A tool's tube does touch the parked tools' tubes when the head is at the very front of the corners (nozzle Y above about 520); excluding Y > 520 across the full width in the slicer avoids that.
+* **Print files:** 16 new parts (loop heads, dock guides, sleds, guide bar hanger, and the weight towers in six ASA sections); the take-up sled and roller are gone. The 3MF has 68 parts on eight plates: 92.6 h and 1814 g.
+* **Open:** the owner's 2 m Link cable plus any USB cable is over Bondtech's 2 m limit for the two together.
+
 ## 2026-10-31: a wiper station and purge tray for every tool
 
 * **Docks:** 78 mm apart (they were 42 mm), at X -203/-125/-47/31/109.

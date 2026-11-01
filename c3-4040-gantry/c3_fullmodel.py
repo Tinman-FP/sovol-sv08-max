@@ -27,7 +27,7 @@ def gone_c3(l, k, s):                                   # as c3_check / c3_zchec
     b = s.BoundBox
     if 'drag chain fixing plate' in l or (re.search(r'm3x20|m3x5', l) and -200 < b.XMin and b.XMax < -140 and -60 < b.YMin and b.YMax < -36 and b.ZMin > 160):
         return True
-    if 'camera kit' in k:
+    if 'camera kit' in k or 'filament' in k:            # camera (moved) and the stock spool holder (gone)
         return True
     return 'top kit' in k and ('guiding element' in l or 'pu-4 gas pipe fitting' in l or ('m3x14' in l and b.XMax < -330 and 250 < b.YMin < 290))
 def replaced(l, k, s):                                  # as c3_zcheck: what the 12 mm Z upgrade replaces

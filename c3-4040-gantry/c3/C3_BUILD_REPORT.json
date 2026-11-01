@@ -7,7 +7,7 @@
   "B": 2508.9,
   "A": 2508.9
  },
- "parts": 209,
+ "parts": 242,
  "nozzle_z": 127.0,
  "dock_rail": {
   "y": [
@@ -69,12 +69,18 @@
   217.0
  ],
  "bbox_enclosure": [
-  -354.5,
-  354.5,
+  -422.5,
+  422.5,
   -75.0,
   622.0,
   -70.7,
   727.3
  ],
- "printed_overlaps": []
+ "printed_overlaps": [
+  [
+   666.1,
+   "umbilical drop ring",
+   "head cables link and beacon span"
+  ]
+ ]
 }

@@ -9,6 +9,8 @@ C3 has not been built yet. Every part, clearance and config value here comes fro
 * **Check the parts you print against the CAD.** If your printer's frame differs from Sovol's model, re-check the fit. Pay most attention to the Z towers, the top frame and the bed edge.
 * **Check the bought parts against the BOM.** The Z idler flanges must be 16 mm or less across. The reworked Z drive pulleys must be 12.6 mm or less long.
 
+* **Take Sovol's spool holder off the right side.** The right weight tower for the PTFE loops goes where it was.
+
 ## Power
 
 * **Two supplies.** The motors run from a 48 V supply on the Kraken's HV motor input. The Kraken's logic and bed inputs stay at 24 V.
@@ -35,3 +37,4 @@ Follow the bring-up order in `c3-4040-gantry/klipper_c3/README.md` one step at a
 
 * **Wiper pads.** Qidi publishes no temperature rating for its silicone wipers. The nozzle only touches a pad briefly on each stroke. Replace a pad when it hardens or tears.
 * **Purge trays.** Empty them before they reach the gantry: their rims are 1 mm below the lowest gantry part at the first layer.
+* **PTFE loops.** The weighted sleds ride in towers on the outside of the frame at the front corners. Keep fingers, cables and the door clear of them while the head moves. Before the first print, check that a sled's pull does not move a parked tool in its dock.
