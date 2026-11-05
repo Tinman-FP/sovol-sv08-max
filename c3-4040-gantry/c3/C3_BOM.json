@@ -365,8 +365,8 @@
    "qty": 1,
    "material": "asa",
    "file": "TOP_HAT_SIDE_RIGHT_ASA",
-   "volume_cm3": 278.9,
-   "mass_g": 298.0,
+   "volume_cm3": 307.0,
+   "mass_g": 329.0,
    "print_size_mm": [
     40.0,
     262.0,
@@ -391,21 +391,6 @@
    "solids": 1
   },
   {
-   "part": "rear mast",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "REAR_MAST_PPS-CF",
-   "volume_cm3": 378.4,
-   "mass_g": 492.0,
-   "print_size_mm": [
-    173.0,
-    72.0,
-    259.0
-   ],
-   "valid": true,
-   "solids": 2
-  },
-  {
    "part": "umbilical head saddle",
    "qty": 1,
    "material": "pps-cf",
@@ -421,31 +406,16 @@
    "solids": 1
   },
   {
-   "part": "chain bracket ptfe right",
-   "qty": 3,
+   "part": "umbilical roof clamp",
+   "qty": 1,
    "material": "pps-cf",
-   "file": "CHAIN_BRACKET_PTFE_RIGHT_PPS-CF",
-   "volume_cm3": 2.8,
-   "mass_g": 4.0,
+   "file": "UMBILICAL_ROOF_CLAMP_PPS-CF",
+   "volume_cm3": 46.4,
+   "mass_g": 60.0,
    "print_size_mm": [
-    30.2,
-    14.0,
-    9.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "chain bracket ptfe left",
-   "qty": 2,
-   "material": "pps-cf",
-   "file": "CHAIN_BRACKET_PTFE_LEFT_PPS-CF",
-   "volume_cm3": 2.8,
-   "mass_g": 4.0,
-   "print_size_mm": [
-    30.2,
-    14.0,
-    9.0
+    64.0,
+    64.0,
+    64.0
    ],
    "valid": true,
    "solids": 1
@@ -467,7 +437,7 @@
   },
   {
    "part": "chain bracket motor left",
-   "qty": 1,
+   "qty": 2,
    "material": "pps-cf",
    "file": "CHAIN_BRACKET_MOTOR_LEFT_PPS-CF",
    "volume_cm3": 2.6,
@@ -476,66 +446,6 @@
     30.2,
     14.0,
     9.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "chain bracket power left",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "CHAIN_BRACKET_POWER_LEFT_PPS-CF",
-   "volume_cm3": 2.7,
-   "mass_g": 4.0,
-   "print_size_mm": [
-    30.2,
-    14.0,
-    9.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "chain bracket usb",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "CHAIN_BRACKET_USB_PPS-CF",
-   "volume_cm3": 2.6,
-   "mass_g": 3.0,
-   "print_size_mm": [
-    30.2,
-    14.0,
-    9.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "chain anchor ptfe right",
-   "qty": 3,
-   "material": "pps-cf",
-   "file": "CHAIN_ANCHOR_PTFE_RIGHT_PPS-CF",
-   "volume_cm3": 6.6,
-   "mass_g": 9.0,
-   "print_size_mm": [
-    14.0,
-    16.0,
-    34.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "chain anchor ptfe left",
-   "qty": 2,
-   "material": "pps-cf",
-   "file": "CHAIN_ANCHOR_PTFE_LEFT_PPS-CF",
-   "volume_cm3": 6.6,
-   "mass_g": 9.0,
-   "print_size_mm": [
-    14.0,
-    16.0,
-    34.0
    ],
    "valid": true,
    "solids": 1
@@ -557,7 +467,7 @@
   },
   {
    "part": "chain anchor cable left",
-   "qty": 3,
+   "qty": 2,
    "material": "pps-cf",
    "file": "CHAIN_ANCHOR_CABLE_LEFT_PPS-CF",
    "volume_cm3": 5.6,
@@ -566,36 +476,6 @@
     14.0,
     16.0,
     34.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "chain entry ptfe right",
-   "qty": 3,
-   "material": "pps-cf",
-   "file": "CHAIN_ENTRY_PTFE_RIGHT_PPS-CF",
-   "volume_cm3": 18.1,
-   "mass_g": 24.0,
-   "print_size_mm": [
-    24.9,
-    28.0,
-    74.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "chain entry ptfe left",
-   "qty": 2,
-   "material": "pps-cf",
-   "file": "CHAIN_ENTRY_PTFE_LEFT_PPS-CF",
-   "volume_cm3": 18.1,
-   "mass_g": 24.0,
-   "print_size_mm": [
-    24.9,
-    28.0,
-    74.0
    ],
    "valid": true,
    "solids": 1
@@ -617,7 +497,7 @@
   },
   {
    "part": "chain entry cable left",
-   "qty": 3,
+   "qty": 2,
    "material": "pps-cf",
    "file": "CHAIN_ENTRY_CABLE_LEFT_PPS-CF",
    "volume_cm3": 15.6,
@@ -629,66 +509,6 @@
    ],
    "valid": true,
    "solids": 1
-  },
-  {
-   "part": "harness side post left",
-   "qty": 2,
-   "material": "pps-cf",
-   "file": "HARNESS_SIDE_POST_LEFT_PPS-CF",
-   "volume_cm3": 10.9,
-   "mass_g": 14.0,
-   "print_size_mm": [
-    31.0,
-    125.0,
-    12.0
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "harness rear post left",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "HARNESS_REAR_POST_LEFT_PPS-CF",
-   "volume_cm3": 16.5,
-   "mass_g": 21.0,
-   "print_size_mm": [
-    20.0,
-    38.0,
-    97.1
-   ],
-   "valid": true,
-   "solids": 1
-  },
-  {
-   "part": "side mast right",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "SIDE_MAST_RIGHT_PPS-CF",
-   "volume_cm3": 167.5,
-   "mass_g": 218.0,
-   "print_size_mm": [
-    222.4,
-    194.0,
-    92.7
-   ],
-   "valid": true,
-   "solids": 4
-  },
-  {
-   "part": "side mast left",
-   "qty": 1,
-   "material": "pps-cf",
-   "file": "SIDE_MAST_LEFT_PPS-CF",
-   "volume_cm3": 121.1,
-   "mass_g": 157.0,
-   "print_size_mm": [
-    222.4,
-    147.5,
-    92.7
-   ],
-   "valid": true,
-   "solids": 3
   },
   {
    "part": "station bar clip xn",
@@ -840,11 +660,11 @@
    "1"
   ],
   [
-   "Sovol top cover (owned), moved from the frame top to the top hat",
+   "Sovol top cover (owned), moved from the frame top to the top hat; drilled at its centre for the umbilical roof clamp",
    "1"
   ],
   [
-   "PC4-M10 push-fit coupler (owned: BIQU 20 pack), in the PTFE chain entries on the side panels",
+   "PC4-M10 push-fit coupler (owned: BIQU 20 pack), one per tool in the top hat's right side wall (tap the pads M10 x 1 or let the coupler cut its thread)",
    "5"
   ],
   [
@@ -852,68 +672,60 @@
    "1"
   ],
   [
-   "Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside (it hangs in a 16 mm gap), bend radius 28 mm (PTFE)",
-   "5 x 351 mm + end links"
+   "Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside (it hangs in a 16 mm gap), bend radius 18 mm, one per motor",
+   "4 x 340 mm + end links"
   ],
   [
-   "Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside, bend radius 18 mm (motors, Link Board power and USB)",
-   "5 x 340 mm + end links"
+   "PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box -> side-wall coupler -> tool",
+   "5 x 0.98 m inside + the run to the filament box"
   ],
   [
-   "Piano (music) wire 0.8 mm, one per PTFE arc: mast clamp to its tool, tied along the tube",
-   "5 x 0.8 m"
-  ],
-  [
-   "Piano (music) wire 1.5 mm for the umbilical (as the Rat Rig V-Core 4)",
-   "1 x 0.75 m"
+   "Piano (music) wire 1.4 mm for the umbilical (as the Rat Rig V-Core 4; 1.2 mm sags onto belt B at full height)",
+   "1 x 0.9 m"
   ],
   [
    "Split loom or braided sleeve 10-13 mm: umbilical (wire, INDX Link cable, Beacon USB)",
    "1 m"
   ],
   [
-   "PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box -> side entry -> chain -> harness -> mast -> arc -> tool",
-   "5 x about 2.0 m + filament box run"
+   "INDX Link cable, Link Board (on the top cover) to the head through the umbilical (owned)",
+   "1 (about 0.9 m needed)"
   ],
   [
-   "INDX Link cable, Link Board to the head through the umbilical (owned; about 0.8 m needed)",
-   "1"
+   "Beacon USB cable, head to the USB hub on the top cover, through the umbilical",
+   "1 (about 0.9 m needed)"
   ],
   [
-   "Thin USB cables (about 3.3 mm): Pi to the Link Board and Pi to the Beacon, through the left USB chain",
-   "2 x about 1.6 m"
-  ],
-  [
-   "2-core 18 AWG silicone, 24 V to the Link Board on the mast (with the left rear motor cable)",
-   "1.5 m"
-  ],
-  [
-   "M5 slot 8 T-nut + M5 x 10 SHCS (chain brackets 10, side posts 4, rear posts 2, rear mast 4)",
-   "20"
+   "M5 slot 8 T-nut + M5 x 10 SHCS (chain brackets)",
+   "4"
   ],
   [
    "M3 x 16 SHCS + M3 nut: chain anchors through the side panels (drill 3.4 mm, with the entry plate as the template)",
-   "20"
+   "8"
   ],
   [
    "M3 x 8 SHCS: chain end links to their brackets and anchors (check the chain's end-link holes)",
-   "40"
+   "16"
   ],
   [
-   "M3 heat-set insert + M3 x 6 set screw (piano-wire clamps: 5 in the side masts, 1 in the rear mast, 1 in the head saddle)",
-   "7 + 7"
+   "M3 x 12 SHCS + washer + nut: umbilical roof clamp through the top cover (drill 4 x 3.4 mm with the clamp as the template, and 16 mm in the middle for the cables)",
+   "4"
+  ],
+  [
+   "M3 heat-set insert + M3 x 6 set screw (piano-wire clamps: roof clamp and head saddle)",
+   "2 + 2"
   ],
   [
    "VHB tape, for the umbilical saddle on the INDX PCB cover",
    "a strip"
   ],
   [
-   "M3 x 8 SHCS + 5 mm standoffs (Link Board on the mast plate; fit the plate's slots to the board)",
-   "4"
+   "Link Board and USB hub on top of the cover beside the cable hole (VHB or your own mount)",
+   "-"
   ],
   [
-   "Zip ties 2.5 mm (harness to its posts, umbilical feed, tubes to their piano wires)",
-   "40"
+   "Zip ties 2.5 mm (umbilical cables to the wire)",
+   "15"
   ],
   [
    "M5 slot 8 T-nut (28 gantry: rear corners 2 x 5, front cradles 2 x 6, XY joints 2 x 3)",

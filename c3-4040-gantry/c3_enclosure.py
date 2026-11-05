@@ -1,6 +1,7 @@
 """C3 frame-fixed parts: the stock camera on a fixed front-right mount, and the top hat (sectional walls, iPistBit 7 inch
-display, the owner's Sovol top cover moved up onto it, a PG9 gland in the rear wall). The PTFE tubes, cable chains, harness,
-rear mast and piano-wire arcs are in c3_routing.py (2026-11-01); the top hat is 195 mm tall to clear the arcs.
+display, the owner's Sovol top cover moved up onto it, a PG9 gland in the rear wall, and the five PTFE coupler pads in its
+right side wall). The tubes, the umbilical roof clamp and the motor chains are in c3_routing.py (2026-11-01); the top hat is
+195 mm tall so the tubes' arches stay under the cover at full height.
 
 Everything here is fixed to the printer frame (it does not ride on the gantry) and goes into c3_build's parts list
 with group 'enclosure'; c3_check sweeps the whole gantry against it.
@@ -89,7 +90,7 @@ def camera_parts(stock_camera):
     return out
 
 # ---------------------------------------------------------------- top hat
-TH_H = 195.0                                   # clears the piano-wire arcs at full Z (was 136 until 2026-11-01; c3_routecheck.py)
+TH_H = 195.0                                   # the tubes' arches at full Z stay under the cover (was 136 until 2026-11-01; c3_routecheck.py)
 TH_TOP = FRAME_TOP + TH_H
 TH_D = 40.0                                    # wall depth (owner's 40 mm sections)
 TOP_BAND = 7.5                                 # the top hat's top repeats the frame's 7.5 mm top band: the Sovol cover sits on it
@@ -197,6 +198,9 @@ def top_hat_parts():
                 holes.append(Part.makeCylinder(1.7, 12.0, V(v - 6.0, w + inward * 22.0, zz), V(1, 0, 0)))
             else:
                 holes.append(Part.makeCylinder(1.7, 12.0, V(w + inward * 22.0, v - 6.0, zz), V(0, 1, 0)))
+    import c3_routing as RT                       # PTFE coupler pads in the right side wall, between the ribs
+    for line in RT.CPL_Y:
+        pad, hl = RT.coupler_pad(line); adds.append(pad); holes += hl
     ring = fuse([ring] + adds)
     # 7 inch display in the front-right corner (x<0 is the printer's right): glass flush with the front skin
     dz0 = z0 + 2.5; dz1 = dz0 + DISPLAY['h']
@@ -208,8 +212,8 @@ def top_hat_parts():
         for zz in (dz0 + 15.0, dz1 - 15.0):
             ring = ring.cut(Part.makeCylinder(2.0, 6.0, V(xx, y1 - DISPLAY['depth'] - 4.01, zz), V(0, 1, 0)))
     ring = ring.cut(box(dx0 + 20.0, dx1 - 20.0, y1 - DISPLAY['depth'] - 4.5, y1 - DISPLAY['depth'] + 0.1, dz0 + 10.0, dz1 - 10.0))   # cable window
-    # a PG9 gland in the rear wall for the display and other cables (tubes and head cables reach the gantry through the
-    # side-gap chains: c3_routing)
+    # a PG9 gland in the rear wall for the display and other cables (the tubes come in through the side-wall couplers and
+    # the head cables through the top cover: c3_routing)
     pz = PASS_Z
     blk = box(-34.0, -8.0, y0, y0 + 22.0, pz - 16.0, pz + 16.0)
     ring = ring.fuse(blk)
@@ -229,7 +233,6 @@ def top_hat_parts():
     return [(name, 'asa', ring.common(reg).removeSplitter(), 'enclosure') for name, reg in regions.items()]
 
 def umbilical_parts():
-    """Cable chains, harness, rear mast and the fixed chain anchors: c3_routing.py (2026-11-01). Until then the top hat
-    held a 2020 spine with the head cables' drop ring and the PTFE guides, fed by weighted loops outside."""
+    """Motor chain fittings, PTFE wall couplers and the umbilical roof clamp: c3_routing.py (2026-11-01)."""
     import c3_routing as RT
     return RT.routing_parts()

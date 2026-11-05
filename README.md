@@ -21,8 +21,8 @@ What it changes:
 * **Probe:** Beacon Rev H, with Z homing and per-tool Z offsets by Beacon contact.
 * **Z upgrade:** 12 mm belts and four StepperOnline 17HM19-2004S1 0.9° motors. The Z drive pulleys are reworked from stock 20T pulleys on a lathe.
 * **Purge and wipe:** a wiper station beside each tool's dock (five in all), each with a Qidi Plus 4 silicone wiper pad, and one long purge tray under all five that slides out through the door with no fasteners.
-* **Top hat:** 195 mm tall, printed in ASA. It lifts Sovol's top cover, holds a 7 inch display and gives the piano-wire arcs room at full height. There is also a new camera mount.
-* **Tubes and cables:** every tube and cable reaches the moving gantry through thin cable chains hanging in the gaps beside the side beams, the only space the gantry never sweeps. Each PTFE tube rises in a side mast and arcs on a piano wire to its tool (as on the Snapmaker U1). The INDX Link and Beacon USB cables leave a mast on the rear beam as a piano-wire umbilical to the head (as on the Rat Rig V-Core 4).
+* **Top hat:** 195 mm tall, printed in ASA. It lifts Sovol's top cover, holds a 7 inch display and the five PTFE couplers, and gives the tubes room to arch at full height. There is also a new camera mount.
+* **Tubes and cables:** the five PTFE tubes come in through PC4-M10 couplers in the top hat's right side wall, above the gantry's highest point, and hang free to their tools. The INDX Link and Beacon USB cables come straight down from the centre of the top cover as a piano-wire umbilical (as on the Rat Rig V-Core 4); the Link Board and a USB hub sit on the cover. Each gantry motor's cable comes up from the bottom in its own thin chain beside the side beam.
 * **Electronics:** a BTT Kraken running mainline Klipper, with a 48 V motor supply.
 
 The 500 mm print height stays. The front 37 mm of the bed, across 424 mm of its width, is kept clear for the docks and wipers, so the slicer's bed shape needs that strip left out. The exact numbers are in the [design notes](c3-4040-gantry/README.md).
@@ -48,8 +48,8 @@ All paths are inside `c3-4040-gantry/`.
 
 ### Printing
 
-* **PPS-CF parts:** 88 parts, which is 68 for the gantry, stations, masts and chain fittings plus 20 for the Z kit. In the project they slice on a Qidi Plus 4 with a 0.6 mm nozzle to about 120.4 h and 2236 g. The 360 mm purge tray is longer than the Qidi bed, so it lies diagonally on its own plate. The settings are 0.24 mm layers, 6 walls and 45 % infill.
-* **Supports:** 36 parts need them. The project already has tree supports on those.
+* **PPS-CF parts:** 65 parts, which is 45 for the gantry, stations, umbilical clamps and motor-chain fittings plus 20 for the Z kit. In the project they slice on a Qidi Plus 4 with a 0.6 mm nozzle to about 62.4 h and 1158 g. The 360 mm purge tray is longer than the Qidi bed, so it lies diagonally on its own plate. The settings are 0.24 mm layers, 6 walls and 45 % infill.
+* **Supports:** 21 parts need them. The project already has tree supports on those.
 * **The 3MF:** it was saved in Tinman, a fork of OrcaSlicer 2.4.2. It should open in OrcaSlicer 2.4 or later, but that has not been tested. Its printer, filament and process presets are custom ones, so set your own printer and PPS-CF profile before slicing.
 * **ASA parts:** the top hat (8 sections, each up to 289 mm long and 195 mm tall, about 3.2 kg), printed upright. These come as STEP and STL only; they are not in the 3MF.
 
@@ -96,7 +96,7 @@ Then run the others the same way:
 
 | Script | What it does |
 |---|---|
-| `c3_zcheck.py`, `c3_purgecheck.py`, `c3_stopsweep.py`, `c3_lanecheck.py`, `c3_routecheck.py` | The other checks (`c3_routecheck.py`: chains over Z, harness against the head, piano-wire arcs; `c3_elastica.py` solves the arcs). |
+| `c3_zcheck.py`, `c3_purgecheck.py`, `c3_stopsweep.py`, `c3_lanecheck.py`, `c3_routecheck.py` | The other checks (`c3_routecheck.py`: motor chains over Z, and the free tubes and umbilical at three heights; `c3_elastica.py` solves their shapes). |
 | `c3_release.py`, `c3_zrelease.py` | Print files and BOMs. |
 | `c3_fullmodel.py` | The category STEPs in `c3/full/`. |
 

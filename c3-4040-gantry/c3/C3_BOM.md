@@ -28,35 +28,23 @@
 | top hat corner rear left | 1 | ASA | TOP_HAT_CORNER_REAR_LEFT_ASA.stl | 411.0 | 440 | 210.0 x 210.0 x 195.0 |
 | top hat front | 1 | ASA | TOP_HAT_FRONT_ASA.stl | 286.9 | 307 | 274.0 x 40.0 x 195.0 |
 | top hat rear | 1 | ASA | TOP_HAT_REAR_ASA.stl | 307.2 | 329 | 289.0 x 40.0 x 195.0 |
-| top hat side right | 1 | ASA | TOP_HAT_SIDE_RIGHT_ASA.stl | 278.9 | 298 | 40.0 x 262.0 x 195.0 |
+| top hat side right | 1 | ASA | TOP_HAT_SIDE_RIGHT_ASA.stl | 307.0 | 329 | 40.0 x 262.0 x 195.0 |
 | top hat side left | 1 | ASA | TOP_HAT_SIDE_LEFT_ASA.stl | 288.9 | 309 | 40.0 x 277.0 x 195.0 |
-| rear mast | 1 | PPS-CF | REAR_MAST_PPS-CF.stl | 378.4 | 492 | 173.0 x 72.0 x 259.0 |
 | umbilical head saddle | 1 | PPS-CF | UMBILICAL_HEAD_SADDLE_PPS-CF.stl | 7.7 | 10 | 54.8 x 25.5 x 26.0 |
-| chain bracket ptfe right | 3 | PPS-CF | CHAIN_BRACKET_PTFE_RIGHT_PPS-CF.stl | 2.8 | 4 | 30.2 x 14.0 x 9.0 |
-| chain bracket ptfe left | 2 | PPS-CF | CHAIN_BRACKET_PTFE_LEFT_PPS-CF.stl | 2.8 | 4 | 30.2 x 14.0 x 9.0 |
+| umbilical roof clamp | 1 | PPS-CF | UMBILICAL_ROOF_CLAMP_PPS-CF.stl | 46.4 | 60 | 64.0 x 64.0 x 64.0 |
 | chain bracket motor right | 2 | PPS-CF | CHAIN_BRACKET_MOTOR_RIGHT_PPS-CF.stl | 2.6 | 3 | 30.2 x 14.0 x 9.0 |
-| chain bracket motor left | 1 | PPS-CF | CHAIN_BRACKET_MOTOR_LEFT_PPS-CF.stl | 2.6 | 3 | 30.2 x 14.0 x 9.0 |
-| chain bracket power left | 1 | PPS-CF | CHAIN_BRACKET_POWER_LEFT_PPS-CF.stl | 2.7 | 4 | 30.2 x 14.0 x 9.0 |
-| chain bracket usb | 1 | PPS-CF | CHAIN_BRACKET_USB_PPS-CF.stl | 2.6 | 3 | 30.2 x 14.0 x 9.0 |
-| chain anchor ptfe right | 3 | PPS-CF | CHAIN_ANCHOR_PTFE_RIGHT_PPS-CF.stl | 6.6 | 9 | 14.0 x 16.0 x 34.0 |
-| chain anchor ptfe left | 2 | PPS-CF | CHAIN_ANCHOR_PTFE_LEFT_PPS-CF.stl | 6.6 | 9 | 14.0 x 16.0 x 34.0 |
+| chain bracket motor left | 2 | PPS-CF | CHAIN_BRACKET_MOTOR_LEFT_PPS-CF.stl | 2.6 | 3 | 30.2 x 14.0 x 9.0 |
 | chain anchor cable right | 2 | PPS-CF | CHAIN_ANCHOR_CABLE_RIGHT_PPS-CF.stl | 5.6 | 7 | 14.0 x 16.0 x 34.0 |
-| chain anchor cable left | 3 | PPS-CF | CHAIN_ANCHOR_CABLE_LEFT_PPS-CF.stl | 5.6 | 7 | 14.0 x 16.0 x 34.0 |
-| chain entry ptfe right | 3 | PPS-CF | CHAIN_ENTRY_PTFE_RIGHT_PPS-CF.stl | 18.1 | 24 | 24.9 x 28.0 x 74.0 |
-| chain entry ptfe left | 2 | PPS-CF | CHAIN_ENTRY_PTFE_LEFT_PPS-CF.stl | 18.1 | 24 | 24.9 x 28.0 x 74.0 |
+| chain anchor cable left | 2 | PPS-CF | CHAIN_ANCHOR_CABLE_LEFT_PPS-CF.stl | 5.6 | 7 | 14.0 x 16.0 x 34.0 |
 | chain entry cable right | 2 | PPS-CF | CHAIN_ENTRY_CABLE_RIGHT_PPS-CF.stl | 15.6 | 20 | 8.0 x 28.0 x 74.0 |
-| chain entry cable left | 3 | PPS-CF | CHAIN_ENTRY_CABLE_LEFT_PPS-CF.stl | 15.6 | 20 | 8.0 x 28.0 x 74.0 |
-| harness side post left | 2 | PPS-CF | HARNESS_SIDE_POST_LEFT_PPS-CF.stl | 10.9 | 14 | 31.0 x 125.0 x 12.0 |
-| harness rear post left | 1 | PPS-CF | HARNESS_REAR_POST_LEFT_PPS-CF.stl | 16.5 | 21 | 20.0 x 38.0 x 97.1 |
-| side mast right | 1 | PPS-CF | SIDE_MAST_RIGHT_PPS-CF.stl | 167.5 | 218 | 222.4 x 194.0 x 92.7 |
-| side mast left | 1 | PPS-CF | SIDE_MAST_LEFT_PPS-CF.stl | 121.1 | 157 | 222.4 x 147.5 x 92.7 |
+| chain entry cable left | 2 | PPS-CF | CHAIN_ENTRY_CABLE_LEFT_PPS-CF.stl | 15.6 | 20 | 8.0 x 28.0 x 74.0 |
 | station bar clip xn | 1 | PPS-CF | STATION_BAR_CLIP_XN_PPS-CF.stl | 2.5 | 3 | 18.5 x 19.0 x 17.0 |
 | station bar clip xp | 1 | PPS-CF | STATION_BAR_CLIP_XP_PPS-CF.stl | 2.5 | 3 | 18.5 x 19.0 x 17.0 |
 | wiper station bracket | 5 | PPS-CF | WIPER_STATION_BRACKET_PPS-CF.stl | 5.9 | 8 | 60.0 x 21.0 x 11.0 |
 | wiper station slider | 5 | PPS-CF | WIPER_STATION_SLIDER_PPS-CF.stl | 4.0 | 5 | 59.0 x 31.0 x 15.1 |
 | purge tray | 1 | PPS-CF | PURGE_TRAY_PPS-CF.stl | 44.2 | 57 | 360.0 x 46.0 x 13.7 |
 
-Printed total: PPS-CF 2097 g, ASA 3176 g
+Printed total: PPS-CF 1025 g, ASA 3207 g
 
 ## Purchased
 
@@ -80,25 +68,23 @@ Printed total: PPS-CF 2097 g, ASA 3176 g
 | Beacon Rev H (owned) | 1 |
 | Stock SV08 Max camera, reused on the new mount | 1 |
 | iPistBit 7 inch 1024x600 HDMI touch display (owner, Amazon B0CRRB1GFN), about 165 x 125 x 15 mm | 1 |
-| Sovol top cover (owned), moved from the frame top to the top hat | 1 |
-| PC4-M10 push-fit coupler (owned: BIQU 20 pack), in the PTFE chain entries on the side panels | 5 |
+| Sovol top cover (owned), moved from the frame top to the top hat; drilled at its centre for the umbilical roof clamp | 1 |
+| PC4-M10 push-fit coupler (owned: BIQU 20 pack), one per tool in the top hat's right side wall (tap the pads M10 x 1 or let the coupler cut its thread) | 5 |
 | PG9 cable gland, top hat rear wall (display and other cables) | 1 |
-| Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside (it hangs in a 16 mm gap), bend radius 28 mm (PTFE) | 5 x 351 mm + end links |
-| Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside, bend radius 18 mm (motors, Link Board power and USB) | 5 x 340 mm + end links |
-| Piano (music) wire 0.8 mm, one per PTFE arc: mast clamp to its tool, tied along the tube | 5 x 0.8 m |
-| Piano (music) wire 1.5 mm for the umbilical (as the Rat Rig V-Core 4) | 1 x 0.75 m |
+| Micro cable chain 7 x 7 mm inside, at most 11.5 mm wide outside (it hangs in a 16 mm gap), bend radius 18 mm, one per motor | 4 x 340 mm + end links |
+| PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box -> side-wall coupler -> tool | 5 x 0.98 m inside + the run to the filament box |
+| Piano (music) wire 1.4 mm for the umbilical (as the Rat Rig V-Core 4; 1.2 mm sags onto belt B at full height) | 1 x 0.9 m |
 | Split loom or braided sleeve 10-13 mm: umbilical (wire, INDX Link cable, Beacon USB) | 1 m |
-| PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool: filament box -> side entry -> chain -> harness -> mast -> arc -> tool | 5 x about 2.0 m + filament box run |
-| INDX Link cable, Link Board to the head through the umbilical (owned; about 0.8 m needed) | 1 |
-| Thin USB cables (about 3.3 mm): Pi to the Link Board and Pi to the Beacon, through the left USB chain | 2 x about 1.6 m |
-| 2-core 18 AWG silicone, 24 V to the Link Board on the mast (with the left rear motor cable) | 1.5 m |
-| M5 slot 8 T-nut + M5 x 10 SHCS (chain brackets 10, side posts 4, rear posts 2, rear mast 4) | 20 |
-| M3 x 16 SHCS + M3 nut: chain anchors through the side panels (drill 3.4 mm, with the entry plate as the template) | 20 |
-| M3 x 8 SHCS: chain end links to their brackets and anchors (check the chain's end-link holes) | 40 |
-| M3 heat-set insert + M3 x 6 set screw (piano-wire clamps: 5 in the side masts, 1 in the rear mast, 1 in the head saddle) | 7 + 7 |
+| INDX Link cable, Link Board (on the top cover) to the head through the umbilical (owned) | 1 (about 0.9 m needed) |
+| Beacon USB cable, head to the USB hub on the top cover, through the umbilical | 1 (about 0.9 m needed) |
+| M5 slot 8 T-nut + M5 x 10 SHCS (chain brackets) | 4 |
+| M3 x 16 SHCS + M3 nut: chain anchors through the side panels (drill 3.4 mm, with the entry plate as the template) | 8 |
+| M3 x 8 SHCS: chain end links to their brackets and anchors (check the chain's end-link holes) | 16 |
+| M3 x 12 SHCS + washer + nut: umbilical roof clamp through the top cover (drill 4 x 3.4 mm with the clamp as the template, and 16 mm in the middle for the cables) | 4 |
+| M3 heat-set insert + M3 x 6 set screw (piano-wire clamps: roof clamp and head saddle) | 2 + 2 |
 | VHB tape, for the umbilical saddle on the INDX PCB cover | a strip |
-| M3 x 8 SHCS + 5 mm standoffs (Link Board on the mast plate; fit the plate's slots to the board) | 4 |
-| Zip ties 2.5 mm (harness to its posts, umbilical feed, tubes to their piano wires) | 40 |
+| Link Board and USB hub on top of the cover beside the cable hole (VHB or your own mount) | - |
+| Zip ties 2.5 mm (umbilical cables to the wire) | 15 |
 | M5 slot 8 T-nut (28 gantry: rear corners 2 x 5, front cradles 2 x 6, XY joints 2 x 3) | 28 |
 | M5 heat-set insert (rear idler axles) | 6 |
 | M4 heat-set insert (rear caps 4, front cradles 10) | 14 |

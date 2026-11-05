@@ -75,4 +75,7 @@ def solve(A, tA, B, tB, L, EI, w_g_per_m, N=36, X0=None):
                    constraints=[{'type': 'eq', 'fun': cons, 'jac': cons_jac}], options={'maxiter': 600, 'ftol': 1e-9})
     Y = full(res.x)
     err = float(np.abs(np.linalg.norm(np.diff(Y, axis=0), axis=1) - ds).max())
-    return Y, bool(res.success and err < 0.02 * ds)
+    # With both ends on one vertical line and both tangents vertical, the loop can turn freely about that line: SLSQP
+    # keeps rolling it and stops at its iteration limit, though every turned copy is the same equilibrium.
+    spin = res.status == 9 and np.linalg.norm((B - A)[:2]) < 5.0 and abs(tA[2]) > 0.99 and abs(tB[2]) > 0.99
+    return Y, bool((res.success or spin) and err < 0.02 * ds)

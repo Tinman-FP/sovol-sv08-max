@@ -100,7 +100,7 @@ Firmware: **mainline Klipper on every board**, and no Sovol firmware anywhere:
 ## Host
 
 The Raspberry Pi sits outside the chamber, right side, next to the Kraken.
-* **USB devices:** Kraken, INDX Link Board, Beacon, the display's touch and the camera. That's five, and a Pi has four USB-A ports, so use the powered USB hub already planned in the top-hat tray for Beacon, the Link Board and the camera. Run one cable down to the Pi, and connect the Kraken to the Pi directly.
+* **USB devices:** Kraken, INDX Link Board, Beacon, the display's touch and the camera. That's five, and a Pi has four USB-A ports, so use the powered USB hub (Waveshare 4-port, 7-36 V in) on top of the Sovol top cover, beside the umbilical's hole at the centre, for Beacon, the Link Board and the camera. Run one cable down to the Pi, and connect the Kraken to the Pi directly.
 * **Display:** the iPistBit plugs into the Pi over HDMI (a Pi 4 or 5 needs a micro-HDMI to HDMI cable) and USB for touch.
 * **Power:** a 24 V to 5 V buck rated 5 A for a Pi 5. A Pi 5 only allows full USB current when it detects a 5 A supply; on a buck add `usb_max_current_enable=1` to `/boot/firmware/config.txt`.
 * **Network:** Wi-Fi and Ethernet are on the Pi; nothing in the Klipper config depends on the model.

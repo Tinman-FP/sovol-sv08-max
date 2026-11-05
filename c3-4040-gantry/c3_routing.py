@@ -1,24 +1,31 @@
-"""C3 routing (owner, 2026-11-01): cable chains in the side gaps, a harness on the gantry up to a mast on the rear beam,
-and piano-wire arcs from the mast to every tool and to the head. Replaces the weighted PTFE loops of 2026-10-31.
+"""C3 routing, simplified (owner, 2026-11-01 evening: "way too complicated"): PTFE couplers in the top hat's side walls
+with the tubes hanging free to the tools, and the head cables straight down from the centre of the top cover.
+Replaces the same day's PTFE chains, side masts, rear mast, harness and piano-wire tube arcs.
 
-Why it is laid out this way (measured in the C3 model, see c3_routecheck.py):
-* The gantry moves 500 mm in Z and fills the frame: over its travel it sweeps everything inside except a 14-16 mm gap
-  between each side beam (outer face |X| 338) and the frame face (|X| 354.5), from Y 97 to 450. The back is full (the X
-  beam at its rearmost comes within 4 mm of the rear beam) and so is the front (the docks reach the frame face).
-* So every cable and tube reaches the gantry through thin chains hanging in those gaps (7 x 7 mm inside, one tube or
-  cable bundle each). Each chain's fixed end sits on the side panel at about print Z 290; its moving end bolts to the
-  top outer slot of the side beam; the U hangs below and stays above Sovol's carry handles at the first layer.
-* PTFE (as the U1, tubes in from the sides): each tube leaves its chain in one S-bend out of the gap, rises in a side
-  mast over the side beam and turns once (155 deg, 35 mm) to leave 65 deg down, heading 30 deg forward of inboard, on
-  its own piano wire to its tool. A parked tool's tube comes down into it from above; the active tool's tube follows the head. Routing the
-  tubes to one mast at the back instead cost about 200 deg more bending per tube (about twice the drag).
-* Head wiring (as the Rat Rig V-Core 4, from the back middle): the Link Board power and the USB cables come up the left
-  chains, along the left side beam and over the rear corner to a mast on the middle of the rear beam, which carries the
-  Link Board. The INDX Link cable and the Beacon USB leave the mast on a 1.5 mm piano wire in loom to the head.
-* Motor cables come up from the base outside the side panels, into their own chains, and out along the side beams.
-* The arc shapes are solved as an elastic rod (c3_elastica.py). They need the top hat 195 mm tall (was 136).
-* Friction: a tube turns through about 32 deg (entry) + 180 (chain) + 228 (side mast) + 160-340 (arc, depending on where
-  the head is): 600-780 deg. By the capstan rule (mu about 0.15) the extruder feels about 5-8 times the spool's own drag.
+* The gantry climbs 500 mm, so a coupler has to sit above the gantry's highest point: lower down, a tube would hang
+  under the gantry and into the print whenever the gantry is above the coupler. The five PC4-M10 couplers sit in the top
+  hat's right side wall, two per bay in the three middle bays between the wall ribs (bay centre +/- 15 mm), 34 deg below
+  horizontal and pointing inboard, as the stock SV08 Max feeds its one tube from the right side of the frame top. They
+  run front to rear in dock order (T0, nearest the right wall, at the front): seen from above the parked tubes nest
+  instead of crossing. With three on the right and two on the left (until 2026-11-04) the parked tubes from the two
+  walls met and crossed in the middle; spread one per bay (Y 158-382) the rearmost tube ran into the wall and frame top
+  and the front one toward the front wall, so they stay close together around the wall's middle.
+* Each tube is one continuous PTFE tube from the filament box, through its coupler, to its tool. A tube is stiff enough
+  to hold its own arch (solved as an elastic rod, c3_elastica.py): at the first layer it runs almost straight down to the
+  tool; at full height its spare length arches up into the top hat. The couplers sit at frame Z 668 and point 34 deg down:
+  lower or flatter, a tube's first stretch runs into the head (saddle, PCB cover, carriage) when the head is at the
+  middle of the near side at full height; steeper, it reaches the belt; horizontal couplers send the arches about 70 mm
+  above the cover. At 34 deg the arches stay about 7 mm under it.
+* Head wiring: the INDX Link cable and the Beacon USB come straight down from the centre of the top cover, in loom on a
+  1.4 mm piano wire (as the Rat Rig V-Core 4 umbilical), to the saddle on the INDX PCB cover. The Link Board and the USB
+  hub sit on top of the cover. Straight down gives the smallest loop; angled exits send it up against the cover. At full
+  height the loop has no single shape: with both ends pointing down it can swing round in plan at the same energy, so it
+  has to clear the belts and the top hat's walls in every swung position. With 1.4 mm it clears belt B by 4 mm and the
+  walls by 5-10 mm; 1.2 mm (until 2026-11-05) sagged 4.6 mm into belt B, 1.0 mm further, and 1.5 mm with 10 % spare
+  length reached the walls. The clamp's round stalk leaves it 66 mm under the cover; a shorter stalk would clear the
+  tubes' arches but lengthens the umbilical, whose swung loop then reaches the front and rear walls.
+* Motor cables still come up from the base in their own micro chains in the side gaps (the only space the gantry never
+  sweeps): one per motor.
 
 Frame: Sovol's model in the stock pose, as c3_params. 'Pose' heights are at the model pose; the gantry moves from
 -GANTRY_DROP (first layer) to +GANTRY_RISE (500 mm print height).
@@ -28,54 +35,50 @@ import numpy as np
 import FreeCAD as App, Part
 from c3_params import DOCK_X, Y_XB_DOCK, NOZZLE_DY, GANTRY_DROP, GANTRY_RISE
 import c3_elastica as EL
+import c3_enclosure as ENC
 V = App.Vector
 
-NOZ_Y = Y_XB_DOCK + NOZZLE_DY          # 570.55: the tools' inlets sit above their nozzles
 FACE = 354.5                            # frame outer side faces |X|
 BEAM_OUT = 338.0                        # side beam outer face |X| (4040 X 298..338, Z 137..177 at the pose)
 BEAM_TOP, TOP_SLOT_X = 177.0, 328.0     # side beam top and its outer top slot
-REAR_SLOT_Y = -36.0                     # rear beam (Y -66..-26) front top slot
 PANEL_T = 3.0                           # side panel sheet outside the frame face (assumed; drill through it)
 
-# ---------------------------------------------------------------- chains
+# ---------------------------------------------------------------- motor chains
 CH_W, CH_H = 11.0, 10.0                 # micro chain outer width (along X) and height (in its bending plane); 7 x 7 inside
 GAP_XC = BEAM_OUT + 2.75 + CH_W / 2     # chain plane |X| 346.25: 2.75 mm to the beam and to the frame face
 Z_M = 175.0                             # top of each chain's moving run (pose): the end link hangs from the side-beam bracket
 Z_U0 = -28.0                            # U centreline bottom at the first layer: 5 mm above Sovol's carry handles
 F_Z = 252.0                             # fixed ends (frame Z; print Z 288.5)
 ZM0 = Z_M - GANTRY_DROP
-# per side, from the rear: (name, bend radius, moving-run Y, line carried to the harness or None)
-CHAINS = {
-    -1: [('motor rear right', 18.0, 110.5, None), ('ptfe t2', 28.0, 163.5, 't2'), ('ptfe t1', 28.0, 236.5, 't1'),
-         ('ptfe t0', 28.0, 309.5, 't0'), ('motor front right', 18.0, 382.5, None)],
-    1: [('motor rear left and link board power', 18.0, 110.5, 'pwr'), ('usb', 18.0, 163.5, 'usb'),
-        ('ptfe t4', 28.0, 216.5, 't4'), ('ptfe t3', 28.0, 289.5, 't3'), ('motor front left', 18.0, 362.5, None)]}
-LINE_R = {'t0': 2.0, 't1': 2.0, 't2': 2.0, 't3': 2.0, 't4': 2.0, 'pwr': 2.5, 'usb': 3.5}
-TOOL_DOCK = {'t0': 0, 't1': 1, 't2': 2, 't3': 3, 't4': 4}
+CHAIN_R = 18.0
+# per side, from the rear: (name, moving-run Y)
+CHAINS = {-1: [('motor rear right', 110.5), ('motor front right', 382.5)],
+          1: [('motor rear left', 110.5), ('motor front left', 362.5)]}
 
-def chain_len(R):
+def chain_len(R=CHAIN_R):
     return (ZM0 - Z_U0 - R) + (F_Z - Z_U0 - R) + math.pi * R
 
 def u_bottom(dz):
     """U centreline bottom (frame Z) with the gantry at offset dz from the pose: the U moves half as far as the gantry."""
     return Z_U0 + (dz + GANTRY_DROP) / 2.0
 
-# ---------------------------------------------------------------- harness and mast
-SIDE_X = 308.0                          # harness along each side beam (|X|), above the joint carriers and belts
-SIDE_Z = {'t2': 270.0, 't1': 278.0, 't0': 286.0, 'pwr': 270.0, 'usb': 278.0, 't4': 286.0, 't3': 294.0}
-CORNER_Y, REAR_Y = 34.0, -16.0          # side run turns inboard (plan radius 50) to run along X at Y -16
-RISE_DY = 85.0                          # each line rises out of its chain over 85 mm of Y onto the side run
-ARC_D = (0.0, math.cos(math.radians(70.0)), -math.sin(math.radians(70.0)))   # the umbilical leaves the rear mast 70 deg down
-MAST_R = 35.0                            # umbilical channel bend radius in the rear mast
-MAST_X = 306.0                           # PTFE risers |X|: inboard of the side top rail (at full height) and the top hat wall
-RISE_Z, TURN_Z, TURN_R = 270.0, 357.5, 35.0   # S-bend out of the gap ends at RISE_Z; the 140 deg turn starts at TURN_Z
-TUBE_TILT, TUBE_FWD = 65.0, 30.0         # tubes leave the side masts 65 deg down, heading 30 deg forward of inboard
-UMB_EXIT = (0.0, 12.0, 384.0)            # umbilical clamp exit: the feed comes along -X at Y 0 and turns 90 deg into ARC_D
-BOARD = dict(x=(23.0, 133.0), y=(-31.0, -11.0), z=(192.0, 252.0))   # Link Board envelope on the mast plate (check it)
+# ---------------------------------------------------------------- PTFE wall couplers and the roof clamp
+CPL_Y = {'t0': (-1, 351.85), 't1': (-1, 321.85), 't2': (-1, 288.5),   # (side, Y): all in the right wall, two per bay at the
+         't3': (-1, 258.5), 't4': (-1, 225.15)}                         # bay centre +/- 15 mm between the ribs (241.8, 305.2,
+                                                                        # 368.5; T4 alone at the front of the 178.5-241.8
+                                                                        # bay); front to rear in dock order, so they nest
+CPL_Z = 668.0                           # coupler axis at the wall's outer face (frame Z; print Z 704.7)
+CPL_TILT = 34.0                         # axis below horizontal, pointing inboard
+SEAT, BODY = 16.0, 18.0                 # pad seat along the axis from the outer face; coupler body from the seat to the tube
+TOOL_DOCK = {'t0': 0, 't1': 1, 't2': 2, 't3': 3, 't4': 4}
+ROOF_XY = (0.0, 0.5 * (ENC.OUT_Y[0] + ENC.OUT_Y[1]))   # centre of the top cover: (0, 273.5)
+ROOF_Z = ENC.TH_TOP                     # the Sovol top cover sits on the top hat's top band
+UMB_START = (ROOF_XY[0], ROOF_XY[1], ROOF_Z - 66.0)
+DOWN = np.array([0.0, 0.0, -1.0])
 
-# ---------------------------------------------------------------- arcs
-EI_TUBE, W_TUBE = 11640.0, 28.0         # PTFE 4x2 with filament + 0.8 mm piano wire; g/m
-EI_UMB, W_UMB = 56000.0, 100.0          # Link cable + Beacon USB in loom + 1.5 mm piano wire
+EI_TUBE, W_TUBE = 7400.0, 24.0          # PTFE 4 x 2 with filament; g/m
+EI_UMB, W_UMB = 43200.0, 98.2           # Link cable + Beacon USB in loom + 1.4 mm piano wire (39600 for the wire, 12 g/m)
+K_TUBE, K_UMB = 1.06, 1.07              # length: the farthest reach plus 6 % (tubes) or 7 % (umbilical)
 TOOL_TOP = {'parked': 242.6, 'head': 240.1}   # tool inlet (push-fit) tops at the pose
 UMB_HEAD = (0.0, 26.0, 252.0)           # umbilical saddle on the INDX PCB cover, relative to (head X, Y_XB): wire end
 
@@ -104,31 +107,6 @@ def bez(P0, t0, P3, t3, h0, h3, n=40):
     t = np.linspace(0.0, 1.0, n)[:, None]
     return (1 - t) ** 3 * P0 + 3 * (1 - t) ** 2 * t * P1 + 3 * (1 - t) * t ** 2 * P2 + t ** 3 * P3
 
-def arc_pts(C, a, b, R, phi0, phi1, n=20):
-    """Points C + R (cos phi a + sin phi b) for phi from phi0 to phi1."""
-    C, a, b = (np.asarray(v, float) for v in (C, a, b))
-    return np.array([C + R * (math.cos(p) * a + math.sin(p) * b) for p in np.linspace(phi0, phi1, n)])
-
-def join(*segs):
-    out = [np.asarray(segs[0], float)]
-    for s in segs[1:]:
-        s = np.asarray(s, float)
-        out.append(s[1:] if np.linalg.norm(s[0] - out[-1][-1]) < 1e-6 else s)
-    return np.vstack(out)
-
-def min_radius(P):
-    """Smallest radius of curvature along a polyline (circumradius of consecutive point triples, resampled to 4 mm)."""
-    s = np.concatenate([[0.0], np.cumsum(np.linalg.norm(np.diff(P, axis=0), axis=1))])
-    u = np.arange(0.0, s[-1], 4.0)
-    Q = np.stack([np.interp(u, s, P[:, k]) for k in range(3)], axis=1)
-    best = 1e9
-    for a, b, c in zip(Q[:-2], Q[1:-1], Q[2:]):
-        A, B, C = np.linalg.norm(b - a), np.linalg.norm(c - b), np.linalg.norm(c - a)
-        area = np.linalg.norm(np.cross(b - a, c - a)) / 2.0
-        if area > 1e-9:
-            best = min(best, A * B * C / (4.0 * area))
-    return best
-
 def resample(P, step=4.0):
     P = np.asarray(P, float)
     s = np.concatenate([[0.0], np.cumsum(np.linalg.norm(np.diff(P, axis=0), axis=1))])
@@ -137,8 +115,7 @@ def resample(P, step=4.0):
 
 def pipe(P, r, step=6.0):
     """Tube of radius r along the points P, as a compound of short cylinders (resampled every 6 mm). B-spline sweeps of
-    these 3D paths often fail in OCC, and the ones that work carry bounding boxes metres too big, which made every
-    clash check slow. At the tightest bends here (30 mm) the gaps between cylinders are under 0.2 mm."""
+    these 3D paths often fail in OCC, and the ones that work carry bounding boxes metres too big."""
     Q = resample(P, step)
     sols = []
     for a, b in zip(Q[:-1], Q[1:]):
@@ -147,7 +124,12 @@ def pipe(P, r, step=6.0):
             sols.append(Part.makeCylinder(r, float(np.linalg.norm(d)), V(*a), V(*d)))
     return Part.makeCompound(sols)
 
-# ---------------------------------------------------------------- chains: shape at a gantry offset
+def total_bend(X):
+    """Total turning of a polyline in degrees (the capstan angle for friction)."""
+    d = np.diff(np.asarray(X, float), axis=0); d /= np.linalg.norm(d, axis=1)[:, None]
+    return float(np.degrees(np.arccos(np.clip((d[:-1] * d[1:]).sum(axis=1), -1.0, 1.0))).sum())
+
+# ---------------------------------------------------------------- motor chains: shape at a gantry offset
 def chain_centerline(s, R, Ym, dz):
     """Lines and arc of a chain's centreline (frame coords) with the gantry at offset dz: moving run at Ym, fixed run at
     Ym + 2R, U at the bottom."""
@@ -172,196 +154,100 @@ def chain_solid(s, R, Ym, dz):
     return ps.shape()
 
 def chain_parts(dz=0.0):
-    out = []
-    for s, L in CHAINS.items():
-        for name, R, Ym, line in L:
-            out.append((f'cable chain {name}', 'purchased', chain_solid(s, R, Ym, dz), 'chains'))
-    return out
+    return [(f'cable chain {name}', 'purchased', chain_solid(s, CHAIN_R, Ym, dz), 'chains')
+            for s, L in CHAINS.items() for name, Ym in L]
 
-# ---------------------------------------------------------------- line paths (gantry-relative, at the pose)
-def exit_path(s, Ym, z):
-    """From a chain's moving end up out of the gap (inboard of |X| 334.5 by Z 221: the frame's side top rail clears it at
-    full height), then up and back onto the side run at |X| SIDE_X, height z, heading -Y."""
-    a = bez((s * GAP_XC, Ym, Z_M), (0, 0, 1), (s * 334.0, Ym, 221.0), (0, 0, 1), 18.0, 18.0)
-    dy = min(RISE_DY, Ym - CORNER_Y - 8.0)
-    b = bez((s * 334.0, Ym, 221.0), (0, 0, 1), (s * SIDE_X, Ym - dy, z), (0, -1, 0), 0.75 * (z - 221.0), 0.65 * dy)
-    return join(a, b)
-
-def harness_path(s, Ym, line):
-    """Full path of a line on the gantry: a PTFE tube up its side mast (ptfe_path), or the Link Board power and USB:
-    chain end -> side run -> corner -> rear run -> Link Board."""
-    if line.startswith('t'):
-        return ptfe_path(s, Ym)
-    z = SIDE_Z[line]
-    p = exit_path(s, Ym, z)
-    side = np.array([[s * SIDE_X, Ym - min(RISE_DY, Ym - CORNER_Y - 8.0), z], [s * SIDE_X, CORNER_Y, z]])
-    xc = s * (SIDE_X - 50.0)
-    corner = arc_pts((xc, CORNER_Y, z), (s, 0, 0), (0, -1, 0), 50.0, 0.0, math.pi / 2)    # to (xc, CORNER_Y - 50) heading -sX
-    tx = {'pwr': 120.0, 'usb': 100.0}[line]                         # down to the Link Board's top edge
-    rear = bez((xc, REAR_Y, z), (-s, 0, 0), (tx, -22.0, 262.0), (-1, 0, -0.3), 60.0, 40.0)
-    return join(p, side, corner, rear)
-
-def umbilical_feed():
-    """Link cable + Beacon USB from the Link Board's top edge up beside the left channel block, along -X at Y 0 into
-    the umbilical channel and its turn, like the tubes."""
-    u = np.array([-1.0, 0.0, 0.0]); d = np.array(ARC_D); E = np.array(UMB_EXIT)
-    S = E - MAST_R * (u + d); C = S + MAST_R * d
-    rise = bez((118.0, -4.0, 256.0), (0, 0, 1), (S[0] + 40.0, S[1], S[2]), u, 110.0, 50.0)
-    return join(rise, np.array([[S[0] + 40.0, S[1], S[2]], S]), arc_pts(C, -d, u, MAST_R, 0.0, math.pi / 2), np.array([E, E + 10.0 * d]))
-
-def tube_heading(s):
-    """Horizontal heading of a tube leaving its side mast: 30 deg forward of inboard. Straight inboard, a parked tube's
-    spare length loops into the middle and meets the other side's tubes; at 60 deg it loops into the top hat's front wall."""
-    f = math.radians(TUBE_FWD)
-    return np.array([-s * math.cos(f), math.sin(f), 0.0])
-
-def tube_dir(s):
-    a = math.radians(TUBE_TILT)
-    return math.cos(a) * tube_heading(s) + np.array([0.0, 0.0, -math.sin(a)])
-
-def ptfe_path(s, Ym):
-    """A PTFE tube on the gantry: chain end -> one S-bend out of the gap (|X| 346 -> 306; inboard of the side top rail
-    by Z 221 and above the belt and joint carriers) -> straight up the side mast -> 140 deg turn -> exit, inboard and
-    50 deg down."""
-    a = bez((s * GAP_XC, Ym, Z_M), (0, 0, 1), (s * MAST_X, Ym, RISE_Z), (0, 0, 1), 42.0, 42.0)
-    b = np.array([[s * MAST_X, Ym, RISE_Z], [s * MAST_X, Ym, TURN_Z]])
-    h = tube_heading(s)
-    turn = arc_pts(np.array([s * MAST_X, Ym, TURN_Z]) + TURN_R * h, -h, (0, 0, 1), TURN_R, 0.0, math.radians(90.0 + TUBE_TILT))
-    E = turn[-1]
-    return join(a, b, turn, np.array([E, E + 10.0 * tube_dir(s)]))
-
-# ---------------------------------------------------------------- printed parts
-def moving_bracket(s, Ym, line):
+# ---------------------------------------------------------------- motor chain fittings
+def moving_bracket(s, Ym):
     """On the side beam's top outer slot (M5 T-nut), over the gap: holds the chain's end link (2 x M3 into the link's
-    holes; check the chain) at Z_M and guides the line up out of the gap."""
+    holes; check the chain) at Z_M; the motor cable comes straight up and inboard through a slot."""
     x0, x1 = s * (TOP_SLOT_X - 6.0), s * (GAP_XC + CH_W / 2 + 0.5)
     b = fuse([box(x0, x1, Ym - 7.0, Ym + 7.0, BEAM_TOP, BEAM_TOP + 7.0),
               box(s * (GAP_XC - CH_W / 2 - 0.25), x1, Ym - 7.0, Ym + 7.0, Z_M, BEAM_TOP + 7.0)])
     holes = [cylz(2.75, BEAM_TOP - 1.0, BEAM_TOP + 8.0, s * TOP_SLOT_X, Ym)]
     for dy in (-3.0, 3.0):                                    # end-link screws, up from below
         holes.append(cylz(1.6, Z_M - 0.5, Z_M + 6.0, s * GAP_XC, Ym + dy))
-    if line:
-        P = harness_path(s, Ym, line)
-        holes.append(pipe(P, LINE_R[line] + 1.0))          # same samples as the line itself, so no slivers at the joints
-    else:                                                     # motor cable: straight up and inboard through a slot
-        holes.append(box(s * (GAP_XC - 4.0), s * (GAP_XC + 4.0), Ym - 3.5, Ym + 3.5, Z_M - 1.0, BEAM_TOP + 8.0))
+    holes.append(box(s * (GAP_XC - 4.0), s * (GAP_XC + 4.0), Ym - 3.5, Ym + 3.5, Z_M - 1.0, BEAM_TOP + 8.0))
     return cut(b, holes).removeSplitter()
 
-def entry_path(s, Yf, line):
+def entry_path(s, Yf):
     """Outside -> through the side panel -> down into a chain's fixed end. Built from the chain upward: leaves up,
     curves outward and crosses the panel 30 deg from vertical."""
     d = np.array([s * math.sin(math.radians(30.0)), 0.0, math.cos(math.radians(30.0))])
     P3 = np.array([s * (FACE + PANEL_T + 14.0), Yf, F_Z + 62.0])
     return bez((s * GAP_XC, Yf, F_Z), (0, 0, 1), P3, d, 26.0, 20.0)
 
-def fixed_anchor(s, Yf, kind):
+def fixed_anchor(s, Yf):
     """Inside the gap: a block holding the chain's fixed end link, through-bolted to the outside plate (2 x M3 through
-    the side panel). Outside: a PC4-M10 coupler (PTFE) or a cable slot with a zip-tie bar, on the 30 deg entry line."""
+    the side panel). Outside: a cable slot with a zip-tie bar, on the 30 deg entry line."""
     xi0, xi1 = s * (GAP_XC - CH_W / 2 - 0.25), s * FACE
     inside = box(xi0, xi1, Yf - 8.0, Yf + 8.0, F_Z, F_Z + 34.0)
     xo0, xo1 = s * (FACE + PANEL_T), s * (FACE + PANEL_T + 8.0)
     outside = box(xo0, xo1, Yf - 14.0, Yf + 14.0, F_Z + 4.0, F_Z + 78.0)
-    P = entry_path(s, Yf, kind)
-    d = np.array([s * 0.5, 0.0, math.cos(math.radians(30.0))]); tip = P[-1]
-    if kind == 'ptfe':                                        # coupler boss on the entry line, M10 thread
-        boss = Part.makeCylinder(8.0, 14.0, V(*(tip - 6.0 * d)), V(*d))
-        outside = outside.fuse(boss)
-    holes = [pipe(P, (2.6 if kind == 'ptfe' else 4.2))]
-    if kind == 'ptfe':
-        holes.append(Part.makeCylinder(4.25, 12.0, V(*(tip - 2.0 * d)), V(*d)))
+    holes = [pipe(entry_path(s, Yf), 4.2)]
     for dy in (-3.0, 3.0):
         holes.append(cylz(1.6, F_Z - 0.5, F_Z + 6.0, s * GAP_XC, Yf + dy))
-    for dy, zz in ((-5.5, F_Z + 8.0), (5.5, F_Z + 26.0)):     # 2 x M3 through the panel, beside the line's passage
+    for dy, zz in ((-5.5, F_Z + 8.0), (5.5, F_Z + 26.0)):     # 2 x M3 through the panel, beside the cable's passage
         holes.append(cylx(1.7, s * (GAP_XC - 7.0), s * (FACE + PANEL_T + 9.0), Yf + dy, zz))
     inside, outside = cut(inside, holes).removeSplitter(), cut(outside, holes).removeSplitter()
     return inside, outside
 
-def side_post(s, y):
-    """On the side beam's top outer slot: a column clear of the belt (|X| >= 324), an arm over the joint carriers and
-    a cradle under the side run at |X| SIDE_X (the lines are zip-tied in)."""
-    z_arm = 232.0; zt = max(SIDE_Z.values()) + 8.0
-    col = box(s * (TOP_SLOT_X - 4.0), s * (TOP_SLOT_X + 5.0), y - 6.0, y + 6.0, BEAM_TOP, z_arm + 8.0)
-    arm = box(s * (SIDE_X - 6.0), s * (TOP_SLOT_X + 5.0), y - 6.0, y + 6.0, z_arm, z_arm + 8.0)
-    cradle = box(s * (SIDE_X - 6.0), s * (SIDE_X + 5.0), y - 6.0, y + 6.0, z_arm, zt)
-    p = fuse([col, arm, cradle])
-    p = cut(p, [cylz(2.75, BEAM_TOP - 1.0, z_arm + 9.0, s * TOP_SLOT_X, y),
-                box(s * (SIDE_X - 9.0), s * (SIDE_X + 4.5), y - 7.0, y + 7.0, SIDE_Z['t2'] - 4.0, zt + 1.0),    # line slot
-                box(s * (SIDE_X - 6.5), s * (SIDE_X + 5.5), y - 2.0, y + 2.0, z_arm + 12.0, z_arm + 16.0)])      # zip tie
-    return p.removeSplitter()
+# ---------------------------------------------------------------- PTFE wall couplers
+def cpl_axis(line):
+    """Where the coupler axis crosses the wall's outer face, and its direction (inboard, CPL_TILT down)."""
+    s, y = CPL_Y[line]; t = math.radians(CPL_TILT)
+    return np.array([s * ENC.OUT_X, y, CPL_Z]), np.array([-s * math.cos(t), 0.0, -math.sin(t)])
 
-def rear_post(s, x, z_line):
-    """On the rear beam's front top slot: a column just behind the X beam's rearmost reach, holding the rear run."""
-    col = box(x - 6.0, x + 6.0, -34.0, -22.0, BEAM_TOP, z_line + 6.0)
-    foot = box(x - 10.0, x + 10.0, -46.0, -26.0, BEAM_TOP, BEAM_TOP + 6.0)
-    hook = box(x - 6.0, x + 6.0, -22.0, -8.0, z_line - 8.0, z_line - 3.0)
-    p = fuse([col, foot, hook])
-    return cut(p, [cylz(2.75, BEAM_TOP - 1.0, BEAM_TOP + 7.0, x, REAR_SLOT_Y)]).removeSplitter()
+def tube_start(line):
+    P0, d = cpl_axis(line)
+    return P0 + (SEAT + BODY) * d, d
 
-ARMS = {-1: (200.0, 273.0), 1: (190.0, 253.0)}           # side-mast arms, between the chain brackets
+def coupler_pad(line):
+    """Pad on the inside of the top hat's side wall (part of the side piece): 22 mm wide, its seat square to the coupler
+    axis, its underside at 45 deg so it prints upright with the wall. The PC4-M10 threads into an 8.5 mm hole (tap M10 x 1
+    or let the coupler cut its own thread) from inside; the tube passes through the coupler and out through the wall.
+    Returns (pad, holes)."""
+    s, y = CPL_Y[line]; t = math.radians(CPL_TILT)
+    S = (SEAT * math.cos(t), CPL_Z - SEAT * math.sin(t))                  # seat centre (u inboard from the outer face, z)
+    p = (math.sin(t), math.cos(t))                                         # along the seat face, up
+    B = (S[0] + 9.0 * p[0], S[1] + 9.0 * p[1]); C = (S[0] - 9.0 * p[0], S[1] - 9.0 * p[1])
+    prof = [(0.0, CPL_Z + 14.0), B, C, (0.0, C[1] - C[0]), (0.0, CPL_Z + 14.0)]
+    g = lambda u, z: V(s * (ENC.OUT_X - u), y - 11.0, z)
+    pad = Part.Face(Part.makePolygon([g(u, z) for u, z in prof])).extrude(V(0, 22.0, 0))
+    P0, d = cpl_axis(line); Sg = P0 + SEAT * d
+    holes = [Part.makeCylinder(4.25, 11.0, V(*(Sg + 1.0 * d)), V(*(-d))),       # M10 x 1, 10 mm deep from the seat
+             Part.makeCylinder(2.3, SEAT + 8.0, V(*(P0 - 6.0 * d)), V(*d))]      # tube passage out through the wall
+    return pad, holes
 
-def side_mast(s):
-    """Side mast over the side beam: two arms from the beam's top outer slot (M5 T-nuts), clear of the belt and over
-    the joint carriers, carry a plate at |X| MAST_X with a vertical bore per PTFE tube and a sleeve round each tube's
-    155 deg turn; it leaves 65 deg down, heading 30 deg forward of inboard. Each tube's 0.8 mm piano wire runs in a bore beside it and is held by an M3
-    set screw in a heat-set insert."""
-    ys = [Ym for n, R, Ym, line in CHAINS[s] if line and line.startswith('t')]
-    y0, y1 = min(ys + list(ARMS[s])) - 7.0, max(ys + list(ARMS[s])) + 7.0
-    z_arm = 232.0
-    parts = [box(s * (MAST_X + 2.0), s * (MAST_X + 6.0), y0, y1, z_arm + 13.0, TURN_Z + 1.0),                # web
-             box(s * (MAST_X + 2.0), s * (MAST_X + 6.0), y0, y1, z_arm, z_arm + 13.0)]
-    for Ym in ys:                                                                                          # per tube:
-        parts.append(box(s * (MAST_X - 6.0), s * (MAST_X + 6.0), Ym - 7.0, Ym + 7.0, z_arm + 13.0, TURN_Z + 1.0))   # riser boss
-        Q = resample(ptfe_path(s, Ym), 6.0); Q = Q[Q[:, 2] > TURN_Z - 2.0][:-1]                                       # sleeve round the turn
-        parts += [Part.makeCylinder(7.0, float(np.linalg.norm(b - a)), V(*a), V(*(b - a))) for a, b in zip(Q[:-1], Q[1:])]
-        parts += [Part.makeSphere(7.0, V(*q)) for q in Q[1:-1]]
-    for ya in ARMS[s]:
-        parts += [box(s * (TOP_SLOT_X - 4.0), s * (TOP_SLOT_X + 5.0), ya - 6.0, ya + 6.0, BEAM_TOP, z_arm + 13.0),
-                  box(s * (MAST_X - 7.0), s * (TOP_SLOT_X + 5.0), ya - 6.0, ya + 6.0, z_arm, z_arm + 13.0)]
-    m = fuse(parts)
-    holes = [cylz(2.75, BEAM_TOP - 1.0, z_arm + 14.0, s * TOP_SLOT_X, ya) for ya in ARMS[s]]
-    d = tube_dir(s)
-    for Ym in ys:
-        P = ptfe_path(s, Ym)
-        holes.append(pipe(P, 2.6))                                                   # same samples as the tube
-        E = P[-2]
-        w0 = E - 22.0 * d + np.array([0.0, 4.5, 0.0])                               # wire bore beside the exit
-        holes.append(Part.makeCylinder(0.55, 40.0, V(*w0), V(*d)))
-        sp = E - 8.0 * d + np.array([0.0, 4.5, 0.0])
-        holes.append(cylz(2.0, sp[2], TURN_Z + TURN_R + 8.0, sp[0], sp[1]))          # M3 insert + set screw onto the wire
-    return cut(m, holes)
+def coupler_body(line):
+    """PC4-M10 coupler envelope: hex and collet from the seat inward."""
+    P0, d = cpl_axis(line)
+    return Part.makeCylinder(8.0, BODY, V(*(P0 + SEAT * d)), V(*d))
 
-def mast():
-    """Rear mast (the head wiring, from the back middle): base on the rear beam's front top slot (4 x M5 T-nuts),
-    column, the Link Board plate, and the umbilical channel: the loom turns 90 deg and leaves 70 deg down; the 1.5 mm
-    piano wire is held beside it by an M3 set screw in a heat-set insert, as on the Rat Rig."""
-    parts = [box(-35.0, 138.0, -46.0, -26.0, BEAM_TOP, BEAM_TOP + 8.0),            # base
-             box(-15.0, 15.0, -34.0, -12.0, BEAM_TOP, 436.0),                       # column
-             box(15.0, 138.0, -34.0, -31.0, BEAM_TOP, 258.0),                       # Link Board plate
-             box(-12.0, 62.0, -10.0, 26.0, 372.0, 436.0)]                           # umbilical channel block
-    m = fuse(parts)
-    holes = []
-    for x in (-25.0, 25.0, 90.0, 128.0):
-        holes.append(cylz(2.75, BEAM_TOP - 1.0, BEAM_TOP + 9.0, x, REAR_SLOT_Y))
-    F = umbilical_feed()
-    d = np.array(ARC_D)
-    holes.append(pipe(F, 6.8))                                                        # umbilical channel (loom 12 mm), same samples
-    holes.append(Part.makeCylinder(6.8, 40.0, V(*F[-1]), V(*d)))                       # and out past the block
-    E = np.array(UMB_EXIT); d = np.array(ARC_D)
-    w0 = E - 22.0 * d + np.array([9.0, 0.0, 0.0])
-    holes.append(Part.makeCylinder(0.8, 45.0, V(*w0), V(*d)))                        # 1.5 mm umbilical wire beside the loom
-    holes.append(cylz(2.0, E[2] + 2.0, 441.0, 9.0, E[1] - 14.0))
-    for zz in (BOARD['z'][0] + 6.0, BOARD['z'][1] - 6.0):                          # Link Board standoff slots (fit to the board)
-        holes.append(Part.makeCylinder(1.6, 6.0, V(BOARD['x'][0] + 4.0, -35.0, zz), V(0, 1, 0)))
-        holes.append(Part.makeCylinder(1.6, 6.0, V(BOARD['x'][1] - 4.0, -35.0, zz), V(0, 1, 0)))
-    for zz in (300.0, 340.0, 380.0):                                               # zip-tie slots for the umbilical feed
-        holes.append(box(-16.0, 16.0, -14.5, -11.5, zz, zz + 4.0))
-    return cut(m, holes)                                                            # (removeSplitter breaks this solid)
+# ---------------------------------------------------------------- umbilical clamp under the centre of the top cover
+def roof_clamp():
+    """Under the centre of the Sovol top cover, bolted through it (4 x M3; drill the cover 3.4 mm with the plate as the
+    template, and 16 mm in the middle for the cables). The loom comes down a 13.6 mm bore in a round stalk 64 mm long,
+    28 mm across, its lower edge rounded (6 mm), so a tube arching past it at full height slides off instead of catching
+    on a corner; the plate's corners are rounded too. The 1.4 mm piano wire sits in a blind 1.6 mm bore beside the loom,
+    held by an M3 set screw in a heat-set insert. The Link Board and the USB hub sit on top of the cover."""
+    x, y = ROOF_XY; z = ROOF_Z
+    plate = Part.makeBox(64.0, 64.0, 5.0, V(x - 32.0, y - 32.0, z - 5.0))
+    plate = plate.makeFillet(6.0, [e for e in plate.Edges if abs(e.Vertexes[0].Point.z - e.Vertexes[-1].Point.z) > 4.0])
+    stalk = Part.makeCylinder(14.0, 60.0, V(x, y, z - 64.0))
+    stalk = stalk.makeFillet(6.0, [e for e in stalk.Edges if abs(e.BoundBox.ZMax - (z - 64.0)) < 1e-6 and e.BoundBox.ZLength < 1e-6])
+    b = fuse([plate, stalk])                                                         # plate under the cover, round stalk
+    holes = [cylz(6.8, z - 65.0, z + 1.0, x, y),                                    # loom
+             cylz(0.8, z - 65.0, z - 8.0, x + 10.0, y),                             # piano wire, blind
+             cylx(2.0, x + 10.0, x + 15.0, y, z - 30.0)]                            # M3 insert + set screw onto the wire
+    holes += [cylz(1.7, z - 6.0, z + 1.0, x + sx * 24.0, y + sy * 24.0) for sx in (-1, 1) for sy in (-1, 1)]
+    return cut(b, holes).removeSplitter()
 
 def head_clamp(xn, y_xb):
     """Umbilical end on the head: a saddle that clips over the INDX PCB cover (X +-25.6, top Z 234 at the pose; fix it
     with VHB tape or Bondtech's own strain relief - check on the real head). Its lips stop at Z 226, above the XY joints
-    (top Z 223.5), so the head still reaches both ends of X. The 1.5 mm wire enters a boss from above and is held by an
-    M3 set screw; the loom is zip-tied to the boss."""
+    (top Z 223.5), so the head still reaches both ends of X. The piano wire enters a 1.6 mm bore in a boss from above and
+    is held by an M3 set screw; the loom is zip-tied to the boss."""
     x0, y0 = xn + UMB_HEAD[0], y_xb + UMB_HEAD[1]
     plate = box(x0 - 27.4, x0 + 27.4, y_xb + 12.0, y_xb + 37.5, 234.2, 238.0)        # the head body starts at Y_XB + 38
     lips = [box(x0 + sx * 25.8, x0 + sx * 27.4, y_xb + 16.0, y_xb + 36.0, 226.0, 238.0) for sx in (-1, 1)]
@@ -371,94 +257,72 @@ def head_clamp(xn, y_xb):
              box(x0 - 7.0, x0 + 7.0, y0 - 2.0, y0 + 2.0, 241.0, 243.5)]                # set screw, zip tie
     return cut(b, holes).removeSplitter()
 
-def carriage_insert_holes(xn, y_xb):
-    return []                                  # the saddle sits on the PCB cover: the X carriage is unchanged
-# ---------------------------------------------------------------- arcs
-def _side(line):
-    return next(s for s, L in CHAINS.items() for c in L if c[3] == line)
+# ---------------------------------------------------------------- free tubes and the umbilical (elastic rods)
+def tool_end(x, y_xb, parked, dz=0.0):
+    return np.array([x, y_xb + 66.45, (TOOL_TOP['parked'] if parked else TOOL_TOP['head']) + 12.0 + dz])
 
-def _arc_start(line):
-    if line == 'umb':
-        return np.array(UMB_EXIT) + 10.0 * np.array(ARC_D)
-    s = _side(line); Ym = next(c[2] for c in CHAINS[s] if c[3] == line)
-    return ptfe_path(s, Ym)[-1]
+def umb_end(xn, y_xb, dz=0.0):
+    return np.array([xn + UMB_HEAD[0], y_xb + UMB_HEAD[1], UMB_HEAD[2] + 12.0 + dz])
 
-def _arc_dir(line):
-    return np.array(ARC_D) if line == 'umb' else tube_dir(_side(line))
-
-def tool_end(x, y_xb, parked):
-    return np.array([x, y_xb + 66.45, (TOOL_TOP['parked'] if parked else TOOL_TOP['head']) + 12.0])
-
-def umb_end(xn, y_xb):
-    return np.array([xn + UMB_HEAD[0], y_xb + UMB_HEAD[1], UMB_HEAD[2] + 12.0])
+def line_start(line):
+    return (np.array(UMB_START), DOWN) if line == 'umb' else tube_start(line)
 
 _BED = [(x, y) for x in (-252.0, -126.0, 0.0, 126.0, 252.0) for y in (64.4, 190.0, 314.0, 440.0, 563.5)]
-def arc_length(line):
-    """Each line is long enough for its farthest reach (any bed position or its own dock) plus 8 % (tubes) or 10 %
-    (umbilical); longer tubes loop into the top hat's front wall when parked."""
-    A = _arc_start(line)
-    if line == 'umb':
-        pts = [umb_end(x, y - NOZZLE_DY) for x, y in _BED] + [umb_end(d, Y_XB_DOCK) for d in DOCK_X]
-    else:
-        pts = [tool_end(x, y - NOZZLE_DY, False) for x, y in _BED] + [tool_end(DOCK_X[TOOL_DOCK[line]], Y_XB_DOCK, True)]
-    return (1.10 if line == 'umb' else 1.08) * max(float(np.linalg.norm(p - A)) for p in pts)
+def line_length(line):
+    """Long enough for the line's farthest reach (any bed position or its own dock, any gantry height) plus K_*."""
+    A = line_start(line)[0]
+    pts = []
+    for dz in (-GANTRY_DROP, GANTRY_RISE):
+        if line == 'umb':
+            pts += [umb_end(x, y - NOZZLE_DY, dz) for x, y in _BED] + [umb_end(d, Y_XB_DOCK, dz) for d in DOCK_X]
+        else:
+            pts += [tool_end(x, y - NOZZLE_DY, False, dz) for x, y in _BED] + [tool_end(DOCK_X[TOOL_DOCK[line]], Y_XB_DOCK, True, dz)]
+    return (K_UMB if line == 'umb' else K_TUBE) * max(float(np.linalg.norm(p - A)) for p in pts)
 
 _LEN = {}
-def arc_nodes(line, end):
+def line_nodes(line, end):
+    """Shape of a tube (or the umbilical) from its coupler (clamp) to a tool (the head), as an elastic rod. A planar or
+    symmetric start can stall: retry from guesses bowed sideways."""
     if line not in _LEN:
-        _LEN[line] = arc_length(line)
+        _LEN[line] = line_length(line)
     ei, w = (EI_UMB, W_UMB) if line == 'umb' else (EI_TUBE, W_TUBE)
-    A, d = _arc_start(line), _arc_dir(line)
-    X, ok = EL.solve(A, d, end, (0, 0, -1), _LEN[line], ei, w)
-    if not ok:                                  # a planar start can stall: retry from a guess bowed sideways
-        X0 = EL._initial(A, d, end, np.array([0.0, 0.0, -1.0]), _LEN[line], 36)
-        X0[2:-2, 0] += 30.0 * np.sin(np.linspace(0.0, math.pi, len(X0) - 4))
-        X, ok = EL.solve(A, d, end, (0, 0, -1), _LEN[line], ei, w, X0=X0)
+    A, d = line_start(line)
+    X, ok = EL.solve(A, d, end, DOWN, _LEN[line], ei, w)
+    for bow in ((30.0, 0.0, 0.0), (0.0, 30.0, 0.0), (-30.0, 0.0, 0.0), (0.0, -30.0, 0.0), (40.0, 40.0, 0.0), (0.0, 80.0, 20.0), (80.0, 0.0, 20.0)):
+        if ok:
+            break
+        X0 = EL._initial(A, d, end, DOWN, _LEN[line], 36)
+        X0[2:-2] += np.outer(np.sin(np.linspace(0.0, math.pi, len(X0) - 4)), bow)
+        X, ok = EL.solve(A, d, end, DOWN, _LEN[line], ei, w, X0=X0)
     return X, ok
 
-def arc_solid(X, line):
-    tail = np.array([X[-1], X[-1] + np.array([0.0, 0.0, -10.0])])
-    return pipe(np.vstack([X, tail[1:]]) if line != 'umb' else X, 6.0 if line == 'umb' else 2.2)
+def line_solid(X, line):
+    if line == 'umb':
+        return pipe(X, 6.0)
+    return pipe(np.vstack([X, X[-1] + np.array([0.0, 0.0, -10.0])]), 2.0)
 
-def arc_parts(xn, y_xb, active='t2'):
-    """Piano-wire arcs for a head position: the active tool's tube and the umbilical to the head, the others to their
+def line_parts(xn, y_xb, active='t2', dz=0.0):
+    """Tubes and umbilical for a head position: the active tool's tube and the umbilical to the head, the others to their
     docks (the model shows a tool in every dock; the active tool's dock has no tube)."""
     out = []
     for line, k in TOOL_DOCK.items():
-        if line == active:
-            X, ok = arc_nodes(line, tool_end(xn, y_xb, False))
-        else:
-            X, ok = arc_nodes(line, tool_end(DOCK_X[k], Y_XB_DOCK, True))
-        out.append((f'ptfe arc {line}' + (' active' if line == active else ''), 'purchased', arc_solid(X, line), 'arcs'))
-    X, ok = arc_nodes('umb', umb_end(xn, y_xb))
-    out.append(('umbilical arc', 'purchased', arc_solid(X, 'umb'), 'arcs'))
+        end = tool_end(xn, y_xb, False, dz) if line == active else tool_end(DOCK_X[k], Y_XB_DOCK, True, dz)
+        X, ok = line_nodes(line, end)
+        out.append((f'ptfe tube {line}' + (' active' if line == active else ''), 'purchased', line_solid(X, line), 'tubes'))
+    X, ok = line_nodes('umb', umb_end(xn, y_xb, dz))
+    out.append(('umbilical', 'purchased', line_solid(X, 'umb'), 'tubes'))
     return out
 
-# ---------------------------------------------------------------- everything fixed to the frame or the gantry
+# ---------------------------------------------------------------- everything fixed to the frame, the gantry or the cover
 def routing_parts():
     out = []
     for s, L in CHAINS.items():
-        tag = 'right' if s < 0 else 'left'
-        for name, R, Ym, line in L:
-            kind = 'ptfe' if line and line.startswith('t') else 'cable'
-            ins, outs = fixed_anchor(s, Ym + 2 * R, kind)
-            short = name.replace(' and link board power', '')
-            out.append((f'chain anchor {short}', 'pps-cf', ins, 'enclosure'))
-            out.append((f'chain entry {short}', 'pps-cf', outs, 'enclosure'))
-            out.append((f'chain bracket {short}', 'pps-cf', moving_bracket(s, Ym, line), 'frame'))
-            if line:
-                out.append((f'harness {line}', 'purchased', pipe(harness_path(s, Ym, line), LINE_R[line]), 'frame'))
-        out.append((f'side mast {tag}', 'pps-cf', side_mast(s), 'frame'))
-    for y in (20.0, 80.0):                                    # the Link Board cables' run along the left side beam
-        out.append((f'harness side post left y{y:.0f}', 'pps-cf', side_post(1, y), 'frame'))
-    x, zl = 190.0, []                                         # rear post under the lowest of them, over the rear beam
-    for name, R, Ym, line in CHAINS[1]:
-        if line and not line.startswith('t'):
-            P = harness_path(1, Ym, line)
-            rear = P[np.abs(P[:, 1] - REAR_Y) < 4.0]
-            zl.append(float(rear[np.argmin(np.abs(rear[:, 0] - x)), 2]) - LINE_R[line])
-    out.append(('harness rear post left', 'pps-cf', rear_post(1, x, min(zl)), 'frame'))
-    out.append(('rear mast', 'pps-cf', mast(), 'frame'))
-    out.append(('link board envelope', 'purchased', box(BOARD['x'][0], BOARD['x'][1], BOARD['y'][0], BOARD['y'][1], BOARD['z'][0], BOARD['z'][1]), 'frame'))
-    out.append(('umbilical feed', 'purchased', pipe(umbilical_feed(), 6.0), 'frame'))
+        for name, Ym in L:
+            ins, outs = fixed_anchor(s, Ym + 2 * CHAIN_R)
+            out.append((f'chain anchor {name}', 'pps-cf', ins, 'enclosure'))
+            out.append((f'chain entry {name}', 'pps-cf', outs, 'enclosure'))
+            out.append((f'chain bracket {name}', 'pps-cf', moving_bracket(s, Ym), 'frame'))
+    for line in CPL_Y:
+        out.append((f'ptfe wall coupler {line}', 'purchased', coupler_body(line), 'enclosure'))
+    out.append(('umbilical roof clamp', 'pps-cf', roof_clamp(), 'enclosure'))
     return out

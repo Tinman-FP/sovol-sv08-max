@@ -86,7 +86,7 @@ poses = {'nominal': (270.0, -5.0), 'rear_xn': (Y_XB_MIN, -252.0), 'rear_xp': (Y_
 rep = {'stock_bodies': len(STOCK), 'moving_with_gantry': len(MOVING), 'static': {}, 'belts': {}, 'internal': {}}
 for name, (y, x) in poses.items():
     P, lens = B.build_pose(y, x)
-    solids = [p for p in P if p[3] not in ('belts', 'enclosure', 'chains', 'arcs')]   # chains and arcs: c3_routecheck.py
+    solids = [p for p in P if p[3] not in ('belts', 'enclosure', 'chains', 'tubes')]   # chains and tubes: c3_routecheck.py
     rep['static'][name] = sorted(overlaps(solids, STOCK), reverse=True)[:30]
     # moving groups vs the gantry-fixed new parts (joints/carriage/head vs corners, docks, motors...)
     mov = [p for p in solids if p[3] in ('bridge', 'head')]; fix = [(p[0], '', p[2]) for p in solids if p[3] in ('frame', 'docks')]
@@ -110,7 +110,7 @@ for name, (y, x) in poses.items():
 # Z sweep at the nominal XY pose plus the two docking extremes (docks and parked tools ride on the gantry)
 P, _ = B.build_pose(270.0, -5.0)
 FIXED += [(n, 'new-fixed', s) for n, m, s, g in P if g == 'enclosure']
-gantry = [p for p in P if p[3] not in ('belts', 'enclosure', 'chains', 'arcs')]   # stock Z-carriage parts unchanged (Z upgrade: c3_zcheck)
+gantry = [p for p in P if p[3] not in ('belts', 'enclosure', 'chains', 'tubes')]   # stock Z-carriage parts unchanged (Z upgrade: c3_zcheck)
 gantry = [p for p in gantry if not p[0].startswith(('wiper station slider', 'silicone wiper pad'))]   # these lift off the PEI: c3_purgecheck.py
 sweep = []
 DZS = [float(d) for d in range(-int(GANTRY_DROP) - 1, int(GANTRY_RISE) + 5, 5)] + [-GANTRY_DROP, GANTRY_RISE]

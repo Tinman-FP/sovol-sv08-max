@@ -37,4 +37,4 @@ Follow the bring-up order in `c3-4040-gantry/klipper_c3/README.md` one step at a
 
 * **Wiper pads.** Qidi publishes no temperature rating for its silicone wipers. The nozzle only touches a pad briefly on each stroke. Replace a pad when it hardens or tears.
 * **Purge trays.** Empty them before they reach the gantry: their rims are 1 mm below the lowest gantry part at the first layer.
-* **Cable chains and arcs.** The chains hang in the narrow gaps beside the side beams and move with the gantry; keep fingers out of the gaps while it moves. The piano-wire arcs move with the head inside the top hat. Before the first print, move the head to every corner and dock at the bottom and top of Z and check that no arc pulls a parked tool or touches the top hat.
+* **Motor chains and tubes.** The motor chains hang in the narrow gaps beside the side beams and move with the gantry; keep fingers out of the gaps while it moves. The PTFE tubes and the umbilical hang free inside the chamber and the top hat. Before the first print, move the head to every corner and dock at the bottom and top of Z and check that no tube pulls a parked tool or catches on the gantry.

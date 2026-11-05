@@ -1,5 +1,44 @@
 # Changelog
 
+## 2026-11-05 (later): 1.4 mm umbilical wire, round clamp stalk, route check every 50 mm
+
+* **Why:** the owner asked to fix the 11 full-height contacts the 5 x 5 check had found (the umbilical on belt B, the tubes through the roof clamp's stalk, a tube on a parked tool).
+* **Umbilical:** the piano wire is 1.4 mm instead of 1.2 mm. The loop at full height can swing round in plan at the same energy (both its ends point down), so it was checked over every swung shape: 1.4 mm clears belt B by 4 mm and the top hat's walls by 5-10 mm; 1.2 mm sagged 4.6 mm into the belt and 1.3 mm cleared it by 0.4 mm. Same length (764 mm), same 1.6 mm bores in the clamp and the saddle.
+* **Roof clamp:** its stalk is round (28 mm across, lower edge rounded 6 mm) and the plate's corners are rounded, so a tube arching past slides off. Still 66 mm long: a stalk short enough to clear the tubes (25 mm or less) makes the umbilical about 40 mm longer, and its swung loop then reaches 4-7 mm into the top hat's front and rear walls.
+* **Route check:** `c3_routecheck.py` now checks the first layer and every 50 mm of print height to 500 mm (11 heights, each in its own process; about 25 minutes), and splits contacts into clashes (anything that moves against a line or has edges: head, bridge, belts, docks, gantry parts, stock frame, couplers) and rubs (a line resting on a smooth printed surface: the top hat's walls, the roof clamp, a parked tool's top). The three heights used until now missed a tube on the top hat's front corner at 350-400 mm.
+* **Tubes:** unchanged. With about 500 mm of spare length at full height, the free tubes lean on something somewhere; every change tried (coupler tilt 32-36 deg, height, yaw, positions further back, 6.5-8 % length) removed one contact and added another, some on the head or belt B. So their rubs on smooth printed parts are reported like tube on tube.
+* **Checks:** `c3_check.py`: 0 at the 7 poses, 0 belt contacts, 0 over the Z sweep and for the enclosure. `c3_routecheck.py`: 0 for the motor chains; 0 clashes; 11 rubs, each a tube on a smooth printed surface: past the round stalk 5 (500 mm), on the top hat's front-right corner 4 (T0 at 350 and 400 mm), on the parked T2's top 2 (500 mm); 0 above the cover (arch tops 5 mm under it); 0 not solved; tubes touch in 1959 of 21450 checked pairs (active on parked 784, on the umbilical 941, parked on parked 234, all T0 beside T1; 1354 crossing in all).
+* **Print files:** only the umbilical roof clamp changes (60 g of PPS-CF, was 66). The PPS-CF project is rebuilt: 6 plates, 65 parts, 61.9 h, 1153 g, no slicer warnings, 21 parts with supports. Printed total: PPS-CF 1025 g, ASA 3207 g.
+
+## 2026-11-05: all five PTFE couplers in the right wall, close together
+
+* **Why:** the owner was worried that the free tubes could tangle. With three couplers on the right and two on the left, the parked tubes from the two walls met and crossed in the middle of the top hat.
+* **Change:** all five PC4-M10 couplers are now in the top hat's right side wall, two to a bay around the wall's middle (bay centre +/- 15 mm). From the front: T0 to T4 at Y 352, 322, 289, 259, 225, in the order of the docks, so the parked tubes nest instead of crossing. Height and angle are unchanged (about 705 mm above the bed, 34 deg down). Free lengths: T0 906, T1 896, T2 902, T3 913, T4 926 mm. The filament box now feeds all five from the right.
+* **Denser check:** `c3_routecheck.py` now puts the head at 25 bed positions (5 x 5) instead of 9, and splits tube contacts by kind and by crossing (more than 30 deg apart) or side by side.
+
+| Layout (5 x 5 check) | Contacts with hardware | Tube pairs touching | Parked on parked (crossing) | Crossing pairs | Longest tube |
+|---|---|---|---|---|---|
+| Two walls (released 2026-11-01) | 11 | 880 | 468 (390) | 758 | 932 mm |
+| Right wall, one per bay (Y 158-382) | 22 (10 on the walls, frame top, belt and X beam) | 360 | 0 | 310 | 956 mm |
+| **Right wall, close together (released)** | **11** (0 on walls or frame) | **533** | **78 (0)** | **376** | **926 mm** |
+
+  Spreading the couplers one per bay sent the rearmost tube into the wall and the frame top, so they sit close together around the wall's middle.
+* **Open (in every layout, missed by the 3 x 3 grid):** 11 contacts, all at full height: the umbilical on belt B 4, a tube through the roof clamp's stalk 5, the tube on the head brushing the parked T2's nozzle 2; none with the walls or frame. They need their own fix: a round stalk with a chamfered end, and a look at the umbilical's loop.
+* **Tried and dropped (2026-11-02):** a 1.0 or 0.8 mm piano wire along each tube. The stiffer tubes held bigger arches, which went up to 12 mm over the cover or into the roof clamp and the head saddle at full height, and touched each other as often.
+* **Checks:** `c3_check.py`: 0 at the 7 poses, 0 belt contacts, 0 over the Z sweep and for the enclosure. `c3_routecheck.py`: 0 for the motor chains; 11 contacts, all at full height: the umbilical on belt B 4, a tube through the roof clamp's stalk 5, the tube on the head brushing the parked T2's nozzle 2; none with the walls or frame; 0 above the cover (arch tops 5 mm under it); tubes touch in 533 of 5850 checked pairs (active on parked 209, on the umbilical 246, parked on parked 78, T0 on T1 at 500 mm, side by side; 376 crossing in all).
+* **Print files:** only the top hat's two side straights change (the right one carries all five coupler pads, the left one none). The PPS-CF parts and the 3MF are unchanged. The top hat is 3.2 kg of ASA.
+
+## 2026-11-01 (evening): simpler routing: wall couplers, free tubes and a roof umbilical
+
+* **Why:** the owner found the chains, masts and arcs far too complicated. Now the tubes come in through plain couplers in the wall and hang free, and the head cables come down from the centre of the top cover.
+* **PTFE:** five PC4-M10 couplers in the top hat's side walls (three right, two left), 34 deg down and pointing inboard, about 705 mm above the bed. That is above the gantry's highest point: lower, a tube would hang under the gantry and into the print whenever the gantry is above its coupler. Each tube runs free from its coupler to its tool, as Sovol's own tube does. Free lengths: T0 901, T1 907, T2 932, T3 907, T4 901 mm.
+* **Head wiring:** the INDX Link cable and Beacon USB come straight down from a clamp under the centre of the top cover, on a 1.2 mm piano wire in loom (764 mm), to the saddle on the INDX PCB cover. The Link Board and the USB hub sit on the cover.
+* **Motor cables:** unchanged, one micro chain per gantry motor in the gaps beside the side beams (four chains instead of ten).
+* **Removed:** the PTFE and USB chains, the side masts, the rear mast, the harness and its posts, and the 0.8 mm piano wires.
+* **Friction:** a tube now bends through 91-332 deg in all inside the chamber, against 600-780 deg before: about 1.3-2.4 times the spool's drag at the extruder instead of 5-8 times.
+* **Checks:** `c3_check.py`: 0 at the 7 poses, 0 belt contacts, 0 over the Z sweep and for the enclosure. `c3_routecheck.py` (rewritten): 0 for the motor chains at 13 heights; 0 contacts for the free tubes and umbilical with the gantry, parked tools, frame or top hat at the first layer, 250 mm and 500 mm, for each tool on the head at 9 bed positions and its own dock; the tube arches stay 6 mm under the cover at full height. The tubes cross and rub in 355 of 2250 checked pairs.
+* **Print files:** new: the umbilical roof clamp. Gone: the side masts, rear mast, harness posts and the PTFE and USB chain fittings. The top hat's side pieces carry the coupler pads. The 3MF has 65 parts on 6 plates: 62.4 h and 1158 g. The top hat is 3.2 kg of ASA.
+
 ## 2026-11-01: cable chains, masts and piano-wire arcs replace the PTFE loops
 
 * **Why:** the weighted loops could not work. A 4 mm PTFE tube with filament in it is stiff: a 30 g sled pulls 0.15 N per leg, so the tube's natural loop is about 160 mm in radius, and it would need about 1.2 kg to follow the 25 mm sleds and guides.

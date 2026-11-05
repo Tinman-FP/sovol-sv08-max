@@ -23,7 +23,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from c3_params import *
 import c3_purge as PG                                 # purge/wipe stations, station bar, purge trays
-import c3_routing as RT                               # cable chains, harness, rear mast, piano-wire arcs (2026-11-01)
+import c3_routing as RT                               # motor chains, wall couplers, free tubes, roof umbilical (2026-11-01)
 
 INP = HERE / 'inputs'; OUT = HERE / 'c3'; OUT.mkdir(exist_ok=True)
 STOCK_CACHE = Path(os.environ.get('C2_STOCK_CACHE', str(OUT / '_cache')))
@@ -478,8 +478,8 @@ def build_pose(y_xb, xn, with_static=True):
     for k, lvl in (('B', L_UP), ('A', L_LO)):
         sol, L = belt_solid(paths[k], lvl); lens[k] = round(L + 2 * TAIL, 1)
         P.append((f'belt {k} gates 2mgt 12mm', 'purchased', sol, 'belts'))
-    if os.environ.get('C3_ARCS', '1') == '1':                    # piano-wire arcs for this head position (c3_routing)
-        P += RT.arc_parts(xn, y_xb)
+    if os.environ.get('C3_TUBES', '1') == '1':                   # free tubes and the umbilical for this head position (c3_routing)
+        P += RT.line_parts(xn, y_xb)
     return P, lens
 
 if True:

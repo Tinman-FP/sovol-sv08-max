@@ -35,9 +35,9 @@ Revisions:
 | Purge / wipe | 5 wiper stations, one per tool, 42 mm on the +X side of each dock (X -161/-83/-5/73/151), on a 1515 station bar in front of the PEI edge, below the nozzle tip. Each has a gravity-return slider on two dowel pins with a Qidi Plus 4 silicone wiper pad (27 x 15 x 4.7 mm) and a purge chute; it lifts off the PEI at the first layers. One slide-out purge tray on the chamber floor under all five stations (360 mm long), loose (no fasteners). See "Purge and wipe stations" |
 | Beacon | Rev H under the carriage, turned 90 deg, coil 40 mm behind the nozzle |
 | Camera | stock camera reused; printed clip over the front profile's inner lip at the front right (between the corner bracket and Sovol's LED bar), aimed at the bed centre |
-| Top hat | 195 mm tall on the frame top (Z 591.3; was 136 until 2026-11-01, raised for the piano-wire arcs), 40 mm walls in 8 interlocking printed sections. Its top repeats the frame's 7.5 mm top band, so the owner's Sovol top cover moves up onto it unchanged. iPistBit 7 inch display flush in the front-right corner |
-| Tubes and cables | ten micro chains hang in the 14-16 mm gaps beside the side beams (the only space the gantry never sweeps) and carry every tube and cable to the gantry. PTFE: in through couplers on the side panels, up side masts on the side beams, then a piano-wire arc to each tool (Snapmaker U1 style). Head wiring: Link Board on a mast on the rear beam, Link cable and Beacon USB to the head as a piano-wire umbilical (Rat Rig V-Core 4 style). Motor cables in their own chains (`c3_routing.py`). See "Tubes and cables" |
-| Clearance | full stock model, 7 XY poses (corners, end docks, nominal): 0 clashes, 0 belt contacts. Whole gantry swept first layer to 500 mm against the frame, camera, top hat and chain anchors: 0 clashes. Camera mount and top hat vs frame: 0 (`c3/C3_CLEARANCE.json`). Chains over Z, harness against the head and the piano-wire arcs: `c3/C3_ROUTE_CHECK.json` |
+| Top hat | 195 mm tall on the frame top (Z 591.3; was 136 until 2026-11-01; at full height the free PTFE tubes arch up into it), 40 mm walls in 8 interlocking printed sections. The right side straight carries the five PTFE coupler pads. Its top repeats the frame's 7.5 mm top band, so the owner's Sovol top cover moves up onto it unchanged. iPistBit 7 inch display flush in the front-right corner |
+| Tubes and cables | PTFE: five PC4-M10 couplers in the top hat's right side wall (front to rear in dock order, about 30 mm apart), above the gantry's highest point, 34 deg down and pointing inboard; each tube hangs free from its coupler to its tool. Head wiring: the INDX Link cable and Beacon USB come straight down from the centre of the top cover on a 1.4 mm piano-wire umbilical (Rat Rig V-Core 4 style) to a saddle on the INDX PCB cover; the Link Board and USB hub sit on the cover. Motor cables: one micro chain per gantry motor in the 14-16 mm gaps beside the side beams (`c3_routing.py`). See "Tubes and cables" |
+| Clearance | full stock model, 7 XY poses (corners, end docks, nominal): 0 clashes, 0 belt contacts. Whole gantry swept first layer to 500 mm against the frame, camera, top hat, couplers, roof clamp and chain anchors: 0 clashes. Camera mount and top hat vs frame: 0 (`c3/C3_CLEARANCE.json`). Motor chains over Z, and the free tubes and umbilical every 50 mm of print height: 0 clashes, light rubs on smooth printed parts reported (`c3/C3_ROUTE_CHECK.json`) |
 
 ### Why it looks the way it does (C3 additions)
 * **Front motor placement.** The front 180 deg turn is directly above the side beam, so a front motor there can only hang below if the side beam stops short of it.
@@ -49,7 +49,7 @@ Revisions:
   * The front hoods stay below the frame top at full Z.
   * The rear covers rise about 4-6 mm above it, inside the frame opening. The top hat ribs are cut back at 45 deg from 7.5 to 40 mm, so anything up to about 20 mm above the frame near the walls clears.
   * Cutting the shafts to 55 mm and leaving the covers off also works.
-* **Top hat height.** The INDX head top reaches Z 587 at 500 mm print height. The piano-wire arcs rise to about Z 770 there, so the top hat is 195 mm tall (top Z 786.3).
+* **Top hat height.** The INDX head top reaches Z 587 at 500 mm print height. There the tubes' spare length arches up to about Z 780, so the top hat stays 195 mm tall (the cover sits at Z 786.3).
 
 ### Found by the SolidCraft cross-check
 The X carriage's under-beam arm and the Beacon reached the XY joint plate's lower flange in the last 4-6 mm of X travel on each side, by up to 390 mm³ at X +252. This came over from C2: the FreeCAD check never compared the head with the parts that move with the X beam.
@@ -59,19 +59,19 @@ The X carriage's under-beam arm and the Beacon reached the XY joint plate's lowe
 ### Removed stock parts
 * The drag chain plate.
 * The camera bracket on the old gantry.
-* The stock filament guide and PU-4 fittings on the right top rail. The INDX PTFE tubes come in through the side panels.
+* The stock filament guide and PU-4 fittings on the right top rail. The INDX tubes come in through couplers in the top hat's right side wall instead.
 * Sovol's spool holder on the right side (2026-10-31): a filament box feeds the tubes.
 
 ## Printed parts
 Qidi Plus 4, 0.6 mm nozzle. **Tinman project with every PPS-CF part laid out: `c3/C3_PPS-CF_Qidi_Plus4_0.6mm.3mf`** (see "Tinman print project" below).
-* **Supports needed:** Tinman's slice check flags 16 parts, so they have tree supports in the project. The earlier "support-free" note was wrong for most of them.
+* **Supports needed:** Tinman's slice check flags these, so 21 parts have tree supports in the project. The earlier "support-free" note was wrong for most of them.
   * camera mount;
   * wiper sliders;
   * front cradles;
   * rear bearing caps;
   * X carriage;
   * XY pulley carriers;
-  * rear mast (umbilical channel), harness rear post, chain entry plates (angled coupler bosses);
+  * chain anchors (curved cable passages);
   * Z tensioner seats.
 * **Purge tray:** it prints rim-down, diagonally on its own plate (360 mm is longer than the Qidi bed). Floor-down, their floor would start on the feet in mid-air.
 * **PPS-CF:**
@@ -80,23 +80,23 @@ Qidi Plus 4, 0.6 mm nozzle. **Tinman project with every PPS-CF part laid out: `c
   * rear motor mount x2, bearing cap x2 and shaft cover x2;
   * front base x2, cradle x2 and motor slider x2;
   * camera mount;
-  * routing: rear mast (with the Link Board plate), side mast right and left, umbilical head saddle, chain brackets (ptfe right x3, ptfe left x2, motor right x2, motor left, power left, USB), chain anchors and entry plates (ptfe right x3, ptfe left x2, cable right x2, cable left x3), harness side post left x2, harness rear post left;
+  * routing: umbilical roof clamp and head saddle; chain brackets (motor right x2, motor left x2); chain anchors and entry plates (cable right x2, cable left x2);
   * purge and wipe: station bar clip x2, wiper station bracket x5 and slider x5 (one print file each), and one 360 mm purge tray that prints diagonally.
-  * About 2.1 kg at solid volume (`c3/C3_BOM.md`).
-* **ASA:** top hat, 4 corner pieces + 4 straights, each ≤ 289 mm long and 195 mm tall, printed upright.
+  * About 1.0 kg at solid volume (`c3/C3_BOM.md`).
+* **ASA:** top hat, 4 corner pieces + 4 straights (the right side straight carries the PTFE coupler pads), each ≤ 289 mm long and 195 mm tall, printed upright.
 
 Masses are in `c3/C3_BOM.md`.
 
 ## Tinman print project (PPS-CF, Qidi Plus 4, 0.6 mm nozzle)
 `c3/C3_PPS-CF_Qidi_Plus4_0.6mm.3mf`:
-* **Contents:** all 88 PPS-CF parts. That is the 68 C3 parts (five each of the wiper bracket and slider; three and two of each mirrored chain fitting; the 360 mm tray alone on the last plate, diagonally), plus the Z kit at 2 of each variant file, in their print orientation.
+* **Contents:** all 65 PPS-CF parts. That is the 45 C3 parts (five each of the wiper bracket and slider; two of each mirrored motor-chain fitting; the 360 mm tray alone on the last plate, diagonally), plus the Z kit at 2 of each variant file, in their print orientation.
 * **Presets:**
   * printer: Qidi X-Plus 4 0.6 nozzle - TinMan Codex;
   * filament: PPS-CF Codex-Bambu - Qidi X-Plus 4 (320 °C nozzle, 110 °C bed, 65 °C chamber);
   * process: 0.24mm Tank (6 walls, 45 % infill, 8 top and bottom layers);
   * plate: Textured PEI.
 * **Layout:** one plate per subsystem, 20 mm between parts (your Tinman arrange setting), clear of the Qidi's excluded bed areas. Every part is named after its print file.
-* **Check:** the Tinman CLI slices all eight plates with no warnings (2026-11-01). Supports are on for the 36 parts that need them. The chain entries print standing: laid flat, their coupler bosses made the tree supports fail. The release now drops each part onto the bed by its exact lowest point: the camera mount's published files had floated 3.5 mm.
+* **Check:** the Tinman CLI slices all six plates with no warnings (2026-11-01, evening). Supports are on for the 21 parts that need them. The release drops each part onto the bed by its exact lowest point.
 
 | Plate | Parts | Time | PPS-CF |
 |---|---|---|---|
@@ -104,11 +104,9 @@ Masses are in `c3/C3_BOM.md`.
 | 2 Gantry B | 6 | 10.1 h | 195 g |
 | 3 Z upgrade 12 mm | 20 | 12.9 h | 209 g |
 | 4 Purge and wipe | 12 | 4.3 h | 72 g |
-| 5 Camera, masts and harness A | 3 | 36.5 h | 695 g |
-| 6 Camera, masts and harness B | 5 | 15.3 h | 268 g |
-| 7 Cable chain fittings | 30 | 17.0 h | 314 g |
-| 8 Purge tray (diagonal) | 1 | 3.1 h | 60 g |
-| **Total** | **88** | **120.4 h** | **2236 g** |
+| 5 Camera, umbilical clamps and chain fittings | 15 | 10.3 h | 194 g |
+| 6 Purge tray (diagonal) | 1 | 3.1 h | 60 g |
+| **Total** | **65** | **61.9 h** | **1153 g** |
 
 The eight ASA top-hat sections are not in this PPS-CF project.
 
@@ -125,10 +123,10 @@ The eight ASA top-hat sections are not in this PPS-CF project.
 * **Source of truth:** `c3_fullmodel.py` writes one STEP per category to `c3/full/`, and `c3_fullmodel_color.json` (SolidCraft) colours and combines them. Sovol's original STEP is unchanged.
 
 ## Assembly guide
-`c3/SV08_MAX_C3_ASSEMBLY_GUIDE.pdf` (24 pages, updated 2026-10-31 for the Qidi pad) covers:
+`c3/SV08_MAX_C3_ASSEMBLY_GUIDE.pdf` (27 pages, updated 2026-11-05 for the couplers in the right wall, the 1.4 mm umbilical wire and the round stalk) covers:
 * preparing the parts: prints, heat-set inserts, cut list and Z pulleys;
 * stripping the stock gantry;
-* assembly in order: the 12 mm Z upgrade, rear corners, side beams and front corners, X beam and carriage, the AWD belt routing, docks, wiper stations, top hat;
+* assembly in order: the 12 mm Z upgrade, rear corners, side beams and front corners, X beam and carriage, the AWD belt routing, docks, wiper stations, top hat, motor chains, PTFE tubes and the umbilical;
 * wiring, firmware and slicer notes;
 * commissioning checks;
 * appendices: the parts lists and the screws for each joint.
@@ -165,7 +163,7 @@ Its renders use the same colours as the full model (red print, yellow buy, green
 * `c3_check.py` – clearance against the full stock printer (`c3/C3_CLEARANCE.json`). The wiper sliders lift, so its plain Z sweep leaves them to `c3_purgecheck.py`.
 * `c3_purge.py` – wiper stations, station bar and clips, purge trays. `c3_purgecheck.py` checks them (`c3/C3_PURGE_CLEARANCE.json`); with `C3_KEEPOUT=1` it maps the front keep-out for the slicer (`c3/C3_PURGE_KEEPOUT.json`).
 * `c3_release.py` – per-part STEP/STL in print orientation and the BOM (`c3/C3_BOM.md`).
-* `c3_routing.py` – cable chains, chain anchors and brackets, side masts, rear mast with the Link Board, harness and piano-wire arcs; `c3_elastica.py` solves the arc shapes; `c3_routecheck.py` checks the chains over Z, the harness against the head and the arcs at every head position (`c3/C3_ROUTE_CHECK.json`).
+* `c3_routing.py` – motor chains and their anchors and brackets, the PTFE wall couplers (their pads are in the top hat's side pieces), the free tubes, the umbilical roof clamp and head saddle; `c3_elastica.py` solves the tube and umbilical shapes; `c3_routecheck.py` checks the motor chains over Z and the tubes and umbilical at three heights (`c3/C3_ROUTE_CHECK.json`).
 * `c3_lanecheck.py` – how close a dock or a wiper station may sit beside a lane the head drives into (`c3/C3_LANE_SPACING.json`); it sets the 78 mm dock row.
 * `c3_idlercheck.py` – the ordered Gates 12 mm smooth idler on the reverse-idler axles, and the M5 spacer lengths for every rear idler (`c3/C3_SMOOTH_IDLER_CHECK.json`). Pass the measured smooth idler width to recompute: `python3 c3_idlercheck.py 16`.
 * `c3/C3_SOURCING.md` – example sources (US sellers, 2026-10-30) for every part to buy, with notes on preparing each one.
@@ -213,34 +211,28 @@ The gantry's Z-belt notches widen by 1.5 mm each side: rear motor mounts and cap
 * `c3/print/Z_*_A/B_PPS-CF.stl|step`: variant A is front right + rear left, variant B is front left + rear right; print two of each.
 * `c3/C3_Z_BOM.md`.
 
-## Tubes and cables: side chains, masts and piano-wire arcs (C3-R, 2026-11-01)
-Owner's direction: head wiring from the back middle on a piano-wire umbilical (Rat Rig V-Core 4 IDEX), motor wiring from the bottom in the smallest chain per motor, PTFE tubes in from the sides at about 250-300 mm print height and over the top of each tool on piano wire (Snapmaker U1), no tube sliding in and out of the chamber. It replaces the weighted PTFE loops of 2026-10-31.
-
-**What the space allows (measured):**
-* Over its 500 mm of Z the gantry sweeps the whole inside of the frame except a 14-16 mm gap between each side beam (outer face |X| 338) and the frame face (|X| 354.5), from Y 97 to 450. The back is full: with the bridge at its rearmost the X beam comes within 4 mm of the rear beam (Sovol's own Z chain sat where the C3 rear beam now runs). The front is full too: the docks reach the frame face.
-* So nothing can hang behind the bed; every tube and cable reaches the gantry through a chain in one of the side gaps.
-* The U1 and the Rat Rig move their beds, so their arcs only have to follow XY. Here the chains take the Z travel and the arcs ride on the gantry.
+## Tubes and cables: wall couplers, free tubes and a roof umbilical (C3-R, 2026-11-01)
+Owner's direction (evening, after the first version of the day, with chains, side masts, a rear mast and piano-wire arcs, was "way too complicated"): the head wiring to the USB hub from the centre of the top panel; the PTFE tubes in from the sides through plain couplers in the wall, with no masts or curved guides. The owner picked "couplers higher": the gantry climbs 500 mm, so a coupler at the first plan's 290 mm would leave its tube hanging under the gantry, into the print, whenever the gantry is above it.
 
 **Layout (`c3_routing.py`):**
-* **Chains:** micro chains, 7 x 7 mm inside and no more than 11.5 mm wide outside, one tube or cable bundle each, hanging in the side gaps (plane |X| 346.25, 2.75 mm from the beam and from the frame face). Right, from the rear: rear motor, T2, T1, T0, front motor. Left: rear motor with the Link Board's 24 V pair, two USB cables (Link Board and Beacon), T4, T3, front motor. PTFE chains bend at 28 mm, cable chains at 18 mm.
-  * Fixed ends: on the side panel at frame Z 252 (print Z 288), each through-bolted to an entry plate outside. PTFE comes in through a PC4-M10 coupler on that plate, crossing the panel 30 deg from vertical (about print Z 330); cables come up the outside from the electronics.
-  * Moving ends: brackets on the side beam's top outer slot. The U hangs below and moves half as far as the gantry; at the first layer it stays 5 mm above Sovol's carry handles.
-* **Side masts (PTFE):** each tube leaves its chain in one S-bend out of the gap (radius about 66 mm; inboard of the side top rail by the time the gantry is at full height, and above the belt and the XY joint carrier), rises in a mast at |X| 306 standing on two arms from the side beam, and turns 155 deg (35 mm) to leave 65 deg down, heading 30 deg forward of inboard, on its own 0.8 mm piano wire. Leaving straight inboard, a parked tube's spare length looped into the middle and met the other side's tubes; angled 60 deg forward it looped into the top hat's front wall. At 30 deg the parked tubes stay apart and every arc clears the top hat. Its tool's tube is tied to the wire down to about 12 mm above the inlet.
-* **Rear mast (head wiring):** on the middle of the rear beam. The Link Board sits on its plate (the board's size is not published: the plate takes up to 110 x 60 mm). The INDX Link cable and the Beacon USB leave it in loom on a 1.5 mm piano wire, 70 deg down (at 50 deg its loop rose above the top hat with the head at the rear centre), to a saddle that clips over the INDX PCB cover at the head's centre, as on the Rat Rig. Its lips stop above the XY joints, so the head still reaches both ends of X; a clamp on the side of the X carriage did not. The Link Board's power and USB cables run from the left chains along the left side beam (two posts), over the rear corner (one post) to the board.
-* **Arcs:** each solved as an elastic rod of fixed length, both ends clamped, under its own weight (`c3_elastica.py`). Free lengths: T0 627, T1 633, T2 676, T3 617, T4 644 mm (the farthest reach plus 8 %; longer, a parked tube loops into the top hat's front wall); umbilical 635 mm (plus 10 %). Parked tools' tubes come down into them from above; the active tool's tube follows the head.
-* **Top hat:** 195 mm tall (was 136) for the arcs at full height. The end ribs at the eight joints are now cut back at 45 deg like the other ribs: at full height the left USB line, rising out of its chain, clipped the full-depth end rib at the rear-left joint.
-* **Removed:** the loop heads, weight towers and sleds, the dock guides and their bar and hanger, the cable loop, the 2020 spine and its saddles, the drop ring, and the Link Board / USB hub tray. (The four-loop "4th PTFE" on the right was the Link + Beacon cable loop.)
+* **PTFE:** five PC4-M10 couplers in the top hat's right side wall, axis at frame Z 668 (print Z 705) at the outer face, 34 deg below horizontal, pointing inboard. From the front: T0, T1, T2, T3, T4 at Y 352, 322, 289, 259, 225: two in each bay either side of the wall's middle rib (bay centre +/- 15 mm; ribs at Y 242, 305, 369) and T4 at the front of the next bay back. Each pad is 22 mm wide, 4 mm from the ribs and 8 mm from its neighbour. The order follows the docks (T0's is nearest the right wall), so seen from above the parked tubes nest instead of crossing. The coupler threads into a pad on the inside of the wall (8.5 mm hole: tap M10 x 1 or let the coupler cut its thread); the tube passes through it and out through the wall to the filament box, one continuous tube per tool. This is where Sovol feeds its own tube, from the right side of the frame top.
+* **One wall, close together (owner, 2026-11-04 and 05):** until then T0-T2 were in the right wall and T3-T4 in the left (Y 337/274/210 and 274/337). On the 5 x 5 check (5850 tube pairs), the parked tubes from the two walls met in the middle: 880 pairs touched, 468 of them parked tube on parked tube (390 crossing), 758 crossing in all; 11 contacts with hardware. Spread one per bay along the right wall (Y 158-382), no parked tubes touched, but the rearmost tube ran into the wall, the frame top, the belt and the X beam and the contacts with hardware rose to 22. Close together (this layout): 533 pairs touch, 78 parked on parked (T0 on T1 at 500 mm, side by side, not crossing), 376 crossing in all; 11 contacts with hardware, none with the walls or frame (on that check; see Checks for how they were dealt with). The cost: the filament box feeds the right side only. The longest tube is 926 mm (932 before). A 1.0 or 0.8 mm piano wire along each tube was tried first (2026-11-02) and dropped: the stiffer tubes hold bigger arches, which went up to 12 mm over the cover or into the roof clamp and the head saddle at full height, and touched as often.
+* **Tubes:** each hangs free from its coupler to its tool, solved as an elastic rod (`c3_elastica.py`: PTFE 4 x 2 with filament, EI 7400 N mm2, 24 g/m). At the first layer the tubes run nearly straight down; at full height the spare length arches up into the top hat, to Z 781 at most (5 mm under the cover). Lower or flatter couplers ran a tube's first stretch into the head (saddle, PCB cover, carriage) with the head at the middle of the near side at full height; steeper ones reached the belt; horizontal ones sent the arches about 70 mm above the cover. Frame Z 668 and 34 deg down clear all three. Free lengths from the coupler: T0 906, T1 896, T2 902, T3 913, T4 926 mm (the farthest reach, a far corner at the first layer, plus 6 %).
+* **Umbilical:** a printed clamp under the centre of the Sovol top cover (bolted through it, 4 x M3; 16 mm hole for the cables), its round stalk (28 mm across, its lower edge rounded) ending 66 mm below the cover. The INDX Link cable and Beacon USB come straight down from it in loom on a 1.4 mm piano wire, 764 mm long (plus 7 %), to the saddle on the INDX PCB cover; the clamp's and the saddle's 1.6 mm wire bores take the 1.4 mm wire. The Link Board and the Waveshare USB hub sit on top of the cover. Straight down gives the smallest loop; leaving the clamp angled sent the loop up against the cover. At full height the loop has no single shape: with both ends pointing down it can swing round in plan at the same energy, so `c3_routing.py` was checked over every swung shape at the corners, the docks and beside the centre. With 1.4 mm it clears belt B by 4 mm and the top hat's walls by 5-10 mm. The 1.2 mm wire used until 2026-11-05 sagged 4.6 mm into belt B (found by the 5 x 5 check), 1.3 mm cleared it by only 0.4 mm, and 1.5 mm with 10 % spare length reached the walls. A shorter stalk (25 mm or less) would clear the tubes' arches, but it lengthens the umbilical by about 40 mm and its swung loop then reaches 4-7 mm into the top hat's front and rear walls, so the stalk stays 66 mm long and is round, for the tubes to slide past. At full height it makes one loop in the top hat (top Z 750).
+* **Motor cables:** one 7 x 7 mm micro chain per gantry motor (4), hanging in the 14-16 mm gaps beside the side beams, the only space the gantry never sweeps: fixed ends through the side panels at print Z 288, moving ends on brackets on the side beams.
+* **Removed (first version of the day):** the five PTFE chains and the USB chain, the side masts and their 155 deg turns, the 0.8 mm piano-wire tube arcs, the rear mast with the Link Board plate, the harness and its posts.
 
-**Friction (the reason for the side masts):** a tube turns through 32 deg at its entry, 180 in its chain, 228 in its side mast and 160-340 in its arc (depending on where the head is): 600-780 deg. By the capstan rule with mu about 0.15 that is 5-8 times the spool's own drag at the extruder. Sending the tubes to one mast at the back as well would have added about 200 deg (8-12 times). The loops of 2026-10-31 were lower, about 450-500 deg, but their sleds could not bend the tubes (see the 2026-11-01 entry). Use free-running spools, or a filament box with its own feeder, and test one full path with the stiffest filament first.
+**Friction:** a tube now turns through 90-345 deg in all inside the chamber, depending on where the head is (the first version took 600-780 deg: entry, chain, side mast and arc). By the capstan rule (mu about 0.15) the extruder feels about 1.3-2.5 times the spool's own drag, against 5-8 times before.
 
 **Checks:**
-* `c3_check.py`: 0 clashes at the 7 poses, 0 belt contacts, 0 over the whole Z sweep and for the enclosure, with every chain anchor, bracket, mast, post and harness line in.
+* `c3_check.py`: 0 clashes at the 7 poses, 0 belt contacts, 0 over the whole Z sweep and for the enclosure, with the couplers, the roof clamp and the motor-chain fittings in.
 * `c3_routecheck.py` (`c3/C3_ROUTE_CHECK.json`):
-  * chains at 13 gantry heights from the first layer to 500 mm, with the bridge at the rear, middle and docking position: 0 clashes;
-  * harness, masts, brackets and the Link Board against the head and bridge at 25 head positions: 0;
-  * arcs, for each tool on the head in turn at 12 bed positions and its own docking pose (65 cases): 0 contacts with the gantry, the parked tools or the head, and 0 with the top hat or frame at 500 mm print height. The highest arc reaches Z 750 there; the top hat's top is Z 786.3.
-  * Tube on tube: three pairs of parked tubes rest lightly against each other (T0-T1, T1-T3, T2-T3, up to 2.7 mm into the 4.4 mm envelope); they do not move against each other. The moving arcs (the active tube and the umbilical) brush another arc in 61 of the 585 checked pairs (about 10 %).
-* Found and fixed on the way: the umbilical's first clamp, on the side of the X carriage, hit the XY joint at X +252 (now the saddle on the PCB cover); a full-depth top hat end rib clipped the left USB line at full height (end ribs now cut back at 45 deg); at 50 deg the umbilical's loop rose above the top hat with the head at the rear centre (now 70 deg); parked tubes leaving straight inboard met in the middle, and at 60 deg forward they hit the top hat's front wall (now 30 deg).
+  * motor chains at 13 gantry heights from the first layer to 500 mm, with the bridge at the rear, middle and docking position: 0 clashes;
+  * tubes and umbilical at the first layer and every 50 mm of print height to 500 mm (11 heights), for each tool on the head in turn at 25 bed positions (a 5 x 5 grid) and its own dock (1430 cases plus the parked tubes):
+    * clashes (anything that moves against the line or has edges: the head, bridge, belts, docks, the gantry's parts, the stock frame and the couplers): 0;
+    * rubs, reported and not counted as clashes: 11 rubs, all a tube on a smooth printed surface (head at frame X, Y; negative X is the printer's right): 5 past the roof clamp's round stalk (T0, T1, T2, T3, T4 on the head at (-126, 190), at 500 mm: the spare length of the tube on the head arches across the top hat); 4 on the inside of the top hat's front-right corner (T0 on the head at (-252, 564), at 350 mm and 400 mm); 2 lying on the parked T2's top (T0, T1 on the head at (0, 314), at 500 mm). The free tubes carry about 500 mm of spare length at full height, and small changes only move where they lean (tried on 2026-11-05: coupler tilt 32-36 deg, height, yaw, positions further back, 6.5-8 % length; each removed one rub and added another, some on the head or belt B), so a tube resting on a smooth printed wall, the stalk or a parked tool's top is treated like tube on tube;
+    * 0 above the cover (arch tops 5 mm under it); 0 shapes that did not solve. The 3 x 3 grid at three heights used until 2026-11-04 found none of the contacts; checking only the first layer, 250 and 500 mm (until 2026-11-05) missed the front corner at 350-400 mm.
+  * Tube on tube: they cross and rub. 1959 of 21450 checked pairs touch (most at 250-350 mm: first layer 65, 50 mm 72, 100 mm 90, 150 mm 131, 200 mm 135, 250 mm 225, 300 mm 332, 350 mm 313, 400 mm 198, 450 mm 159, 500 mm 239): active tube on a parked one 784, a tube on the umbilical 941, parked tube on parked tube 234 (T0 on T1 at 300 mm, 350 mm, 500 mm, side by side; none crossing). 1354 of them cross (more than 30 deg apart where they meet); the rest lie side by side. The deepest is 7.5 mm into the envelopes (centreline gap minus both radii): in reality they push each other aside.
 
 ## Purge and wipe stations (C3-P, designed 2026-10-30)
 The owner's brief:
@@ -316,11 +308,11 @@ Re-run with the Qidi pad and the new slider pocket (2026-10-31): every row above
    * Smooth idlers: Gates 2GT 12 mm (12 mm belt surface, not the 15 mm the axles were laid out for). `c3_idlercheck.py` shows the moving runs and kinematics are unchanged. The fixed runs beside each reverse idler tilt 1.2° and 4.4°, wraps stay at 174° or more, and each belt is 4.6 mm shorter. No part changes; measure its width for the spacer lengths.
    * Wiper pads: Qidi Plus 4 silicone wipers, 27 x 15 x 4.7 mm (owner, 2026-10-31). They replace pads cut from silicone strip.
    * Second round: the screws the kits leave out (M3x10, M3x40, M4x18, M4x35, an M5 kit for x12/x20, M3x8 countersunk), short M3 inserts and four generic 20T 6 mm-bore pulleys for 15 mm belt to rework into the Z drive pulleys (item 5).
-   * In stock (owner): the Pi (model not yet given) and its cooler, card, 5 V supply and cables, the Kraken fan, RTV and PC4-M10 couplers. The routing of 2026-11-01 adds ten micro chains, piano wire, loom, two thin USB cables and an 18 AWG pair (`c3/C3_SOURCING.md`).
+   * In stock (owner): the Pi (model not yet given) and its cooler, card, 5 V supply and cables, the Kraken fan, RTV and PC4-M10 couplers. The routing (2026-11-01) adds four micro chains (one per gantry motor), 1.4 mm piano wire (1.2 mm until 2026-11-05), loom and a Beacon USB cable of about 1 m; and a powered USB hub that sits on the top cover (`c3/C3_SOURCING.md`).
 3. **Sovol top cover:** it is not in Sovol's CAD model. The top hat repeats the frame's top band, but the cover's real outline needs confirming. Measure its outer size and thickness, and note what it rests on and any pins, screws or hinges.
 4. **Display:** iPistBit 7 inch (owner's Amazon link B0CRRB1GFN). The bay is 165.5 x 125 x 17 mm from listings (about 165 x 125 x 15). Check it against the real module.
 5. **Z drive pulleys:** four 20T 12 mm pulleys, 6 mm bore, hubless and flangeless, <= 12.6 mm long. Owner picked generic 20T 6 mm-bore pulleys for 15 mm belt (Amazon B0GN4SPFJ8) to rework: cut off the hub and both flanges, face the teeth to 12.4-12.6 mm, then drill 2.5 mm and tap M3 into the bottom of one tooth groove, halfway along. Use the grub screw from Sovol's stock 9 mm drive pulley (same 20T, 6 mm bore, so its length sits below the teeth). Also measure one 17HM19 shaft from the face (24 mm: MR105ZZ; 26 mm: 625ZZ).
 6. **Wiper and purge parts:** all ordered, picked or in stock (2026-10-30), with the RTV in stock. The pads are now Qidi Plus 4 wipers (2026-10-31).
 7. **Door and trays:** Sovol's model has no door. The tray sits loose on the chamber floor, 2.5 mm behind the floor's front edge, and nothing in Sovol's model blocks it sliding straight out. Check that the door's bottom seal lets it pass, and that the door opening is wider than 360 mm.
-8. **Tubes and cables:** check the micro chains' outer width (11.5 mm or less) and end-link holes, the side panels' material (the anchors bolt through them), the Link Board's size against its 110 x 60 mm plate, and Link cable plus USB length (about 0.8 + 1.6 m) against Bondtech's 2 m. Test one full PTFE path with the stiffest filament for drag before building all five, and shape the arcs by hand at every corner and dock, at the bottom and top of Z.
+8. **Tubes and cables:** check the motor chains' outer width (11.5 mm or less) and end-link holes, the side panels' material (the anchors bolt through them), that the Sovol top cover can be drilled at its centre, that the filament box can sit on the printer's right (all five tubes leave through the right wall), and the INDX Link cable's length (about 0.9 m to the head) against Bondtech's limits. Move the head to every corner and dock at the bottom and top of Z before the first print: no tube may pull a parked tool or catch on the gantry.
 9. **Klipper:** written in `klipper_c3/` (mainline Klipper, Kraken V1.1, sensorless X/Y, Beacon contact Z, 48 V motor supply). What remains is in its README: the Pi model, the INDX heater PID question for Bondtech, and the values only the machine can give (CAN UUIDs, serial paths, dock positions, Beacon offsets, StallGuard tuning).

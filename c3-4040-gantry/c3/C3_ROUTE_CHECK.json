@@ -1,119 +1,409 @@
 {
- "note": "C3 routing check (run with FreeCAD's Python after c3_build.py): the parts that change shape or move with the head.",
+ "note": "C3 routing check (run with FreeCAD's Python after c3_build.py): the motor chains over the Z travel, and the free PTFE",
+ "heights": [
+  "first layer",
+  "50 mm",
+  "100 mm",
+  "150 mm",
+  "200 mm",
+  "250 mm",
+  "300 mm",
+  "350 mm",
+  "400 mm",
+  "450 mm",
+  "500 mm"
+ ],
  "chains": [],
- "harness_vs_head": [],
- "arcs": [],
- "arc_top_full_height": 750.0,
- "top_hat_top": 786.3,
- "arc_crossings": {
-  "pairs_checked": 975,
-  "touching": 178,
-  "min_gap": -6.4,
-  "parked_pairs_touching": 117,
+ "clashes": [],
+ "rubs": [
+  {
+   "line": "t0",
+   "height": "350 mm",
+   "tool": "t0",
+   "head": [
+    "bed",
+    -252.0,
+    563.5
+   ],
+   "vol": 39.62,
+   "part": "top hat front",
+   "fixed": true
+  },
+  {
+   "line": "t0",
+   "height": "350 mm",
+   "tool": "t0",
+   "head": [
+    "bed",
+    -252.0,
+    563.5
+   ],
+   "vol": 40.64,
+   "part": "top hat corner front right display",
+   "fixed": true
+  },
+  {
+   "line": "t0",
+   "height": "400 mm",
+   "tool": "t0",
+   "head": [
+    "bed",
+    -252.0,
+    563.5
+   ],
+   "vol": 9.5,
+   "part": "top hat corner front right display",
+   "fixed": true
+  },
+  {
+   "line": "t0",
+   "height": "400 mm",
+   "tool": "t0",
+   "head": [
+    "bed",
+    -252.0,
+    563.5
+   ],
+   "vol": 6.01,
+   "part": "top hat front",
+   "fixed": true
+  },
+  {
+   "line": "t0",
+   "height": "500 mm",
+   "tool": "t0",
+   "head": [
+    "bed",
+    -126.0,
+    190.0
+   ],
+   "vol": 82.78,
+   "part": "umbilical roof clamp",
+   "fixed": true
+  },
+  {
+   "line": "t1",
+   "height": "500 mm",
+   "tool": "t1",
+   "head": [
+    "bed",
+    -126.0,
+    190.0
+   ],
+   "vol": 98.12,
+   "part": "umbilical roof clamp",
+   "fixed": true
+  },
+  {
+   "line": "t2",
+   "height": "500 mm",
+   "tool": "t2",
+   "head": [
+    "bed",
+    -126.0,
+    190.0
+   ],
+   "vol": 97.1,
+   "part": "umbilical roof clamp",
+   "fixed": true
+  },
+  {
+   "line": "t3",
+   "height": "500 mm",
+   "tool": "t3",
+   "head": [
+    "bed",
+    -126.0,
+    190.0
+   ],
+   "vol": 197.31,
+   "part": "umbilical roof clamp",
+   "fixed": true
+  },
+  {
+   "line": "t4",
+   "height": "500 mm",
+   "tool": "t4",
+   "head": [
+    "bed",
+    -126.0,
+    190.0
+   ],
+   "vol": 127.51,
+   "part": "umbilical roof clamp",
+   "fixed": true
+  },
+  {
+   "line": "t0",
+   "height": "500 mm",
+   "tool": "t0",
+   "head": [
+    "bed",
+    0.0,
+    314.0
+   ],
+   "vol": 7.87,
+   "part": "indx tool parked 3 nozzle front (2)"
+  },
+  {
+   "line": "t1",
+   "height": "500 mm",
+   "tool": "t1",
+   "head": [
+    "bed",
+    0.0,
+    314.0
+   ],
+   "vol": 37.66,
+   "part": "indx tool parked 3 nozzle front (2)"
+  }
+ ],
+ "cover": [],
+ "not_converged": [],
+ "loop_top": {
+  "t0": 779.6,
+  "t1": 779.7,
+  "t2": 779.8,
+  "t3": 779.0,
+  "t4": 781.4,
+  "umb": 749.7
+ },
+ "cover_underside": 786.3,
+ "crossings": {
+  "pairs_checked": 21450,
+  "touching": 1959,
+  "min_gap": -7.5,
+  "touching_by_height": {
+   "first layer": 65,
+   "50 mm": 72,
+   "100 mm": 90,
+   "150 mm": 131,
+   "200 mm": 135,
+   "250 mm": 225,
+   "300 mm": 332,
+   "350 mm": 313,
+   "400 mm": 198,
+   "450 mm": 159,
+   "500 mm": 239
+  },
+  "parked_pairs_touching": [
+   [
+    "300 mm",
+    "t0",
+    "t1"
+   ],
+   [
+    "350 mm",
+    "t0",
+    "t1"
+   ],
+   [
+    "500 mm",
+    "t0",
+    "t1"
+   ]
+  ],
+  "touching_by_kind": {
+   "parked-parked": 234,
+   "active-parked": 784,
+   "tube-umbilical": 941
+  },
+  "crossing": 1354,
+  "parked_crossing": 0,
   "worst": [
    [
-    -6.4,
+    -7.5,
+    "150 mm",
     "t1",
-    "bed",
-    -252.0,
-    "t1",
-    "umb"
-   ],
-   [
-    -6.3,
+    [
+     "dock",
+     -125.0,
+     570.5
+    ],
     "t2",
-    "bed",
-    -252.0,
+    "umb",
+    27
+   ],
+   [
+    -7.5,
+    "350 mm",
+    "t0",
+    [
+     "bed",
+     126.0,
+     440.0
+    ],
+    "t3",
+    "umb",
+    86
+   ],
+   [
+    -7.5,
+    "350 mm",
+    "t1",
+    [
+     "bed",
+     126.0,
+     440.0
+    ],
+    "t3",
+    "umb",
+    86
+   ],
+   [
+    -7.5,
+    "350 mm",
     "t2",
-    "umb"
-   ],
-   [
-    -6.3,
-    "t4",
-    "bed",
-    252.0,
-    "t4",
-    "umb"
-   ],
-   [
-    -6.1,
+    [
+     "bed",
+     126.0,
+     440.0
+    ],
     "t3",
-    "bed",
-    252.0,
-    "t3",
-    "umb"
-   ],
-   [
-    -6.0,
-    "t0",
-    "bed",
-    -252.0,
     "umb",
-    "t2"
+    86
    ],
    [
-    -6.0,
-    "t0",
-    "bed",
-    0.0,
-    "t0",
-    "umb"
+    -7.5,
+    "350 mm",
+    "t4",
+    [
+     "bed",
+     126.0,
+     440.0
+    ],
+    "t3",
+    "umb",
+    86
    ],
    [
-    -6.0,
+    -7.5,
+    "400 mm",
+    "t3",
+    [
+     "bed",
+     -126.0,
+     440.0
+    ],
+    "t3 active",
+    "umb",
+    41
+   ],
+   [
+    -7.4,
+    "150 mm",
+    "t0",
+    [
+     "dock",
+     -203.0,
+     570.5
+    ],
+    "t2",
+    "umb",
+    36
+   ],
+   [
+    -7.4,
+    "500 mm",
+    "t0",
+    [
+     "bed",
+     -252.0,
+     563.5
+    ],
     "t1",
-    "bed",
-    -252.0,
     "umb",
-    "t2"
+    81
    ],
    [
-    -6.0,
-    "t3",
-    "bed",
-    -252.0,
-    "umb",
-    "t2"
-   ],
-   [
-    -6.0,
-    "t3",
-    "bed",
-    0.0,
-    "t3",
-    "umb"
-   ],
-   [
-    -6.0,
-    "t4",
-    "bed",
-    -252.0,
-    "umb",
-    "t2"
-   ],
-   [
-    -5.9,
-    "t0",
-    "bed",
-    0.0,
-    "umb",
-    "t3"
-   ],
-   [
-    -5.9,
+    -7.4,
+    "500 mm",
+    "t2",
+    [
+     "bed",
+     -252.0,
+     563.5
+    ],
     "t1",
-    "bed",
-    0.0,
     "umb",
-    "t3"
+    81
+   ],
+   [
+    -7.4,
+    "500 mm",
+    "t3",
+    [
+     "bed",
+     -252.0,
+     563.5
+    ],
+    "t1",
+    "umb",
+    81
+   ],
+   [
+    -7.4,
+    "500 mm",
+    "t4",
+    [
+     "bed",
+     -252.0,
+     563.5
+    ],
+    "t1",
+    "umb",
+    81
+   ],
+   [
+    -7.3,
+    "350 mm",
+    "t0",
+    [
+     "bed",
+     -252.0,
+     563.5
+    ],
+    "t1",
+    "umb",
+    70
    ]
   ]
  },
- "arc_lengths_mm": {
-  "t0": 627,
-  "t1": 633,
-  "t2": 676,
-  "t3": 617,
-  "t4": 644
- }
+ "free_length_mm": {
+  "t0": 906,
+  "t1": 896,
+  "t2": 902,
+  "t3": 913,
+  "t4": 926,
+  "umb": 764
+ },
+ "bend_deg": {
+  "t0": [
+   93,
+   337
+  ],
+  "t1": [
+   90,
+   345
+  ],
+  "t2": [
+   92,
+   340
+  ],
+  "t3": [
+   95,
+   332
+  ],
+  "t4": [
+   98,
+   338
+  ]
+ },
+ "rubs_by_part": {
+  "umbilical roof clamp": 5,
+  "top hat front": 2,
+  "top hat corner front right display": 2,
+  "indx tool parked 3 nozzle front (2)": 2
+ },
+ "clashes_by_part": {}
 }

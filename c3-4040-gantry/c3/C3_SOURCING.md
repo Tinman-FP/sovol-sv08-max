@@ -29,7 +29,7 @@ The major components are not linked here (see the BOMs and `klipper_c3/README.md
 | M3 T-nuts for 1515 metric | 12 | PZRT: [M3 roll-in T-nut for 1515, 24 pack](https://www.amazon.com/dp/B08BRDPBTJ) ($9.99 / 24) |  |
 | Heat-set inserts | M3 standard: 27, M3 short (3-4 mm): 4, M4: 14, M5: 6 | ruthex (sold by ruthex): [Assortment: 100 M3x5.7, 50 M4x8.1, 50 M5x9.5 (+70 M2)](https://www.amazon.com/dp/B08K1BVGN9) ($29.99) | The four short M3 inserts are in the next table. |
 | Zip ties, 2.5 mm | a few | Amazon: [HS 100 x 2.5 mm black, 200 pack](https://www.amazon.com/dp/B0CZ3Y7YSC) ($4.49 / 200) |  |
-| Powered USB hub for the top-hat tray | 1 | Waveshare: [4-port USB 3.2 hub, 7-36 V DC in, metal, wall-mount holes](https://www.amazon.com/dp/B0D97V3N3R) ($27.99) | Check it against the 100 x 140 mm tray. |
+| Powered USB hub | 1 | Waveshare: [4-port USB 3.2 hub, 7-36 V DC in, metal, wall-mount holes](https://www.amazon.com/dp/B0D97V3N3R) ($27.99) | Sits on top of the Sovol top cover, beside the umbilical's hole at the centre. |
 | Qidi Plus 4 / Q2 silicone nozzle wiper, 27 x 15 x 4.7 mm | 5 (one per station: one 5 pack, a second for spares) | Qidi: [Plus4 Wiper Silicone Case, 5 pcs](https://us.qidi3d.com/products/plus4-wiper-silicone-case) ($2.99 / 5, 31 Oct 2026) | Glue each into a slider pocket with high-temperature RTV, 27 mm across. |
 | PG9 cable gland | 1 | SUMSGOND: [PG9 nylon cable gland 4-8 mm, 20 pack](https://www.amazon.com/dp/B08TCF3S13) ($9.99 / 20) |  |
 
@@ -58,15 +58,14 @@ The screw kits above leave these out. The Z drive pulleys are bought oversize an
 * Kraken-to-Pi cable
 * 24 V fan for the Kraken drivers
 * High-temperature red RTV silicone
-* Micro cable chains, 7 x 7 mm inside and no more than 11.5 mm wide outside (they hang in a 16 mm gap): 5 with a 28 mm bend radius (PTFE, about 351 mm each) and 5 with 18 mm (motors, Link Board power, USB; about 340 mm each), with end links
-* Piano (music) wire: 0.8 mm, 5 x 0.8 m (PTFE arcs); 1.5 mm, 1 x 0.75 m (umbilical)
+* Micro cable chains, 7 x 7 mm inside and no more than 11.5 mm wide outside (they hang in a 16 mm gap), 18 mm bend radius: 4, one per gantry motor (about 340 mm each), with end links
+* Piano (music) wire 1.4 mm, 1 x 0.9 m (umbilical; 1.2 mm sags onto belt B at full height)
 * Split loom or braided sleeve 10-13 mm, about 1 m (umbilical)
-* Two thin USB cables (about 3.3 mm), about 1.6 m: Pi to the Link Board on the rear mast, Pi to the Beacon
-* 2-core 18 AWG silicone, 1.5 m (24 V to the Link Board)
-* M3 x 16 + nuts (20, chain anchors through the side panels), M5 T-nuts + M5 x 10 (21, chain brackets and masts), M3 inserts + M3 x 6 set screws (7 each, piano-wire clamps)
-* PC4-M10 push-fit couplers (5; for example BIQU, 20 pack: https://www.amazon.com/dp/B0F6CQT461)
-* PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool (about 2 m each plus the filament box run)
-* Filament for the printed parts: about 1.05 kg PPS-CF and 2.4 kg ASA (top hat)
+* Beacon USB cable, about 1 m from the head to the USB hub on the top cover (the INDX Link cable needs about 1 m too)
+* M3 x 16 + nuts (8, chain anchors through the side panels), M5 T-nuts + M5 x 10 (4, chain brackets), M3 x 12 + washers + nuts (4, the roof clamp through the top cover), M3 inserts + M3 x 6 set screws (2 each, piano-wire clamps)
+* PC4-M10 push-fit couplers (5, in the top hat's right side wall; for example BIQU, 20 pack: https://www.amazon.com/dp/B0F6CQT461)
+* PTFE tube 4 mm OD x 2 mm ID, one continuous length per tool (about 1 m inside the chamber plus the run to the filament box)
+* Filament for the printed parts: about 1.2 kg PPS-CF (the print project slices to 1158 g) and 3.2 kg ASA (top hat)
 * Wiring consumables: 24 V / 48 V wire, ferrules, JST-XH and Molex crimps, sleeving
 * A spool of 4 mm OD PTFE tube for the five filament paths
 * Any spare INDX tools or a CF-rated nozzle tool
